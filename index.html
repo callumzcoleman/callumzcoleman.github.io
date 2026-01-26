@@ -19,6 +19,7 @@
     }
 
     *{box-sizing:border-box}
+
     html,body{
       margin:0;
       background:var(--bg);
@@ -27,144 +28,39 @@
       line-height:1.55;
     }
 
+    /* === Top banner === */
+    .site-banner{
+      width:100%;
+      height:220px;
+      background:
+        linear-gradient(
+          rgba(11,15,20,0.55),
+          rgba(11,15,20,0.75)
+        ),
+        url("banner.jpg") center / cover no-repeat;
+      border-bottom:1px solid rgba(255,255,255,0.05);
+    }
+
+    @media(max-width:700px){
+      .site-banner{
+        height:160px;
+      }
+    }
+
     .wrap{
       max-width:var(--max-width);
       margin:40px auto;
       padding:28px;
     }
-
-    header{
-      display:flex;
-      gap:20px;
-      align-items:center;
-    }
-
-    .avatar{
-      width:88px;
-      height:88px;
-      border-radius:14px;
-      overflow:hidden;
-      background:#111;
-      border:1px solid rgba(255,255,255,0.05);
-    }
-
-    .avatar img{
-      width:100%;
-      height:100%;
-      object-fit:cover;
-    }
-
-    h1{
-      margin:0;
-      font-size:1.6rem;
-      font-weight:600;
-    }
-
-    .lead{
-      margin-top:6px;
-      color:var(--muted);
-      font-size:1rem;
-    }
-
-    /* Tabs */
-    .tabs{
-      margin-top:28px;
-      background:linear-gradient(180deg,rgba(255,255,255,0.03),transparent);
-      border:1px solid rgba(255,255,255,0.05);
-      border-radius:16px;
-      overflow:hidden;
-    }
-
-    .tab-list{
-      display:flex;
-      border-bottom:1px solid rgba(255,255,255,0.04);
-    }
-
-    .tab{
-      flex:1;
-      padding:14px;
-      background:none;
-      border:0;
-      color:var(--muted);
-      font-weight:600;
-      cursor:pointer;
-    }
-
-    .tab[aria-selected="true"]{
-      color:var(--text);
-      background:rgba(255,255,255,0.04);
-    }
-
-    .tab-panels{
-      padding:24px;
-    }
-
-    a{color:var(--accent)}
-
-    /* CV styles */
-    .cv-actions{margin-top:22px;margin-bottom:8px}
-    .btn{
-      display:inline-block;
-      padding:10px 14px;
-      border-radius:10px;
-      border:1px solid rgba(255,255,255,0.08);
-      color:var(--text);
-      text-decoration:none;
-      font-weight:600;
-    }
-    .cv-section{margin-bottom:26px}
-    .cv-section h3{
-      margin:0 0 10px;
-      font-size:1.05rem;
-      border-bottom:1px solid rgba(255,255,255,0.04);
-      padding-bottom:8px;
-    }
-    .role{margin-bottom:16px}
-    .role-title{font-weight:600}
-    .role-meta{color:var(--muted);font-size:0.9rem;margin-bottom:6px}
-    ul{margin:6px 0 0 18px;padding:0}
-    li{margin-bottom:6px}
-
-    /* Writing posts */
-    .posts{display:flex;flex-direction:column;gap:12px;margin-top:6px}
-    .post{display:flex;gap:12px;align-items:flex-start;padding:12px;border-radius:10px;background:linear-gradient(180deg, rgba(255,255,255,0.01), transparent);border:1px solid rgba(255,255,255,0.02)}
-    .post-thumb{width:110px;height:70px;flex:0 0 110px;border-radius:8px;overflow:hidden;background:linear-gradient(135deg,#07101a,#0b1320);display:flex;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,0.02)}
-    .post-thumb img{width:100%;height:100%;object-fit:cover;display:block}
-    .post-body{flex:1}
-    .post-title{margin:0 0 6px;font-size:1rem;color:var(--text)}
-    .post-title a{text-decoration:none;color:inherit}
-    .post-meta{font-size:0.86rem;color:var(--muted)}
-    .thumb-placeholder{width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.07);font-size:20px}
-
-    footer{
-      margin-top:28px;
-      text-align:center;
-      color:var(--muted);
-      font-size:0.9rem;
-    }
-
-    @media(max-width:700px){
-      .wrap{padding:20px}
-      .post-thumb{width:96px;height:64px}
-    }
-
   </style>
 </head>
-<body>
-  
-<div class="site-banner" aria-hidden="true"></div>
 
-.site-banner{
-  width:100%;
-  height:220px;
-  background:
-    linear-gradient(
-      rgba(11,15,20,0.55),
-      rgba(11,15,20,0.75)
-    ),
-    url("banner.jpg") center / cover no-repeat;
-  border-bottom:1px solid rgba(255,255,255,0.05); }
-  
+<body>
+
+  <!-- Banner image -->
+  <div class="site-banner" aria-hidden="true"></div>
+
+  <!-- Main content -->
 <div class="wrap">
   <header>
     <div class="avatar">
@@ -485,6 +381,7 @@
 
 </body>
 </html>
+
 
 
 
