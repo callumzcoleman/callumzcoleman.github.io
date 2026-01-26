@@ -1,32 +1,334 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Callum Z. Coleman</title>
+  <meta name="description" content="Callum Z. Coleman — policy and public affairs professional." />
+
+  <style>
+    :root{
+      --bg:#0b0f14;
+      --surface:#0f1720;
+      --card:#0f1726;
+      --text:#e6eef3;
+      --muted:#9aa6b2;
+      --accent:#6fd0ff;
+      --radius:12px;
+      --max-width:960px;
+    }
+
+    *{box-sizing:border-box}
+    html,body{
+      margin:0;
+      background:var(--bg);
+      color:var(--text);
+      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
+      line-height:1.55;
+    }
+
+    .wrap{
+      max-width:var(--max-width);
+      margin:40px auto;
+      padding:28px;
+    }
+
+    header{
+      display:flex;
+      gap:20px;
+      align-items:center;
+    }
+
+    .avatar{
+      width:88px;
+      height:88px;
+      border-radius:14px;
+      overflow:hidden;
+      background:#111;
+      border:1px solid rgba(255,255,255,0.05);
+    }
+
+    .avatar img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+    }
+
+    h1{
+      margin:0;
+      font-size:1.6rem;
+      font-weight:600;
+    }
+
+    .lead{
+      margin-top:6px;
+      color:var(--muted);
+      font-size:1rem;
+    }
+
+    /* Tabs */
+    .tabs{
+      margin-top:28px;
+      background:linear-gradient(180deg,rgba(255,255,255,0.03),transparent);
+      border:1px solid rgba(255,255,255,0.05);
+      border-radius:16px;
+      overflow:hidden;
+    }
+
+    .tab-list{
+      display:flex;
+      border-bottom:1px solid rgba(255,255,255,0.04);
+    }
+
+    .tab{
+      flex:1;
+      padding:14px;
+      background:none;
+      border:0;
+      color:var(--muted);
+      font-weight:600;
+      cursor:pointer;
+    }
+
+    .tab[aria-selected="true"]{
+      color:var(--text);
+      background:rgba(255,255,255,0.04);
+    }
+
+    .tab-panels{
+      padding:24px;
+    }
+
+    /* CV */
+    .cv-section h3{
+      margin:24px 0 6px;
+      font-size:1.05rem;
+    }
+
+    .cv-role{
+      margin-bottom:14px;
+    }
+
+    .cv-role strong{
+      display:block;
+    }
+
+    .cv-role span{
+      color:var(--muted);
+      font-size:0.9rem;
+    }
+
+    ul{
+      margin:6px 0 0 18px;
+      padding:0;
+    }
+
+    li{
+      margin-bottom:6px;
+    }
+
+    .btn{
+      display:inline-block;
+      margin-top:16px;
+      padding:10px 14px;
+      border-radius:10px;
+      border:1px solid rgba(255,255,255,0.08);
+      color:var(--text);
+      text-decoration:none;
+      font-weight:600;
+    }
+
+    /* Writing posts */
+    .posts{display:flex;flex-direction:column;gap:12px;margin-top:6px}
+    .post{display:flex;gap:12px;align-items:flex-start;padding:12px;border-radius:10px;background:linear-gradient(180deg, rgba(255,255,255,0.01), transparent);border:1px solid rgba(255,255,255,0.02)}
+    .post-thumb{width:110px;height:70px;flex:0 0 110px;border-radius:8px;overflow:hidden;background:linear-gradient(135deg,#07101a,#0b1320);display:flex;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,0.02)}
+    .post-thumb img{width:100%;height:100%;object-fit:cover;display:block}
+    .post-body{flex:1}
+    .post-title{margin:0 0 6px;font-size:1rem;color:var(--text)}
+    .post-title a{text-decoration:none;color:inherit}
+    .post-meta{font-size:0.86rem;color:var(--muted)}
+    .thumb-placeholder{width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.07);font-size:20px}
+
+    footer{
+      margin-top:28px;
+      text-align:center;
+      color:var(--muted);
+      font-size:0.9rem;
+    }
+
+    @media(max-width:700px){
+      .wrap{padding:20px}
+      .post-thumb{width:96px;height:64px}
+    }
+  </style>
+</head>
+<body>
+
+<div class="wrap">
+  <header>
+    <div class="avatar">
+      <img src="photo.jpg" alt="Callum Z. Coleman">
+    </div>
+    <div>
+      <h1>Callum Z. Coleman</h1>
+      <div class="lead">
+        Policy & public affairs professional — energy, technology, and innovation
+      </div>
+    </div>
+  </header>
+
+  <div class="tabs" role="tablist">
+    <div class="tab-list">
+      <button class="tab" aria-selected="true" aria-controls="about" type="button">About</button>
+      <button class="tab" aria-selected="false" aria-controls="cv" type="button">CV</button>
+      <button class="tab" aria-selected="false" aria-controls="writing" type="button">Writing</button>
+    </div>
+
+    <div class="tab-panels">
+      <!-- ABOUT -->
+      <section id="about">
+        <p>
+          I’m a policy and public affairs professional working across energy, technology,
+          and innovation, with experience spanning government engagement, advocacy,
+          and research.
+        </p>
+        <p>
+          I’ve worked closely with central government departments including DESNZ, DSIT,
+          and HM Treasury, and have built strong networks across the energy and tech sectors.
+        </p>
+        <p>
+          I also write on AI, technology, and policy at
+          <a href="https://courseconditions.substack.com" target="_blank" rel="noopener">courseconditions.substack.com</a>.
+        </p>
+      </section>
+
+      <!-- CV -->
+      <section id="cv" hidden class="cv-section">
+        <h3>Professional Experience</h3>
+
+        <div class="cv-role">
+          <strong>Public Affairs Manager — University of Oxford</strong>
+          <span>August 2025 – present</span>
+          <ul>
+            <li>Public affairs lead for Equitable Innovation Oxford, working closely with HM Treasury.</li>
+            <li>Developed the organisation’s first public affairs strategy across tech, AI, energy, and finance.</li>
+          </ul>
+        </div>
+
+        <div class="cv-role">
+          <strong>Senior Policy & Public Affairs Officer — Citizens Advice</strong>
+          <span>August 2024 – August 2025</span>
+          <ul>
+            <li>Led public affairs strategy in the energy team; influenced heat networks regulation.</li>
+            <li>Built stakeholder networks across government, regulators, and industry.</li>
+            <li>Managed policy projects end-to-end and line-managed colleagues.</li>
+          </ul>
+        </div>
+
+        <div class="cv-role">
+          <strong>Public Affairs Lead — Living Streets</strong>
+          <span>Nov 2022 – May 2024</span>
+          <ul>
+            <li>Built and led an external affairs team; developed a strong parliamentary network.</li>
+            <li>Secured £10m+ in funding and acted as spokesperson at conferences and committees.</li>
+            <li>Organised three flagship conferences (400+ attendees).</li>
+          </ul>
+        </div>
+
+        <div class="cv-role">
+          <strong>Policy Analyst — Association of Renewable Energy & Clean Technology</strong>
+          <span>Jan – Nov 2022</span>
+          <ul>
+            <li>Led policy and public affairs on power and flexibility.</li>
+            <li>Managed a 300-member policy forum and briefed energy CEOs.</li>
+            <li>Helped secure removal of VAT on energy storage materials.</li>
+          </ul>
+        </div>
+
+        <div class="cv-role">
+          <strong>Analyst — Oxford University Silk Road Think Tank</strong>
+          <span>2019 – 2022</span>
+          <ul>
+            <li>Led and scaled a research team focused on Chinese power investments.</li>
+          </ul>
+        </div>
+
+        <div class="cv-role">
+          <strong>School Governor — The Grove Free School</strong>
+          <span>2022 – 2024</span>
+          <ul>
+            <li>Scrutinised school strategy and policy as a governing board member.</li>
+          </ul>
+        </div>
+
+        <h3>Education</h3>
+
+        <div class="cv-role">
+          <strong>MLitt Modern History — University of St Andrews</strong>
+          <span>Distinction • Stephen W Bonarjee Prize (top of cohort)</span>
+        </div>
+
+        <div class="cv-role">
+          <strong>BA History & Politics — University of Oxford</strong>
+          <span>2:1 • First-generation student; college scholarship</span>
+        </div>
+
+        <h3>Other</h3>
+        <ul>
+          <li>Completed AI safety policy courses (Bluedot; GCP), 2025.</li>
+          <li>Author of <em>Course Conditions</em> — courseconditions.substack.com</li>
+        </ul>
+
+        <a class="btn" href="resume.pdf" target="_blank" rel="noopener">Download CV (PDF)</a>
+      </section>
+
+      <!-- WRITING -->
+      <section id="writing" hidden>
+        <div id="posts-container"><p class="post-meta">Loading latest posts…</p></div>
+        <p style="margin-top:12px;color:var(--muted);font-size:0.9rem">If posts don't load due to CORS, tell me and I’ll provide a tiny serverless function to fetch the feed server-side.</p>
+      </section>
+    </div>
+  </div>
+
+  <footer>
+    © <span id="year"></span> Callum Z. Coleman
+  </footer>
+</div>
+
 <script>
-  // Robust tab behaviour: ensures About opens by default and buttons are click-safe.
+  // CONFIG for posts
+  const SUBSTACK_BASE = 'https://courseconditions.substack.com';
+  const RSS2JSON_PROXY = 'https://api.rss2json.com/v1/api.json?rss_url='; // fallback
+
+  // Robust tab behaviour + posts loader
   (function(){
-    // Ensure buttons are explicit type=button (prevents accidental form submit)
+    // Ensure buttons are explicit type=button
     document.querySelectorAll('.tab').forEach(btn => btn.setAttribute('type','button'));
 
-    // Helper: show a panel and set ARIA on tabs
     function showPanel(name){
       document.querySelectorAll('.tab').forEach(t => t.setAttribute('aria-selected','false'));
       document.querySelectorAll('.tab-panels > section').forEach(s => s.hidden = true);
-
       const tab = document.querySelector('.tab[aria-controls="'+name+'"]');
       const panel = document.getElementById(name);
       if(tab) tab.setAttribute('aria-selected','true');
       if(panel) panel.hidden = false;
     }
 
-    // Wire clicks using event delegation on the tab-list container
+    // Wire clicks by delegation
     const tabList = document.querySelector('.tab-list');
     if(tabList){
       tabList.addEventListener('click', (e) => {
         const btn = e.target.closest('.tab');
         if(!btn) return;
         const target = btn.getAttribute('aria-controls');
-        if(target) showPanel(target);
+        if(target) {
+          showPanel(target);
+          if(target === 'writing') loadPosts();
+        }
       });
     }
 
-    // Keyboard support: left/right arrow switches tabs
+    // Keyboard left/right
     document.addEventListener('keydown', (e) => {
       if(!['ArrowLeft','ArrowRight'].includes(e.key)) return;
       const tabs = Array.from(document.querySelectorAll('.tab'));
@@ -40,25 +342,145 @@
       tabs[next].focus();
     });
 
-    // Ensure About is default open on load
+    // On load: ensure About is default open
     document.addEventListener('DOMContentLoaded', () => {
-      // If any tab already marked selected, respect that; otherwise open About
       const anySelected = Array.from(document.querySelectorAll('.tab')).some(t => t.getAttribute('aria-selected') === 'true');
-      if(!anySelected) {
+      if(!anySelected){
         showPanel('about');
       } else {
-        // ensure the corresponding panel is visible (in case HTML and ARIA were out of sync)
         const sel = document.querySelector('.tab[aria-selected="true"]');
         const name = sel ? sel.getAttribute('aria-controls') : 'about';
         showPanel(name || 'about');
       }
     });
 
-    // Also run immediately in case DOMContentLoaded already fired
+    // Also run immediately if DOM already loaded
     if(document.readyState === 'complete' || document.readyState === 'interactive'){
       const sel = document.querySelector('.tab[aria-selected="true"]');
       const name = sel ? sel.getAttribute('aria-controls') : 'about';
       showPanel(name || 'about');
     }
   })();
+
+  // POSTS: load Substack feed (direct fetch -> proxy fallback), render with thumbnails
+  let postsLoaded = false;
+  async function loadPosts(){
+    if(postsLoaded) return;
+    postsLoaded = true;
+    const container = document.getElementById('posts-container');
+    container.innerHTML = '<p class="post-meta">Loading latest posts…</p>';
+
+    // Helper to render posts
+    function renderPosts(posts){
+      const list = document.createElement('div');
+      list.className = 'posts';
+      posts.forEach(p => {
+        const article = document.createElement('article');
+        article.className = 'post';
+
+        const thumbWrap = document.createElement('div');
+        thumbWrap.className = 'post-thumb';
+        if(p.thumb){
+          const img = document.createElement('img');
+          img.src = p.thumb;
+          img.alt = '';
+          img.onerror = () => { thumbWrap.innerHTML = '<div class=\"thumb-placeholder\">🖼️</div>'; };
+          thumbWrap.appendChild(img);
+        } else {
+          thumbWrap.innerHTML = '<div class="thumb-placeholder">🖼️</div>';
+        }
+
+        const body = document.createElement('div');
+        body.className = 'post-body';
+        const h3 = document.createElement('h3');
+        h3.className = 'post-title';
+        h3.innerHTML = `<a href="${escapeHtml(p.link)}" target="_blank" rel="noopener">${escapeHtml(p.title)}</a>`;
+        const meta = document.createElement('div');
+        meta.className = 'post-meta';
+        meta.textContent = p.pubDate ? new Date(p.pubDate).toLocaleDateString() : '';
+
+        body.appendChild(h3);
+        body.appendChild(meta);
+
+        article.appendChild(thumbWrap);
+        article.appendChild(body);
+        list.appendChild(article);
+      });
+      container.innerHTML = '';
+      container.appendChild(list);
+    }
+
+    // Try direct fetch of feed
+    try {
+      const feedUrl = SUBSTACK_BASE + '/feed';
+      const res = await fetch(feedUrl);
+      if(!res.ok) throw new Error('Direct fetch failed');
+      const text = await res.text();
+      const parser = new DOMParser();
+      const xml = parser.parseFromString(text, 'text/xml');
+      const items = Array.from(xml.querySelectorAll('item')).slice(0,8);
+      if(items.length === 0) throw new Error('No items in feed');
+      const posts = items.map(item => {
+        const title = item.querySelector('title')?.textContent || 'Untitled';
+        const link = item.querySelector('link')?.textContent || '#';
+        const pubDate = item.querySelector('pubDate')?.textContent || '';
+        let thumb = null;
+        const mediaContent = item.querySelector('media\\:content, content, mediacontent');
+        if(mediaContent && mediaContent.getAttribute) thumb = mediaContent.getAttribute('url') || mediaContent.getAttribute('src');
+        const mediaThumb = item.querySelector('media\\:thumbnail, mediathumbnail, thumbnail');
+        if(!thumb && mediaThumb && mediaThumb.getAttribute) thumb = mediaThumb.getAttribute('url') || mediaThumb.getAttribute('src');
+        const enclosure = item.querySelector('enclosure');
+        if(!thumb && enclosure && enclosure.getAttribute){
+          const type = enclosure.getAttribute('type') || '';
+          const href = enclosure.getAttribute('url') || enclosure.getAttribute('href') || enclosure.getAttribute('link');
+          if(href && type && type.startsWith('image')) thumb = href;
+        }
+        if(!thumb){
+          const contentEncoded = item.querySelector('content\\:encoded') || item.querySelector('encoded') || item.querySelector('description');
+          if(contentEncoded && contentEncoded.textContent){
+            const match = contentEncoded.textContent.match(/<img[^>]+src=["']([^"']+)["']/i);
+            if(match) thumb = match[1];
+          }
+        }
+        return { title, link, pubDate, thumb };
+      });
+      renderPosts(posts);
+      return;
+    } catch (err) {
+      console.warn('Direct feed fetch failed, trying proxy:', err);
+    }
+
+    // Proxy fallback
+    try {
+      const proxyUrl = RSS2JSON_PROXY + encodeURIComponent(SUBSTACK_BASE + '/feed');
+      const r = await fetch(proxyUrl);
+      if(!r.ok) throw new Error('Proxy failed');
+      const data = await r.json();
+      const items = (data.items || []).slice(0,8);
+      const posts = items.map(it => {
+        let thumb = it.thumbnail || it.image || (it.enclosure && it.enclosure.link) || null;
+        if(!thumb && it.content) {
+          const m = it.content.match(/<img[^>]+src=["']([^"']+)["']/i);
+          if(m) thumb = m[1];
+        }
+        return { title: it.title || 'Untitled', link: it.link || '#', pubDate: it.pubDate || it.pubDate_raw || '', thumb };
+      });
+      renderPosts(posts);
+      return;
+    } catch (proxyErr) {
+      console.warn('Proxy also failed', proxyErr);
+    }
+
+    container.innerHTML = '<p class="post-meta">Unable to load posts automatically. Ask me and I can provide a tiny serverless function to fetch your feed server-side for guaranteed results.</p>';
+  }
+
+  function escapeHtml(s){ return (s||'').toString().replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 </script>
+
+<script>
+  // set year
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+
+</body>
+</html>
