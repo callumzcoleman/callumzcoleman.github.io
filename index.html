@@ -53,131 +53,88 @@
       object-fit:cover;
     }
 
-    h1{
-      margin:0;
-      font-size:1.6rem;
-      font-weight:600;
-    }
-
-    .lead{
-      margin-top:6px;
-      color:var(--muted);
-      font-size:1rem;
-    }
+    h1{margin:0;font-size:1.6rem;font-weight:600}
+    .lead{margin-top:6px;color:var(--muted);font-size:1rem}
 
     /* Tabs */
-    .tabs{
-      margin-top:28px;
-      border:1px solid rgba(255,255,255,0.05);
-      border-radius:16px;
-      overflow:hidden;
-    }
-
-    .tab-list{
-      display:flex;
-      border-bottom:1px solid rgba(255,255,255,0.04);
-    }
-
-    .tab{
-      flex:1;
-      padding:14px;
-      background:none;
-      border:0;
-      color:var(--muted);
-      font-weight:600;
-      cursor:pointer;
-    }
-
-    .tab[aria-selected="true"]{
-      color:var(--text);
-      background:rgba(255,255,255,0.04);
-    }
-
-    .tab-panels{
-      padding:24px;
-    }
+    .tabs{margin-top:28px;border:1px solid rgba(255,255,255,0.05);border-radius:16px;overflow:hidden}
+    .tab-list{display:flex;border-bottom:1px solid rgba(255,255,255,0.04)}
+    .tab{flex:1;padding:14px;background:none;border:0;color:var(--muted);font-weight:600;cursor:pointer}
+    .tab[aria-selected="true"]{color:var(--text);background:rgba(255,255,255,0.04)}
+    .tab-panels{padding:24px}
 
     a{color:var(--accent)}
 
     /* CV */
     .cv-section{margin-bottom:26px}
-    .cv-section h3{
-      margin:0 0 10px;
-      font-size:1.05rem;
-      border-bottom:1px solid rgba(255,255,255,0.04);
-      padding-bottom:8px;
-    }
-
+    .cv-section h3{margin:0 0 10px;font-size:1.05rem;border-bottom:1px solid rgba(255,255,255,0.04);padding-bottom:8px}
     .role{margin-bottom:16px}
     .role-title{font-weight:600}
     .role-meta{color:var(--muted);font-size:0.9rem;margin-bottom:6px}
     ul{margin:6px 0 0 18px;padding:0}
     li{margin-bottom:6px}
+    .cv-actions{margin-top:16px}
 
-    .btn{
-      display:inline-block;
-      margin-top:16px;
-      padding:10px 14px;
-      border-radius:10px;
-      border:1px solid rgba(255,255,255,0.08);
-      color:var(--text);
-      text-decoration:none;
-      font-weight:600;
-    }
+    .btn{display:inline-block;margin-top:16px;padding:10px 14px;border-radius:10px;border:1px solid rgba(255,255,255,0.08);color:var(--text);text-decoration:none;font-weight:600}
 
-    /* Writing */
+    /* Writing posts (thumbnails) */
     .posts{display:flex;flex-direction:column;gap:12px;margin-top:6px}
-    .post{padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,0.05)}
-    .post-title{margin:0 0 6px;font-size:1rem}
+    .post{display:flex;gap:12px;align-items:flex-start;padding:12px;border-radius:10px;background:linear-gradient(180deg, rgba(255,255,255,0.01), transparent);border:1px solid rgba(255,255,255,0.02)}
+    .post-thumb{width:110px;height:70px;flex:0 0 110px;border-radius:8px;overflow:hidden;background:linear-gradient(135deg,#07101a,#0b1320);display:flex;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,0.02)}
+    .post-thumb img{width:100%;height:100%;object-fit:cover;display:block}
+    .post-body{flex:1}
+    .post-title{margin:0 0 6px;font-size:1rem;color:var(--text)}
     .post-title a{text-decoration:none;color:inherit}
-    .post-meta{font-size:0.85rem;color:var(--muted)}
+    .post-meta{font-size:0.86rem;color:var(--muted)}
+    .thumb-placeholder{width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.07);font-size:20px}
 
-    footer{
-      margin-top:28px;
-      text-align:center;
-      color:var(--muted);
-      font-size:0.9rem;
+    footer{margin-top:28px;text-align:center;color:var(--muted);font-size:0.9rem}
+
+    @media(max-width:700px){
+      .wrap{padding:20px}
+      .post-thumb{width:96px;height:64px}
     }
   </style>
 </head>
 
 <body>
-
 <div class="wrap">
   <header>
-    <div class="avatar">
-      <img src="photo.jpg" alt="Callum Coleman">
-    </div>
+    <div class="avatar"><img src="photo.jpg" alt="Callum Coleman"></div>
     <div>
       <h1>Callum Coleman</h1>
       <div class="lead">Oxford-based policy professional, writer, runner/race director.</div>
     </div>
   </header>
 
-  <div class="tabs">
-    <div class="tab-list">
-      <button class="tab" aria-selected="true" aria-controls="about" type="button">About</button>
-      <button class="tab" aria-selected="false" aria-controls="cv" type="button">CV</button>
-      <button class="tab" aria-selected="false" aria-controls="writing" type="button">Writing</button>
+  <div class="tabs" role="tablist">
+    <div class="tab-list" role="presentation">
+      <button class="tab" role="tab" aria-selected="true" aria-controls="about" type="button">About</button>
+      <button class="tab" role="tab" aria-selected="false" aria-controls="cv" type="button">CV</button>
+      <button class="tab" role="tab" aria-selected="false" aria-controls="writing" type="button">Writing</button>
     </div>
 
     <div class="tab-panels">
-      <section id="about">
+      <!-- ABOUT -->
+      <section id="about" role="tabpanel">
         <p>I’m an experienced public affairs professional with a track-record of influencing government policy in highly-regulated sectors.</p>
+
         <p>My background and expertise is in tech, energy, transport, and innovation policy.</p>
-        <p>When not working I run and write. See thoughts on tech, running, and life
-          <a href="https://courseconditions.substack.com" target="_blank">on my newsletter</a>.
-        </p>
+
+        <p>When not working I run and write. See thoughts on tech, running, and life <a href="https://courseconditions.substack.com" target="_blank" rel="noopener">on my newsletter</a>.</p>
+
         <p>
           <a href="mailto:callumzcoleman@gmail.com">Email</a> ·
-          <a href="https://www.linkedin.com/in/callum-coleman-3382521ba/" target="_blank">LinkedIn</a>
+          <a href="https://www.linkedin.com/in/callum-coleman-3382521ba/" target="_blank" rel="noopener">LinkedIn</a>
         </p>
+
         <p style="color:var(--muted);font-size:0.9rem">
           This is the first website I’ve developed using AI — please blame your chatbot of choice for any particularly egregious shortcomings.
         </p>
       </section>
 
-      <section id="cv" hidden>
+      <!-- CV -->
+      <section id="cv" role="tabpanel" hidden>
         <div class="cv-section">
           <h3>Professional Experience</h3>
 
@@ -195,8 +152,63 @@
             <div class="role-meta">August 2024 – August 2025</div>
             <ul>
               <li>Led public affairs strategy and campaigns in the energy team, successfully influenced government heat networks regulation.</li>
-              <li>Built a strong stakeholder network across government, regulators, and business in a new sector (heat networks) for Citizens Advice.</li>
-              <li>Project-managed workstreams end-to-end; line-managed colleagues.</li>
+              <li>Built a strong stakeholder network across government, regulators, and business in a new sector (heat networks) for Citizens Advice. Briefed colleagues for meetings e.g. with no.10.</li>
+              <li>Project-managed workstreams end-to-end (policy development → stakeholder engagement → consultation responses → ministerial/regulator-facing outputs); line-managed colleagues.</li>
+            </ul>
+          </div>
+
+          <div class="role">
+            <div class="role-title">Public Affairs Lead, Living Streets</div>
+            <div class="role-meta">November 2022 – May 2024</div>
+            <ul>
+              <li>Built and scaled an external affairs team, leading strategy and implementation – developed a strong parliamentary network (~35 MP meetings in first year); secured funding (£10mn+).</li>
+              <li>Acted as spokesperson at events e.g. conferences and parliamentary committees.</li>
+              <li>Organised three flagship conferences (400+ attendees). Line managed colleagues.</li>
+            </ul>
+          </div>
+
+          <div class="role">
+            <div class="role-title">Policy Analyst, Association of Renewable Energy and Clean Technology</div>
+            <div class="role-meta">January 2022 – November 2022</div>
+            <ul>
+              <li>Policy and public affairs lead on power and flexibility, managing a 300-member policy forum, briefing energy sector CEOs and Directors and lobbying government on their behalf.</li>
+              <li>Successfully influenced government policy to remove VAT on energy storage materials.</li>
+            </ul>
+          </div>
+
+          <div class="role">
+            <div class="role-title">Analyst, Oxford University Silk Road Think Tank</div>
+            <div class="role-meta">2019 – 2022</div>
+            <ul>
+              <li>Led, recruited and scaled a research team focused on Chinese power investments.</li>
+            </ul>
+          </div>
+
+          <div class="role">
+            <div class="role-title">School Governor, The Grove Free School</div>
+            <div class="role-meta">2022 – 2024</div>
+            <ul>
+              <li>Scrutinised overall strategy and policies as a member of the school governing board.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="cv-section">
+          <h3>Education</h3>
+
+          <div class="role">
+            <div class="role-title">MLitt Modern History, University of St Andrews</div>
+            <ul>
+              <li>Distinction.</li>
+              <li>Stephen W Bonarjee Prize winner 2020–21, awarded for finishing top of my cohort.</li>
+            </ul>
+          </div>
+
+          <div class="role">
+            <div class="role-title">BA History & Politics, University of Oxford</div>
+            <ul>
+              <li>2:1.</li>
+              <li>First-generation university student, received a college scholarship for academic excellence.</li>
             </ul>
           </div>
         </div>
@@ -204,42 +216,197 @@
         <div class="cv-section">
           <h3>Other</h3>
           <ul>
-            <li>Completed AI safety policy courses: Bluedot; GCP, 2025.</li>
+            <li>Completed AI safety policy courses: Bluedot ‘Introduction to Transformative AI’; GCP ‘Intro to AI Safety & Biosecurity’, 2025 and strong tech policy network.</li>
             <li>I write about tech policy and other things on my Substack, <em>courseconditions.substack.com</em>.</li>
             <li>Race Director, Bannister Miles.</li>
           </ul>
         </div>
 
-        <a class="btn" href="resume.pdf" target="_blank">Download CV (PDF)</a>
+        <div class="cv-actions">
+          <a class="btn" href="resume.pdf" target="_blank" rel="noopener">Download CV (PDF)</a>
+        </div>
       </section>
 
-      <section id="writing" hidden>
-        <p>
-          Writing lives on
-          <a href="https://courseconditions.substack.com" target="_blank">courseconditions.substack.com</a>.
-        </p>
+      <!-- WRITING -->
+      <section id="writing" role="tabpanel" hidden>
+        <div id="posts-container"><p class="post-meta">Loading latest posts…</p></div>
+        <p style="margin-top:12px;color:var(--muted);font-size:0.9rem">If posts don't load due to CORS, tell me and I’ll provide a tiny serverless function to fetch the feed server-side.</p>
       </section>
     </div>
   </div>
 
-  <footer>
-    © <span id="year"></span> Callum Coleman
-  </footer>
+  <footer>© <span id="year"></span> Callum Coleman</footer>
 </div>
 
 <script>
-  document.getElementById('year').textContent = new Date().getFullYear();
-  const tabs = document.querySelectorAll('.tab');
-  const panels = document.querySelectorAll('.tab-panels > section');
-  tabs.forEach(tab=>{
-    tab.addEventListener('click',()=>{
-      tabs.forEach(t=>t.setAttribute('aria-selected','false'));
-      panels.forEach(p=>p.hidden=true);
-      tab.setAttribute('aria-selected','true');
-      document.getElementById(tab.getAttribute('aria-controls')).hidden=false;
-    });
-  });
-</script>
+  // CONFIG
+  const SUBSTACK_BASE = 'https://courseconditions.substack.com';
+  const RSS2JSON_PROXY = 'https://api.rss2json.com/v1/api.json?rss_url=';
 
+  // Tabs: robust, About default
+  (function(){
+    document.querySelectorAll('.tab').forEach(btn => btn.setAttribute('type','button'));
+
+    function showPanel(name){
+      document.querySelectorAll('.tab').forEach(t => t.setAttribute('aria-selected','false'));
+      document.querySelectorAll('.tab-panels > section').forEach(s => s.hidden = true);
+      const tab = document.querySelector('.tab[aria-controls="'+name+'"]');
+      const panel = document.getElementById(name);
+      if(tab) tab.setAttribute('aria-selected','true');
+      if(panel) panel.hidden = false;
+    }
+
+    const tabList = document.querySelector('.tab-list');
+    if(tabList){
+      tabList.addEventListener('click', (e) => {
+        const btn = e.target.closest('.tab');
+        if(!btn) return;
+        const target = btn.getAttribute('aria-controls');
+        if(target){
+          showPanel(target);
+          if(target === 'writing') loadPosts();
+        }
+      });
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if(!['ArrowLeft','ArrowRight'].includes(e.key)) return;
+      const tabs = Array.from(document.querySelectorAll('.tab'));
+      const idx = tabs.findIndex(t => t.getAttribute('aria-selected') === 'true');
+      if(idx === -1) return;
+      let next = idx + (e.key === 'ArrowRight' ? 1 : -1);
+      if(next < 0) next = tabs.length - 1;
+      if(next >= tabs.length) next = 0;
+      const name = tabs[next].getAttribute('aria-controls');
+      if(name) showPanel(name);
+      tabs[next].focus();
+    });
+
+    if(document.readyState === 'complete' || document.readyState === 'interactive'){
+      showPanel('about');
+    } else {
+      document.addEventListener('DOMContentLoaded', () => showPanel('about'));
+    }
+  })();
+
+  // POSTS: tries direct RSS then proxy; extracts thumbnails robustly
+  let postsLoaded = false;
+  async function loadPosts(){
+    if(postsLoaded) return;
+    postsLoaded = true;
+    const container = document.getElementById('posts-container');
+    container.innerHTML = '<p class="post-meta">Loading latest posts…</p>';
+
+    function renderPosts(posts){
+      const list = document.createElement('div');
+      list.className = 'posts';
+      posts.forEach(p => {
+        const article = document.createElement('article');
+        article.className = 'post';
+
+        const thumbWrap = document.createElement('div');
+        thumbWrap.className = 'post-thumb';
+        if(p.thumb){
+          const img = document.createElement('img');
+          img.src = p.thumb;
+          img.alt = '';
+          img.onerror = () => { thumbWrap.innerHTML = '<div class="thumb-placeholder">🖼️</div>'; };
+          thumbWrap.appendChild(img);
+        } else {
+          thumbWrap.innerHTML = '<div class="thumb-placeholder">🖼️</div>';
+        }
+
+        const body = document.createElement('div');
+        body.className = 'post-body';
+        const h3 = document.createElement('h3');
+        h3.className = 'post-title';
+        h3.innerHTML = `<a href="${escapeHtml(p.link)}" target="_blank" rel="noopener">${escapeHtml(p.title)}</a>`;
+        const meta = document.createElement('div');
+        meta.className = 'post-meta';
+        meta.textContent = p.pubDate ? new Date(p.pubDate).toLocaleDateString() : '';
+
+        body.appendChild(h3);
+        body.appendChild(meta);
+
+        article.appendChild(thumbWrap);
+        article.appendChild(body);
+        list.appendChild(article);
+      });
+      container.innerHTML = '';
+      container.appendChild(list);
+    }
+
+    // 1) try direct RSS fetch
+    try {
+      const feedUrl = SUBSTACK_BASE + '/feed';
+      const res = await fetch(feedUrl);
+      if(!res.ok) throw new Error('Direct fetch failed');
+      const text = await res.text();
+      const parser = new DOMParser();
+      const xml = parser.parseFromString(text, 'text/xml');
+      const items = Array.from(xml.querySelectorAll('item')).slice(0,8);
+      if(items.length === 0) throw new Error('No items in feed');
+      const posts = items.map(item => {
+        const title = item.querySelector('title')?.textContent || 'Untitled';
+        const link = item.querySelector('link')?.textContent || '#';
+        const pubDate = item.querySelector('pubDate')?.textContent || '';
+        let thumb = null;
+        // common thumbnail sources in RSS items
+        const mediaContent = item.querySelector('media\\:content, content, mediacontent');
+        if(mediaContent && mediaContent.getAttribute) thumb = mediaContent.getAttribute('url') || mediaContent.getAttribute('src');
+        const mediaThumb = item.querySelector('media\\:thumbnail, mediathumbnail, thumbnail');
+        if(!thumb && mediaThumb && mediaThumb.getAttribute) thumb = mediaThumb.getAttribute('url') || mediaThumb.getAttribute('src');
+        const enclosure = item.querySelector('enclosure');
+        if(!thumb && enclosure && enclosure.getAttribute){
+          const type = enclosure.getAttribute('type') || '';
+          const href = enclosure.getAttribute('url') || enclosure.getAttribute('href') || enclosure.getAttribute('link');
+          if(href && type && type.startsWith('image')) thumb = href;
+        }
+        // fallback: look for <img> in content:encoded or description
+        if(!thumb){
+          const contentEncoded = item.querySelector('content\\:encoded') || item.querySelector('encoded') || item.querySelector('description');
+          if(contentEncoded && contentEncoded.textContent){
+            const match = contentEncoded.textContent.match(/<img[^>]+src=["']([^"']+)["']/i);
+            if(match) thumb = match[1];
+          }
+        }
+        return { title, link, pubDate, thumb };
+      });
+      renderPosts(posts);
+      return;
+    } catch (err) {
+      console.warn('Direct fetch failed, trying proxy:', err);
+    }
+
+    // 2) proxy fallback (rss2json)
+    try {
+      const proxyUrl = RSS2JSON_PROXY + encodeURIComponent(SUBSTACK_BASE + '/feed');
+      const r = await fetch(proxyUrl);
+      if(!r.ok) throw new Error('Proxy failed');
+      const data = await r.json();
+      const items = (data.items || []).slice(0,8);
+      const posts = items.map(it => {
+        let thumb = it.thumbnail || it.image || (it.enclosure && it.enclosure.link) || null;
+        if(!thumb && it.content) {
+          const m = it.content.match(/<img[^>]+src=["']([^"']+)["']/i);
+          if(m) thumb = m[1];
+        }
+        return { title: it.title || 'Untitled', link: it.link || '#', pubDate: it.pubDate || it.pubDate_raw || '', thumb };
+      });
+      renderPosts(posts);
+      return;
+    } catch (proxyErr) {
+      console.warn('Proxy also failed', proxyErr);
+    }
+
+    // both failed
+    container.innerHTML = '<p class="post-meta">Unable to load posts automatically. Ask me and I can provide a tiny serverless function to fetch your feed server-side for guaranteed results.</p>';
+  }
+
+  function escapeHtml(s){ return (s||'').toString().replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+  // set year quickly
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>
 </body>
 </html>
