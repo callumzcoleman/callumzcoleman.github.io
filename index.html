@@ -6,12 +6,18 @@
   <title>Callum Coleman</title>
   <meta name="description" content="Callum Coleman — Oxford-based policy professional." />
 
+  <!-- Font (optional but recommended) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@8..14,400;8..14,600;8..14,700&display=swap" rel="stylesheet">
+
   <style>
     :root{
       --bg:#0b0f14;
       --text:#e6eef3;
       --muted:#9aa6b2;
       --accent:#6fd0ff;
+      --accent-soft: rgba(111,208,255,0.14);
       --radius:12px;
       --max-width:960px;
     }
@@ -26,10 +32,20 @@
       line-height:1.55;
     }
 
+    /* ===== High-impact visual polish (safe & subtle) ===== */
+    :root{
+      --card-elev: rgba(0,0,0,0.35);
+    }
+
     .wrap{
-      max-width:var(--max-width);
-      margin:40px auto;
-      padding:28px;
+      max-width:880px;
+      margin:44px auto;
+      padding:30px;
+      background: linear-gradient(180deg, rgba(15,23,32,0.58), rgba(15,23,32,0.72));
+      border-radius:14px;
+      box-shadow: 0 6px 24px var(--card-elev);
+      backdrop-filter: blur(6px);
+      border: 1px solid rgba(255,255,255,0.03);
     }
 
     header{
@@ -39,75 +55,88 @@
     }
 
     .avatar{
-      width:88px;
-      height:88px;
+      width:96px;
+      height:96px;
       border-radius:14px;
       overflow:hidden;
+      border: 2px solid rgba(255,255,255,0.03);
+      box-shadow: 0 4px 12px rgba(2,6,12,0.45);
       background:#111;
-      border:1px solid rgba(255,255,255,0.05);
     }
+    .avatar img{width:100%;height:100%;object-fit:cover;display:block;}
 
-    .avatar img{
-      width:100%;
-      height:100%;
-      object-fit:cover;
-    }
-
-    h1{margin:0;font-size:1.6rem;font-weight:600}
-    .lead{margin-top:6px;color:var(--muted);font-size:1rem}
+    h1{font-size:1.8rem;letter-spacing:-0.02em;margin:0 0 2px;font-weight:700}
+    .lead{margin-top:6px;color:var(--muted);font-size:1.02rem;line-height:1.45}
 
     /* Tabs */
-    .tabs{margin-top:28px;border:1px solid rgba(255,255,255,0.05);border-radius:16px;overflow:hidden}
-    .tab-list{display:flex;border-bottom:1px solid rgba(255,255,255,0.04)}
-    .tab{flex:1;padding:14px;background:none;border:0;color:var(--muted);font-weight:600;cursor:pointer}
-    .tab[aria-selected="true"]{color:var(--text);background:rgba(255,255,255,0.04)}
+    .tabs{margin-top:28px;border-radius:16px;overflow:hidden}
+    .tab-list{display:flex;gap:8px;padding:8px;background:transparent;border-bottom:1px solid rgba(255,255,255,0.04)}
+    .tab{flex:1;padding:10px 14px;background:none;border:0;color:var(--muted);font-weight:600;cursor:pointer;border-radius:12px;transition:all .18s ease}
+    .tab[aria-selected="true"]{background:var(--accent-soft); color:var(--accent); transform:translateY(-2px)}
+    .tab:hover{transform:translateY(-2px);opacity:0.95}
     .tab-panels{padding:24px}
 
     a{color:var(--accent)}
 
     /* CV */
     .cv-section{margin-bottom:26px}
-    .cv-section h3{margin:0 0 10px;font-size:1.05rem;border-bottom:1px solid rgba(255,255,255,0.04);padding-bottom:8px}
+    .cv-section h3{
+      margin:0 0 10px;font-size:1.05rem;border-bottom:1px solid rgba(255,255,255,0.04);padding-bottom:8px
+    }
     .role{margin-bottom:16px}
     .role-title{font-weight:600}
     .role-meta{color:var(--muted);font-size:0.9rem;margin-bottom:6px}
     ul{margin:6px 0 0 18px;padding:0}
-    li{margin-bottom:6px}
-    .cv-actions{margin-top:16px}
+    li{margin-bottom:8px;line-height:1.42}
 
-    .btn{display:inline-block;margin-top:16px;padding:10px 14px;border-radius:10px;border:1px solid rgba(255,255,255,0.08);color:var(--text);text-decoration:none;font-weight:600}
+    .cv-actions{margin-top:20px}
+    .btn{
+      display:inline-block;margin-top:0;padding:10px 14px;border-radius:10px;
+      border: 1px solid rgba(111,208,255,0.14);
+      background: linear-gradient(90deg, rgba(111,208,255,0.06), rgba(111,208,255,0.02));
+      color:var(--text);text-decoration:none;font-weight:600;
+      transition: transform .12s ease, box-shadow .12s ease;
+    }
+    .btn:hover{ transform: translateY(-3px); box-shadow: 0 6px 20px rgba(0,0,0,0.35); }
 
-    /* Writing posts (thumbnails) */
+    /* Writing posts (with thumbnails) */
     .posts{display:flex;flex-direction:column;gap:12px;margin-top:6px}
-    .post{display:flex;gap:12px;align-items:flex-start;padding:12px;border-radius:10px;background:linear-gradient(180deg, rgba(255,255,255,0.01), transparent);border:1px solid rgba(255,255,255,0.02)}
-    .post-thumb{width:110px;height:70px;flex:0 0 110px;border-radius:8px;overflow:hidden;background:linear-gradient(135deg,#07101a,#0b1320);display:flex;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,0.02)}
+    .post{display:flex;gap:12px;align-items:flex-start;padding:12px;border-radius:10px;background:linear-gradient(180deg, rgba(255,255,255,0.01), transparent);border:1px solid rgba(255,255,255,0.02);transition: transform .18s ease, box-shadow .18s ease}
+    .post:hover{ transform: translateY(-6px); box-shadow: 0 10px 30px rgba(2,6,12,0.55); }
+    .post-thumb{width:110px;height:70px;flex:0 0 110px;border-radius:8px;overflow:hidden;background:linear-gradient(135deg,#07101a,#0b1320);display:flex;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,0.02);position:relative}
     .post-thumb img{width:100%;height:100%;object-fit:cover;display:block}
+    .post-thumb::after{content:"";position:absolute;left:0;right:0;bottom:0;top:0;background:linear-gradient(180deg, rgba(0,0,0,0.0), rgba(0,0,0,0.24))}
+    .thumb-placeholder{width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.07);font-size:20px}
     .post-body{flex:1}
     .post-title{margin:0 0 6px;font-size:1rem;color:var(--text)}
     .post-title a{text-decoration:none;color:inherit}
     .post-meta{font-size:0.86rem;color:var(--muted)}
-    .thumb-placeholder{width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.07);font-size:20px}
 
     footer{margin-top:28px;text-align:center;color:var(--muted);font-size:0.9rem}
 
-    @media(max-width:700px){
-      .wrap{padding:20px}
+    @media(max-width:720px){
+      .wrap{padding:20px;margin:24px auto}
+      h1{font-size:1.4rem}
+      .avatar{width:72px;height:72px}
       .post-thumb{width:96px;height:64px}
     }
   </style>
 </head>
-
 <body>
+
 <div class="wrap">
   <header>
-    <div class="avatar"><img src="photo.jpg" alt="Callum Coleman"></div>
+    <div class="avatar">
+      <img src="photo.jpg" alt="Callum Coleman">
+    </div>
+
     <div>
       <h1>Callum Coleman</h1>
       <div class="lead">Oxford-based policy professional, writer, runner/race director.</div>
     </div>
   </header>
 
-  <div class="tabs" role="tablist">
+  <div class="tabs" role="tablist" aria-label="Main tabs">
     <div class="tab-list" role="presentation">
       <button class="tab" role="tab" aria-selected="true" aria-controls="about" type="button">About</button>
       <button class="tab" role="tab" aria-selected="false" aria-controls="cv" type="button">CV</button>
@@ -116,7 +145,7 @@
 
     <div class="tab-panels">
       <!-- ABOUT -->
-      <section id="about" role="tabpanel">
+      <section id="about" role="tabpanel" aria-labelledby="about">
         <p>I’m an experienced public affairs professional with a track-record of influencing government policy in highly-regulated sectors.</p>
 
         <p>My background and expertise is in tech, energy, transport, and innovation policy.</p>
@@ -133,7 +162,7 @@
         </p>
       </section>
 
-      <!-- CV -->
+      <!-- CV (exact wording block) -->
       <section id="cv" role="tabpanel" hidden>
         <div class="cv-section">
           <h3>Professional Experience</h3>
@@ -230,12 +259,16 @@
       <!-- WRITING -->
       <section id="writing" role="tabpanel" hidden>
         <div id="posts-container"><p class="post-meta">Loading latest posts…</p></div>
-        <p style="margin-top:12px;color:var(--muted);font-size:0.9rem">If posts don't load due to CORS, tell me and I’ll provide a tiny serverless function to fetch the feed server-side.</p>
+        <p style="margin-top:12px;color:var(--muted);font-size:0.9rem">
+          If posts don't load due to CORS, tell me and I’ll provide a tiny serverless function to fetch the feed server-side.
+        </p>
       </section>
     </div>
   </div>
 
-  <footer>© <span id="year"></span> Callum Coleman</footer>
+  <footer>
+    © <span id="year"></span> Callum Coleman
+  </footer>
 </div>
 
 <script>
@@ -310,10 +343,11 @@
           const img = document.createElement('img');
           img.src = p.thumb;
           img.alt = '';
-          img.onerror = () => { thumbWrap.innerHTML = '<div class="thumb-placeholder">🖼️</div>'; };
+          img.loading = 'lazy';
+          img.onerror = () => { thumbWrap.innerHTML = '<div class=\"thumb-placeholder\">🖼️</div>'; };
           thumbWrap.appendChild(img);
         } else {
-          thumbWrap.innerHTML = '<div class="thumb-placeholder">🖼️</div>';
+          thumbWrap.innerHTML = '<div class=\"thumb-placeholder\">🖼️</div>';
         }
 
         const body = document.createElement('div');
@@ -351,7 +385,6 @@
         const link = item.querySelector('link')?.textContent || '#';
         const pubDate = item.querySelector('pubDate')?.textContent || '';
         let thumb = null;
-        // common thumbnail sources in RSS items
         const mediaContent = item.querySelector('media\\:content, content, mediacontent');
         if(mediaContent && mediaContent.getAttribute) thumb = mediaContent.getAttribute('url') || mediaContent.getAttribute('src');
         const mediaThumb = item.querySelector('media\\:thumbnail, mediathumbnail, thumbnail');
@@ -362,7 +395,6 @@
           const href = enclosure.getAttribute('url') || enclosure.getAttribute('href') || enclosure.getAttribute('link');
           if(href && type && type.startsWith('image')) thumb = href;
         }
-        // fallback: look for <img> in content:encoded or description
         if(!thumb){
           const contentEncoded = item.querySelector('content\\:encoded') || item.querySelector('encoded') || item.querySelector('description');
           if(contentEncoded && contentEncoded.textContent){
@@ -399,13 +431,12 @@
       console.warn('Proxy also failed', proxyErr);
     }
 
-    // both failed
     container.innerHTML = '<p class="post-meta">Unable to load posts automatically. Ask me and I can provide a tiny serverless function to fetch your feed server-side for guaranteed results.</p>';
   }
 
   function escapeHtml(s){ return (s||'').toString().replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 
-  // set year quickly
+  // set year
   document.getElementById('year').textContent = new Date().getFullYear();
 </script>
 </body>
