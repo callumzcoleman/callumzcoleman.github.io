@@ -3,143 +3,301 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Callum Z. Coleman — Minimalist Portfolio</title>
-  <meta name="description" content="Callum Z. Coleman — writer and researcher. CV and Substack." />
+  <title>Callum Z. Coleman</title>
+  <meta name="description" content="Callum Z. Coleman — policy and public affairs professional." />
+
   <style>
-    /* Dark, professional theme */
     :root{
       --bg:#0b0f14;
       --surface:#0f1720;
       --card:#0f1726;
-      --muted:#9aa6b2;
       --text:#e6eef3;
+      --muted:#9aa6b2;
       --accent:#6fd0ff;
       --radius:12px;
       --max-width:960px;
-      --gap:16px;
     }
+
     *{box-sizing:border-box}
-    html,body{height:100%;margin:0;font-family:Inter,system-ui,Segoe UI,Helvetica,Arial;line-height:1.5;background:var(--bg);color:var(--text)}
-    .wrap{max-width:var(--max-width);margin:36px auto;padding:28px}
-    header{display:flex;align-items:center;gap:18px}
-    .avatar{width:88px;height:88px;border-radius:14px;overflow:hidden;flex:0 0 88px;background:linear-gradient(135deg,#07101a,#0b1320);display:flex;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,0.03)}
-    .avatar img{width:100%;height:100%;object-fit:cover;display:block}
-    h1{font-size:1.5rem;margin:0;font-weight:600}
-    p.lead{margin:6px 0 0;color:var(--muted);font-size:0.98rem}
+    html,body{
+      margin:0;
+      background:var(--bg);
+      color:var(--text);
+      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
+      line-height:1.55;
+    }
+
+    .wrap{
+      max-width:var(--max-width);
+      margin:40px auto;
+      padding:28px;
+    }
+
+    header{
+      display:flex;
+      gap:20px;
+      align-items:center;
+    }
+
+    .avatar{
+      width:88px;
+      height:88px;
+      border-radius:14px;
+      overflow:hidden;
+      background:#111;
+      border:1px solid rgba(255,255,255,0.05);
+    }
+
+    .avatar img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+    }
+
+    h1{
+      margin:0;
+      font-size:1.6rem;
+      font-weight:600;
+    }
+
+    .lead{
+      margin-top:6px;
+      color:var(--muted);
+      font-size:1rem;
+    }
 
     /* Tabs */
-    .tabs{margin-top:22px;border-radius:14px;border:1px solid rgba(255,255,255,0.03);overflow:hidden;background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent)}
-    .tab-list{display:flex;gap:0;border-bottom:1px solid rgba(255,255,255,0.02)}
-    .tab{flex:1;padding:12px 14px;text-align:center;cursor:pointer;background:transparent;border:0;font-weight:600;color:var(--muted)}
-    .tab[aria-selected="true"]{color:var(--text);background:linear-gradient(180deg,rgba(111,173,190,0.03),transparent)}
-    .tab-panels{padding:20px}
+    .tabs{
+      margin-top:28px;
+      background:linear-gradient(180deg,rgba(255,255,255,0.03),transparent);
+      border:1px solid rgba(255,255,255,0.05);
+      border-radius:16px;
+      overflow:hidden;
+    }
+
+    .tab-list{
+      display:flex;
+      border-bottom:1px solid rgba(255,255,255,0.04);
+    }
+
+    .tab{
+      flex:1;
+      padding:14px;
+      background:none;
+      border:0;
+      color:var(--muted);
+      font-weight:600;
+      cursor:pointer;
+    }
+
+    .tab[aria-selected="true"]{
+      color:var(--text);
+      background:rgba(255,255,255,0.04);
+    }
+
+    .tab-panels{
+      padding:24px;
+    }
 
     /* CV */
-    .cv-wrap{display:flex;flex-direction:column;gap:12px}
-    .cv-actions{display:flex;gap:8px;flex-wrap:wrap}
-    .btn{display:inline-block;padding:10px 14px;border-radius:10px;text-decoration:none;border:1px solid rgba(255,255,255,0.04);background:transparent;color:var(--text);font-weight:600}
+    .cv-section h3{
+      margin:24px 0 6px;
+      font-size:1.05rem;
+    }
 
-    /* Posts list */
-    .posts{display:flex;flex-direction:column;gap:12px}
-    .post{display:flex;gap:12px;align-items:flex-start;padding:12px;border-radius:10px;background:linear-gradient(180deg, rgba(255,255,255,0.01), transparent);border:1px solid rgba(255,255,255,0.02)}
-    .post-thumb{width:110px;height:70px;flex:0 0 110px;border-radius:8px;overflow:hidden;background:linear-gradient(135deg,#07101a,#0b1320);display:flex;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,0.02)}
-    .post-thumb img{width:100%;height:100%;object-fit:cover;display:block}
-    .post-body{flex:1}
-    .post-title{margin:0 0 6px;font-size:1rem;color:var(--text)}
-    .post-title a{text-decoration:none;color:inherit}
-    .post-meta{font-size:0.86rem;color:var(--muted)}
+    .cv-role{
+      margin-bottom:14px;
+    }
 
-    /* Placeholder thumbnail */
-    .thumb-placeholder{width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.07);font-size:20px}
+    .cv-role strong{
+      display:block;
+    }
 
-    footer{margin-top:24px;color:var(--muted);font-size:0.9rem;text-align:center}
+    .cv-role span{
+      color:var(--muted);
+      font-size:0.9rem;
+    }
 
-    @media(max-width:720px){
-      .post{flex-direction:row}
-      .post-thumb{width:96px;height:64px}
-      .wrap{padding:18px;margin:18px auto}
+    ul{
+      margin:6px 0 0 18px;
+      padding:0;
+    }
+
+    li{
+      margin-bottom:6px;
+    }
+
+    .btn{
+      display:inline-block;
+      margin-top:16px;
+      padding:10px 14px;
+      border-radius:10px;
+      border:1px solid rgba(255,255,255,0.08);
+      color:var(--text);
+      text-decoration:none;
+      font-weight:600;
+    }
+
+    footer{
+      margin-top:28px;
+      text-align:center;
+      color:var(--muted);
+      font-size:0.9rem;
     }
   </style>
 </head>
 <body>
-  <div class="wrap">
-    <header>
-      <div class="avatar" id="avatar">
-        <img src="photo.jpg" alt="Callum Z. Coleman" id="profile-photo" onerror="this.style.objectPosition='center';this.alt='Your photo'" />
-      </div>
-      <div>
-        <h1>Callum Z. Coleman</h1>
-        <p class="lead">Writer • Researcher • Minimalist</p>
-      </div>
-    </header>
 
-    <div class="tabs" role="tablist" aria-label="Main tabs">
-      <div class="tab-list" role="presentation">
-        <button class="tab" role="tab" id="tab-about" aria-selected="false" aria-controls="panel-about">About</button>
-        <button class="tab" role="tab" id="tab-cv" aria-selected="true" aria-controls="panel-cv">CV</button>
-        <button class="tab" role="tab" id="tab-posts" aria-selected="false" aria-controls="panel-posts">Latest posts</button>
-      </div>
-
-      <div class="tab-panels">
-        <section id="panel-about" role="tabpanel" hidden aria-labelledby="tab-about">
-          <p>Hello — I write about education, courses, and research. This site links to my Substack and CV.</p>
-          <p>Location: — • Email: <a href="mailto:callum@example.com">callum@example.com</a></p>
-        </section>
-
-        <section id="panel-cv" role="tabpanel" aria-labelledby="tab-cv">
-          <div class="cv-wrap">
-            <p>You can download or view my CV below.</p>
-            <div class="cv-actions">
-              <a id="cv-download" class="btn" href="resume.pdf" target="_blank" rel="noopener">Download CV (PDF)</a>
-              <button id="cv-view" class="btn">Toggle view</button>
-            </div>
-            <div id="cv-frame" style="display:block;margin-top:12px;min-height:420px;border-radius:8px;overflow:hidden;border:1px solid rgba(255,255,255,0.02)">
-              <iframe id="cv-iframe" src="resume.pdf" style="width:100%;height:560px;border:0" title="CV (PDF)"></iframe>
-            </div>
-          </div>
-        </section>
-
-        <section id="panel-posts" role="tabpanel" hidden aria-labelledby="tab-posts">
-          <div id="posts-container">
-            <p class="post-meta">Loading latest posts…</p>
-          </div>
-          <p style="margin-top:12px;color:var(--muted);font-size:0.9rem">If posts don't load due to CORS, tell me and I’ll give a tiny serverless function to fetch the feed server-side.</p>
-        </section>
+<div class="wrap">
+  <header>
+    <div class="avatar">
+      <img src="photo.jpg" alt="Callum Z. Coleman">
+    </div>
+    <div>
+      <h1>Callum Z. Coleman</h1>
+      <div class="lead">
+        Policy & public affairs professional — energy, technology, and innovation
       </div>
     </div>
+  </header>
 
-    <footer>
-      <small>© <span id="year"></span> Callum Z. Coleman</small>
-    </footer>
+  <div class="tabs" role="tablist">
+    <div class="tab-list">
+      <button class="tab" aria-selected="true" aria-controls="about">About</button>
+      <button class="tab" aria-selected="false" aria-controls="cv">CV</button>
+      <button class="tab" aria-selected="false" aria-controls="posts">Latest posts</button>
+    </div>
+
+    <div class="tab-panels">
+      <!-- ABOUT -->
+      <section id="about">
+        <p>
+          I’m a policy and public affairs professional working across energy, technology,
+          and innovation, with experience spanning government engagement, advocacy,
+          and research.
+        </p>
+        <p>
+          I’ve worked closely with central government departments including DESNZ, DSIT,
+          and HM Treasury, and have built strong networks across the energy and tech sectors.
+        </p>
+        <p>
+          I also write on AI, technology, and policy at
+          <a href="https://courseconditions.substack.com" target="_blank">courseconditions.substack.com</a>.
+        </p>
+      </section>
+
+      <!-- CV -->
+      <section id="cv" hidden class="cv-section">
+        <h3>Professional Experience</h3>
+
+        <div class="cv-role">
+          <strong>Public Affairs Manager — University of Oxford</strong>
+          <span>August 2025 – present</span>
+          <ul>
+            <li>Public affairs lead for Equitable Innovation Oxford, working closely with HM Treasury.</li>
+            <li>Developed the organisation’s first public affairs strategy across tech, AI, energy, and finance.</li>
+          </ul>
+        </div>
+
+        <div class="cv-role">
+          <strong>Senior Policy & Public Affairs Officer — Citizens Advice</strong>
+          <span>August 2024 – August 2025</span>
+          <ul>
+            <li>Led public affairs strategy in the energy team; influenced heat networks regulation.</li>
+            <li>Built stakeholder networks across government, regulators, and industry.</li>
+            <li>Managed policy projects end-to-end and line-managed colleagues.</li>
+          </ul>
+        </div>
+
+        <div class="cv-role">
+          <strong>Public Affairs Lead — Living Streets</strong>
+          <span>Nov 2022 – May 2024</span>
+          <ul>
+            <li>Built and led an external affairs team; developed a strong parliamentary network.</li>
+            <li>Secured £10m+ in funding and acted as spokesperson at conferences and committees.</li>
+            <li>Organised three flagship conferences (400+ attendees).</li>
+          </ul>
+        </div>
+
+        <div class="cv-role">
+          <strong>Policy Analyst — Association of Renewable Energy & Clean Technology</strong>
+          <span>Jan – Nov 2022</span>
+          <ul>
+            <li>Led policy and public affairs on power and flexibility.</li>
+            <li>Managed a 300-member policy forum and briefed energy CEOs.</li>
+            <li>Helped secure removal of VAT on energy storage materials.</li>
+          </ul>
+        </div>
+
+        <div class="cv-role">
+          <strong>Analyst — Oxford University Silk Road Think Tank</strong>
+          <span>2019 – 2022</span>
+          <ul>
+            <li>Led and scaled a research team focused on Chinese power investments.</li>
+          </ul>
+        </div>
+
+        <div class="cv-role">
+          <strong>School Governor — The Grove Free School</strong>
+          <span>2022 – 2024</span>
+          <ul>
+            <li>Scrutinised school strategy and policy as a governing board member.</li>
+          </ul>
+        </div>
+
+        <h3>Education</h3>
+
+        <div class="cv-role">
+          <strong>MLitt Modern History — University of St Andrews</strong>
+          <span>Distinction • Stephen W Bonarjee Prize (top of cohort)</span>
+        </div>
+
+        <div class="cv-role">
+          <strong>BA History & Politics — University of Oxford</strong>
+          <span>2:1 • First-generation student; college scholarship</span>
+        </div>
+
+        <h3>Other</h3>
+        <ul>
+          <li>Completed AI safety policy courses (Bluedot; GCP), 2025.</li>
+          <li>Strong network across tech and AI policy.</li>
+        </ul>
+
+        <a class="btn" href="resume.pdf" target="_blank">Download CV (PDF)</a>
+      </section>
+
+      <!-- POSTS -->
+      <section id="posts" hidden>
+        <p>
+          Read my latest writing on Substack:
+          <a href="https://courseconditions.substack.com" target="_blank">
+            courseconditions.substack.com
+          </a>
+        </p>
+      </section>
+    </div>
   </div>
 
-  <script>
-    // CONFIG
-    const SUBSTACK_BASE = 'https://courseconditions.substack.com';
-    const RSS2JSON_PROXY = 'https://api.rss2json.com/v1/api.json?rss_url='; // fallback proxy
+  <footer>
+    © <span id="year"></span> Callum Z. Coleman
+  </footer>
+</div>
 
-    // DOM helpers & tab behaviour
-    document.addEventListener('DOMContentLoaded', () => {
-      document.getElementById('year').textContent = new Date().getFullYear();
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
 
-      const tabs = Array.from(document.querySelectorAll('.tab'));
-      const panels = Array.from(document.querySelectorAll('[role="tabpanel"]'));
+  const tabs = document.querySelectorAll('.tab');
+  const panels = document.querySelectorAll('.tab-panels > section');
 
-      tabs.forEach(tab => {
-        tab.addEventListener('click', () => {
-          tabs.forEach(t => t.setAttribute('aria-selected','false'));
-          panels.forEach(p => p.hidden = true);
-          tab.setAttribute('aria-selected','true');
-          const panel = document.getElementById(tab.getAttribute('aria-controls'));
-          if(panel) panel.hidden = false;
-          if(tab.id === 'tab-posts') loadPosts();
-        });
-      });
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      tabs.forEach(t => t.setAttribute('aria-selected','false'));
+      panels.forEach(p => p.hidden = true);
+      tab.setAttribute('aria-selected','true');
+      document.getElementById(tab.getAttribute('aria-controls')).hidden = false;
+    });
+  });
+</script>
 
-      document.getElementById('cv-view').addEventListener('click', () => {
-        const wrap = document.getElementById('cv-frame');
-        wrap.style.display = wrap.style.display === 'none' ? 'block' : 'none';
-      });
-
-      const avatarImg = document.getElementById('profile-photo');
-      avatarImg.addEventListener('error', ()
+</body>
+</html>
