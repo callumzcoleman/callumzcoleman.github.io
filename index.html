@@ -165,4 +165,81 @@
       <section id="about">
         <p>I’m an experienced public affairs professional with a track-record of influencing government policy in highly-regulated sectors.</p>
         <p>My background and expertise is in tech, energy, transport, and innovation policy.</p>
-        <p
+        <p>When not working I run and write. See thoughts on tech, running, and life
+          <a href="https://courseconditions.substack.com" target="_blank">on my newsletter</a>.
+        </p>
+        <p>
+          <a href="mailto:callumzcoleman@gmail.com">Email</a> ·
+          <a href="https://www.linkedin.com/in/callum-coleman-3382521ba/" target="_blank">LinkedIn</a>
+        </p>
+        <p style="color:var(--muted);font-size:0.9rem">
+          This is the first website I’ve developed using AI — please blame your chatbot of choice for any particularly egregious shortcomings.
+        </p>
+      </section>
+
+      <section id="cv" hidden>
+        <div class="cv-section">
+          <h3>Professional Experience</h3>
+
+          <div class="role">
+            <div class="role-title">Public Affairs Manager, University of Oxford</div>
+            <div class="role-meta">August 2025 – present</div>
+            <ul>
+              <li>Public affairs lead for Equitable Innovation Oxford, a new organisation working closely with HMT to drive economic growth and startup deployment.</li>
+              <li>Developed Equinox’s first public affairs strategy after leading a policy development and data collection phase, primarily working on tech/AI, energy, and finance policy.</li>
+            </ul>
+          </div>
+
+          <div class="role">
+            <div class="role-title">Senior Policy & Public Affairs Officer, Citizens Advice</div>
+            <div class="role-meta">August 2024 – August 2025</div>
+            <ul>
+              <li>Led public affairs strategy and campaigns in the energy team, successfully influenced government heat networks regulation.</li>
+              <li>Built a strong stakeholder network across government, regulators, and business in a new sector (heat networks) for Citizens Advice.</li>
+              <li>Project-managed workstreams end-to-end; line-managed colleagues.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="cv-section">
+          <h3>Other</h3>
+          <ul>
+            <li>Completed AI safety policy courses: Bluedot; GCP, 2025.</li>
+            <li>I write about tech policy and other things on my Substack, <em>courseconditions.substack.com</em>.</li>
+            <li>Race Director, Bannister Miles.</li>
+          </ul>
+        </div>
+
+        <a class="btn" href="resume.pdf" target="_blank">Download CV (PDF)</a>
+      </section>
+
+      <section id="writing" hidden>
+        <p>
+          Writing lives on
+          <a href="https://courseconditions.substack.com" target="_blank">courseconditions.substack.com</a>.
+        </p>
+      </section>
+    </div>
+  </div>
+
+  <footer>
+    © <span id="year"></span> Callum Coleman
+  </footer>
+</div>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+  const tabs = document.querySelectorAll('.tab');
+  const panels = document.querySelectorAll('.tab-panels > section');
+  tabs.forEach(tab=>{
+    tab.addEventListener('click',()=>{
+      tabs.forEach(t=>t.setAttribute('aria-selected','false'));
+      panels.forEach(p=>p.hidden=true);
+      tab.setAttribute('aria-selected','true');
+      document.getElementById(tab.getAttribute('aria-controls')).hidden=false;
+    });
+  });
+</script>
+
+</body>
+</html>
