@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Your Name — Minimalist Portfolio</title>
+  <meta name="description" content="Minimalist personal site with photo, CV and latest Substack posts." />
+  <link rel="icon" href="data:;base64,iVBORw0KGgo=" />
+  <style>
+    /* Minimal, modern, mobile-first */
+    :root{--bg:#ffffff;--text:#0b1220;--muted:#556;--accent:#0ea5e9;--card:#f7fafc}
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;font-family:Inter,system-ui,Segoe UI,Helvetica,Arial;line-height:1.4;color:var(--text);background:var(--bg)}
+    .wrap{max-width:920px;margin:32px auto;padding:24px}
+    header{display:flex;align-items:center;gap:16px}
+    .avatar{width:84px;height:84px;border-radius:14px;overflow:hidden;flex:0 0 84px;background:linear-gradient(135deg,#eef7fb,#f8fbff);display:flex;align-items:center;justify-content:center}
+    .avatar img{width:100%;height:100%;object-fit:cover;display:block}
+    h1{font-size:1.4rem;margin:0}
+    p.lead{margin:6px 0 0;color:var(--muted)}
+
+    /* Tabs */
+    .tabs{margin-top:20px;border-radius:12px;border:1px solid rgba(11,17,32,0.06);overflow:hidden;background:var(--card)}
+    .tab-list{display:flex;gap:0;border-bottom:1px solid rgba(11,17,32,0.04);}
+    .tab{flex:1;padding:12px 14px;text-align:center;cursor:pointer;background:transparent;border:0;font-weight:600}
+    .tab[aria-selected="true"]{background:linear-gradient(180deg,rgba(14,165,233,0.08),transparent);color:var(--accent)}
+    .tab-panels{padding:18px}
+
+    /* CV embed */
+    .cv-wrap{display:flex;flex-direction:column;gap:12px}
+    .cv-actions{display:flex;gap:8px;flex-wrap:wrap}
+    .btn{display:inline-block;padding:8px 12px;border-radius:8px;text-decoration:none;border:1px solid rgba(11,17,32,0.06);background:white;color:var(--text)}
+
+    /* Posts list */
+    .posts{display:flex;flex-direction:column;gap:12px}
+    .post{padding:12px;border-radius:10px;background:#fff;border:1px solid rgba(11,17,32,0.04)}
+    .post h3{margin:0 0 6px;font-size:1rem}
+    .post a{color:var(--text);text-decoration:none}
+    .meta{font-size:0.85rem;color:var(--muted)}
+
+    /* Footer */
+    footer{margin-top:22px;color:var(--muted);font-size:0.9rem;text-align:center}
+
+    /* small screens */
+    @media(min-width:760px){h1{font-size:1.6rem}.wrap{margin:48px auto}}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="avatar" id="avatar">
+        <!-- Replace the <img> src with your photo -->
+        <img src="photo.jpg" alt="Your Name" id="profile-photo" onerror="this.style.objectPosition='center';this.alt='Your photo'" />
+      </div>
+      <div>
+        <h1>Your Name</h1>
+        <p class="lead">Frontend developer • Writer • Minimalist — available for freelance</p>
+      </div>
+    </header>
+
+    <div class="tabs" role="tablist" aria-label="Main tabs">
+      <div class="tab-list" role="presentation">
+        <button class="tab" role="tab" id="tab-about" aria-selected="true" aria-controls="panel-about">About</button>
+        <button class="tab" role="tab" id="tab-cv" aria-selected="false" aria-controls="panel-cv">CV</button>
+        <button class="tab" role="tab" id="tab-posts" aria-selected="false" aria-controls="panel-posts">Latest posts</button>
+      </div>
+
+      <div class="tab-panels">
+        <section id="panel-about" role="tabpanel" aria-labelledby="tab-about">
+          <p>Hello — I’m a product-oriented frontend developer focused on performance, accessibility and clean interfaces. I build things people enjoy using. I write occasionally about design and ship notes on my Substack.</p>
+          <p>Location: City • Email: <a href="mailto:your.email@example.com">your.email@example.com</a></p>
+        </section>
+
+        <section id="panel-cv" role="tabpanel" hidden aria-labelledby="tab-cv">
+          <div class="cv-wrap">
+            <p>You can download or view my CV below.</p>
+            <div class="cv-actions">
+              <a id="cv-download" class="btn" href="resume.pdf" target="_blank" rel="noopener">Download CV (PDF)</a>
+              <button id="cv-view" class="btn">View in page</button>
+            </div>
+            <div id="cv-frame" style="display:none;margin-top:12px;min-height:420px;border-radius:8px;overflow:hidden;border:1px solid rgba(11,17,32,0.04)">
+              <iframe id="cv-iframe" src="resume.pdf" style="width:100%;height:520px;border:0" title="CV (PDF)"></iframe>
+            </div>
+          </div>
+        </section>
+
+        <section id="panel-posts" role="tabpanel" hidden aria-labelledby="tab-posts">
+          <div id="posts-container">
+            <p class="meta">Loading latest posts…</p>
+          </div>
+          <p style="margin-top:12px;color:var(--muted);font-size:0.9rem">If posts don't load, a CORS proxy may be required (see notes below).</p>
+        </section>
+      </div>
+    </div>
+
+    <footer>
+      <small>© <span id="year"></span> Your Name — built minimal. <a href="#">Privacy</a></small>
+    </footer>
+
+    <aside style="margin-top:18px;font-size:0.85rem;color:var(--muted)">
+      <strong>How to finish this:</strong>
+      <ol>
+        <li>Replace <code>photo.jpg</code> with your portrait (84×84+). Use a square crop with some breathing room.</li>
+        <li>Upload <code>resume.pdf</code> (or change the CV links to a hosted URL).</li>
+        <li>Set the <code>SUBSTACK_BASE</code> variable in the script below to your Substack root (example: <code>https://yourname.substack.com</code>).</li>
+        <li>If posts don't load due to CORS, use a simple RSS->JSON proxy like <code>https://api.rss2json.com/v1/api.json?rss_url=</code> or deploy a tiny serverless endpoint (Netlify Function / Vercel Edge) to fetch your <code>/feed</code> and return JSON.</li>
+      </ol>
+    </aside>
+  </div>
+
+  <script>
+    // --- CONFIG ---
+    // Set this to your Substack base URL (no trailing slash)
+    const SUBSTACK_BASE = 'https://courseconditions.substack.com';
+    // Optional: RSS-to-JSON proxy (public demo endpoints may rate-limit). If you have your own proxy put it here.
+    // Example public converter: 'https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(SUBSTACK_BASE + '/feed')
+    const RSS2JSON_PROXY = 'https://api.rss2json.com/v1/api.json?rss_url=';
+
+    // --- small helpers for tabs ---
+    document.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('year').textContent = new Date().getFullYear();
+
+      const tabs = Array.from(document.querySelectorAll('.tab'));
+      const panels = Array.from(document.querySelectorAll('[role="tabpanel"]'));
+
+      tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          tabs.forEach(t => t.setAttribute('aria-selected','false'));
+          panels.forEach(p => p.hidden = true);
+          tab.setAttribute('aria-selected','true');
+          const panel = document.getElementById(tab.getAttribute('aria-controls')) || document.querySelector('[aria-labelledby="' + tab.id + '"]');
+          if(panel) panel.hidden = false;
+
+          // If posts tab opened, trigger load
+          if(tab.id === 'tab-posts') loadPosts();
+        });
+      });
+
+      // CV view toggle
+      document.getElementById('cv-view').addEventListener('click', () => {
+        const wrap = document.getElementById('cv-frame');
+        wrap.style.display = wrap.style.display === 'none' ? 'block' : 'none';
+        // ensure iframe uses resume.pdf or a remote link; if you want to embed Google Drive PDF, use the drive preview link
+      });
+
+      // attempt to set avatar alt if photo missing
+      const avatarImg = document.getElementById('profile-photo');
+      avatarImg.addEventListener('error', () => {
+        document.getElementById('avatar').innerHTML = '<svg width="84" height="84" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="24" height="24" rx="4" fill="#f1f9ff"/><path d="M12 12c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm0 2c-2.67 0-8 1.337-8 4v1h16v-1c0-2.663-5.33-4-8-4z" fill="#cdebf8"/></svg>';
+      });
+
+      // preselect About (already selected)
+    });
+
+    // --- POSTS FETCH ---
+    let postsLoaded = false;
+    async function loadPosts(){
+      if(postsLoaded) return;
+      postsLoaded = true;
+      const container = document.getElementById('posts-container');
+      container.innerHTML = '<p class="meta">Loading latest posts…</p>';
+
+      try{
+        const feedUrl = SUBSTACK_BASE + '/feed';
+        // Try direct fetch first (may fail due to CORS)
+        let res = await fetch(feedUrl);
+        if(!res.ok) throw new Error('Network response not ok');
+        const text = await res.text();
+        const parser = new DOMParser();
+        const xml = parser.parseFromString(text, 'text/xml');
+        const items = Array.from(xml.querySelectorAll('item')).slice(0,6);
+        if(items.length === 0) throw new Error('No items');
+        renderPosts(items.map(it => ({title: it.querySelector('title')?.textContent || 'Untitled', link: it.querySelector('link')?.textContent || '#', pubDate: it.querySelector('pubDate')?.textContent || ''})));
+        return;
+      }catch(err){
+        // fallback: use RSS->JSON proxy if configured
+        if(RSS2JSON_PROXY){
+          try{
+            const proxyUrl = RSS2JSON_PROXY + encodeURIComponent(SUBSTACK_BASE + '/feed');
+            const r = await fetch(proxyUrl);
+            if(!r.ok) throw new Error('Proxy fetch failed');
+            const data = await r.json();
+            const items = (data.items || []).slice(0,6);
+            if(items.length === 0) throw new Error('No items from proxy');
+            renderPosts(items.map(it => ({title: it.title, link: it.link, pubDate: it.pubDate || it.pubDate_raw || ''})));
+            return;
+          }catch(proxyErr){
+            console.warn('Proxy failed', proxyErr);
+          }
+        }
+
+        container.innerHTML = '<p class="meta">Unable to load posts automatically. You can either host a tiny server-side fetcher, or provide an RSS->JSON proxy. For local testing, a demo proxy is: https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(SUBSTACK_BASE + '/feed') + '</p>';
+      }
+
+      function renderPosts(posts){
+        const container = document.getElementById('posts-container');
+        if(!posts || posts.length === 0){
+          container.innerHTML = '<p class="meta">No posts found.</p>';
+          return;
+        }
+        const list = document.createElement('div');
+        list.className = 'posts';
+        posts.forEach(p => {
+          const el = document.createElement('article');
+          el.className = 'post';
+          el.innerHTML = '<h3><a href="'+escapeHtml(p.link)+'" target="_blank" rel="noopener">'+escapeHtml(p.title)+'</a></h3>' + (p.pubDate?'<div class="meta">'+escapeHtml(new Date(p.pubDate).toLocaleDateString())+'</div>':'');
+          list.appendChild(el);
+        });
+        container.innerHTML = '';
+        container.appendChild(list);
+      }
+
+      function escapeHtml(s){
+        return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+      }
+    }
+  </script>
+</body>
+</html>
