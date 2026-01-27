@@ -394,5 +394,29 @@
         if(!thumb){
           const desc = item.querySelector('description')?.textContent || '';
           const m = desc.match(/<img[^>]+src=["']([^"']+)["']/i);
-          if(
+          if(m) thumb = m[1];
+        }
+        return { title, link, pubDate, thumb };
+      });
+      renderPosts(posts); return;
+    }catch(e){}
 
+    try{
+      const r = await fetch(RSS2JSON_PROXY + encodeURIComponent(SUBSTACK_BASE + '/feed'));
+      const data = await r.json();
+      const posts = (data.items || []).slice(0,8).map(it => ({
+        title: it.title, link: it.link,
+        pubDate: it.pubDate || it.pubDate_raw,
+        thumb: it.thumbnail || it.image || null
+      }));
+      renderPosts(posts); return;
+    }catch(e){}
+
+    container.innerHTML = '<p class="post-meta">Unable to load posts.</p>';
+  }
+
+  function escapeHtml(s){return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
