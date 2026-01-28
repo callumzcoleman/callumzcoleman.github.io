@@ -6,444 +6,310 @@
   <title>Callum Coleman</title>
   <meta name="description" content="Callum Coleman — Oxford-based policy professional." />
 
-  <!-- Font -->
+  <!-- Fonts: Inter (UI) + Merriweather (editorial headings) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@8..14,400;8..14,600;8..14,700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Merriweather:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
 
   <style>
     :root{
-      --bg:#0b0f14;
-      --text:#e6eef3;
-      --muted:#9aa6b2;
-      --accent:#6fd0ff;
-      --accent-soft: rgba(111,208,255,0.14);
-      --radius:12px;
-      --max-width:960px;
-      --card-elev: rgba(0,0,0,0.35);
+      --page-bg:#f4f5f6;
+      --card-bg:#ffffff;
+      --text:#0b1220;
+      --muted:#6b7280;
+      --accent:#0f6ecb;
+      --accent-soft:rgba(15,110,203,0.08);
+      --rule:rgba(11,17,26,0.08);
+      --radius:14px;
+      --shadow:0 10px 30px rgba(11,17,26,0.08);
+      --max:1000px;
     }
 
     *{box-sizing:border-box}
-
     html,body{
       margin:0;
-      background:var(--bg);
+      background:var(--page-bg);
       color:var(--text);
       font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
       line-height:1.55;
+      -webkit-font-smoothing:antialiased;
     }
 
+    a{color:var(--accent);text-decoration:none}
+    a:hover{text-decoration:underline}
+
+    /* Layout */
     .wrap{
-      max-width:880px;
-      margin:44px auto;
-      padding:30px;
-      background: linear-gradient(180deg, rgba(15,23,32,0.58), rgba(15,23,32,0.72));
-      border-radius:14px;
-      box-shadow: 0 6px 24px var(--card-elev);
-      backdrop-filter: blur(6px);
-      border: 1px solid rgba(255,255,255,0.03);
+      max-width:var(--max);
+      margin:40px auto;
+      padding:32px;
+      display:grid;
+      grid-template-columns:1fr 320px;
+      gap:32px;
     }
 
-    header{
-      display:flex;
-      gap:20px;
-      align-items:center;
+    main{
+      background:var(--card-bg);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      border:1px solid var(--rule);
+      padding:32px;
+    }
+
+    aside{
+      align-self:start;
+    }
+
+    .sidebar{
+      background:var(--card-bg);
+      border-radius:12px;
+      border:1px solid var(--rule);
+      box-shadow:0 6px 20px rgba(11,17,26,0.04);
+      padding:18px;
     }
 
     .avatar{
-      width:96px;
-      height:96px;
+      width:120px;
+      height:120px;
       border-radius:14px;
       overflow:hidden;
-      border: 2px solid rgba(255,255,255,0.03);
-      box-shadow: 0 4px 12px rgba(2,6,12,0.45);
-      background:#111;
+      margin-bottom:14px;
     }
-    .avatar img{width:100%;height:100%;object-fit:cover;display:block;}
+    .avatar img{width:100%;height:100%;object-fit:cover}
 
-    h1{font-size:1.8rem;letter-spacing:-0.02em;margin:0 0 2px;font-weight:700}
-    .lead{margin-top:6px;color:var(--muted);font-size:1.02rem;line-height:1.45}
+    h1{
+      font-family:Merriweather,serif;
+      font-size:2rem;
+      margin:0 0 6px;
+      line-height:1.1;
+    }
 
-    /* Tabs */
-    .tabs{margin-top:28px;border-radius:16px;overflow:hidden}
-    .tab-list{display:flex;gap:8px;padding:8px;border-bottom:1px solid rgba(255,255,255,0.04)}
-    .tab{
-      flex:1;
-      padding:10px 14px;
-      background:none;
-      border:0;
+    .strap{
       color:var(--muted);
       font-weight:600;
+      font-size:0.95rem;
+      margin-bottom:14px;
+    }
+
+    /* Tabs */
+    .tabs{margin-top:8px}
+    .tab-list{
+      display:flex;
+      gap:8px;
+      border-bottom:1px solid var(--rule);
+      padding-bottom:10px;
+      margin-bottom:20px;
+    }
+    .tab{
+      background:none;
+      border:0;
+      padding:8px 12px;
+      border-radius:8px;
+      color:var(--muted);
+      font-weight:700;
       cursor:pointer;
-      border-radius:12px;
-      transition:all .18s ease
     }
     .tab[aria-selected="true"]{
       background:var(--accent-soft);
       color:var(--accent);
-      transform:translateY(-2px)
     }
-    .tab:hover{transform:translateY(-2px);opacity:0.95}
-    .tab-panels{padding:24px}
 
-    a{color:var(--accent)}
+    .panel{display:none}
+    .panel.active{display:block}
+
+    /* Body text */
+    p{max-width:52ch}
 
     /* CV */
-    .cv-section{margin-bottom:26px}
+    .cv-section{margin-bottom:28px}
     .cv-section h3{
-      margin:0 0 10px;
+      font-family:Merriweather,serif;
       font-size:1.05rem;
-      border-bottom:1px solid rgba(255,255,255,0.04);
-      padding-bottom:8px
+      margin:0 0 10px;
     }
-    .role{margin-bottom:16px}
-    .role-title{font-weight:600}
+    .role{margin-bottom:18px}
+    .role-title{font-weight:700}
     .role-meta{color:var(--muted);font-size:0.9rem;margin-bottom:6px}
-    ul{margin:6px 0 0 18px;padding:0}
-    li{margin-bottom:8px;line-height:1.42}
+    ul{margin:6px 0 0 20px;padding:0}
+    li{margin-bottom:8px}
 
-    .cv-actions{margin-top:20px}
     .btn{
       display:inline-block;
+      margin-top:10px;
       padding:10px 14px;
       border-radius:10px;
-      border: 1px solid rgba(111,208,255,0.14);
-      background: linear-gradient(90deg, rgba(111,208,255,0.06), rgba(111,208,255,0.02));
-      color:var(--text);
-      text-decoration:none;
-      font-weight:600;
-      transition: transform .12s ease, box-shadow .12s ease;
+      border:1px solid var(--rule);
+      font-weight:700;
     }
-    .btn:hover{ transform: translateY(-3px); box-shadow: 0 6px 20px rgba(0,0,0,0.35); }
 
     /* Writing posts */
-    .posts{display:flex;flex-direction:column;gap:12px;margin-top:6px}
-    .post{display:flex;gap:12px;align-items:flex-start;padding:12px;border-radius:10px;background:linear-gradient(180deg, rgba(255,255,255,0.01), transparent);border:1px solid rgba(255,255,255,0.02);transition: transform .18s ease, box-shadow .18s ease}
-    .post:hover{ transform: translateY(-6px); box-shadow: 0 10px 30px rgba(2,6,12,0.55); }
-    .post-thumb{width:110px;height:70px;flex:0 0 110px;border-radius:8px;overflow:hidden;background:linear-gradient(135deg,#07101a,#0b1320);display:flex;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,0.02);position:relative}
-    .post-thumb img{width:100%;height:100%;object-fit:cover;display:block}
-    .post-thumb::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg, rgba(0,0,0,0.0), rgba(0,0,0,0.24))}
-    .thumb-placeholder{width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.07);font-size:20px}
-    .post-body{flex:1}
-    .post-title{margin:0 0 6px;font-size:1rem;color:var(--text)}
-    .post-title a{text-decoration:none;color:inherit}
-    .post-meta{font-size:0.86rem;color:var(--muted)}
+    .posts{display:flex;flex-direction:column;gap:14px}
+    .post{
+      display:flex;
+      gap:16px;
+      padding:12px;
+      border-radius:12px;
+      border:1px solid var(--rule);
+      background:#fafafa;
+    }
+    .post-thumb{
+      width:140px;
+      height:86px;
+      border-radius:8px;
+      overflow:hidden;
+      background:#e5e7eb;
+      flex:0 0 140px;
+    }
+    .post-thumb img{width:100%;height:100%;object-fit:cover}
+    .post-title{
+      font-family:Merriweather,serif;
+      font-size:1.02rem;
+      margin:0 0 6px;
+    }
+    .post-meta{color:var(--muted);font-size:0.85rem}
 
-    footer{margin-top:28px;text-align:center;color:var(--muted);font-size:0.9rem}
+    /* 2025 */
+    #y2025{
+      background:#fafafa;
+      padding:18px;
+      border-radius:12px;
+      border:1px solid var(--rule);
+    }
+    ol{margin-left:20px}
+    ol li{margin-bottom:10px}
 
-    @media(max-width:720px){
-      .wrap{padding:20px;margin:24px auto}
-      h1{font-size:1.4rem}
-      .avatar{width:72px;height:72px}
-      .post-thumb{width:96px;height:64px}
+    footer{
+      margin-top:18px;
+      color:var(--muted);
+      font-size:0.9rem;
+      text-align:center;
     }
 
-    /* Ordered list polish */
-    ol{
-      margin:8px 0 0 22px;
+    @media(max-width:980px){
+      .wrap{grid-template-columns:1fr}
     }
-    ol li{
-      margin-bottom:10px;
-    }
-
-  </style>
-
-
   </style>
 </head>
 <body>
 
 <div class="wrap">
-  <header>
-    <div class="avatar">
-      <img src="photo.jpg" alt="Callum Coleman">
+  <main>
+    <div class="tabs" role="tablist">
+      <div class="tab-list">
+        <button class="tab" aria-selected="true" aria-controls="about">About</button>
+        <button class="tab" aria-controls="cv">CV</button>
+        <button class="tab" aria-controls="writing">Writing</button>
+        <button class="tab" aria-controls="y2025">2025</button>
+      </div>
+
+      <div class="tab-panels">
+        <!-- BIO -->
+        <section id="about" class="panel active">
+          <p>I’m an experienced public affairs professional with a track-record of influencing government policy in highly-regulated sectors.</p>
+          <p>My background and expertise is in tech, energy, transport, and innovation policy.</p>
+          <p>When not working I run and write. Read thoughts on tech, running, and life <a href="https://courseconditions.substack.com" target="_blank">on my newsletter</a>.</p>
+          <p>
+            <a href="mailto:callumzcoleman@gmail.com">Email</a> ·
+            <a href="https://www.linkedin.com/in/callum-coleman-3382521ba/" target="_blank">LinkedIn</a>
+          </p>
+          <p style="color:var(--muted);font-size:0.9rem">
+            This is the first website I’ve developed using AI — please blame your chatbot of choice for any particularly egregious shortcomings.
+          </p>
+        </section>
+
+        <!-- CV -->
+        <section id="cv" class="panel">
+          <div class="cv-section">
+            <h3>Professional Experience</h3>
+
+            <div class="role">
+              <div class="role-title">Public Affairs Manager, University of Oxford</div>
+              <div class="role-meta">August 2025 – present</div>
+              <ul>
+                <li>Public affairs lead for Equitable Innovation Oxford - a key strategic partnership for the University to promote growth in the Ox-Cam Corridor - working closely with HMT.</li>
+                <li>Developed Equinox’s first public affairs strategy across tech, AI, energy, and finance.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="cv-section">
+            <h3>Other</h3>
+            <ul>
+              <li>I write about tech policy and other things on my Substack, <em>courseconditions.substack.com</em>.</li>
+              <li>Race Director, Bannister Miles.</li>
+            </ul>
+          </div>
+
+          <a class="btn" href="resume.pdf" target="_blank">Download CV (PDF)</a>
+        </section>
+
+        <!-- WRITING -->
+        <section id="writing" class="panel">
+          <div id="posts-container"><p>Loading latest posts…</p></div>
+        </section>
+
+        <!-- 2025 -->
+        <section id="y2025" class="panel">
+          <h3>Ten things that I’m proud of doing last year</h3>
+          <p style="color:var(--muted);max-width:42em">
+            A short reflection on work, running, and life from the past year.
+          </p>
+          <ol>
+            <li>Completing Border to Hel, a 480km race through rural Poland.</li>
+            <li>Influencing heat networks regulation.</li>
+            <li>Winning Oxford Town & Gown 10k.</li>
+          </ol>
+        </section>
+      </div>
     </div>
-    <div>
-      <h1>Callum Coleman</h1>
-      <div class="lead">Oxford-based policy professional, writer, runner & race director.</div>
+
+    <footer>© <span id="year"></span> Callum Coleman</footer>
+  </main>
+
+  <aside>
+    <div class="sidebar">
+      <div class="avatar"><img src="photo.jpg" alt="Callum Coleman"></div>
+      <strong>Callum Coleman</strong><br>
+      <span class="strap">Oxford-based policy professional, writer, runner & race director.</span>
     </div>
-  </header>
-
-  <div class="tabs" role="tablist" aria-label="Main tabs">
-    <div class="tab-list" role="presentation">
-      <button class="tab" role="tab" aria-selected="true" aria-controls="about" type="button">About</button>
-      <button class="tab" role="tab" aria-selected="false" aria-controls="cv" type="button">CV</button>
-      <button class="tab" role="tab" aria-selected="false" aria-controls="writing" type="button">Writing</button>
-      <button class="tab" role="tab" aria-selected="false" aria-controls="y2025" type="button">2025</button>
-    </div>
-
-    <div class="tab-panels">
-      <!-- BIO -->
-      <section id="about" role="tabpanel">
-        <p>I’m an experienced public affairs professional with a track-record of influencing government policy in highly-regulated sectors.</p>
-        <p>My background and expertise is in tech, energy, transport, and innovation policy.</p>
-        <p>When not working I run and write. Read thoughts on tech, running, and life <a href="https://courseconditions.substack.com" target="_blank" rel="noopener">on my newsletter</a>.</p>
-        <p>
-          <a href="mailto:callumzcoleman@gmail.com">Email</a> ·
-          <a href="https://www.linkedin.com/in/callum-coleman-3382521ba/" target="_blank" rel="noopener">LinkedIn</a>
-        </p>
-        <p style="color:var(--muted);font-size:0.9rem">
-          This is the first website I’ve developed using AI — please blame your chatbot of choice for any particularly egregious shortcomings.
-        </p>
-      </section>
-
-      <!-- CV -->
-      <section id="cv" role="tabpanel" hidden>
-        <div class="cv-section">
-          <h3>Professional Experience</h3>
-
-          <div class="role">
-            <div class="role-title">Public Affairs Manager, University of Oxford</div>
-            <div class="role-meta">August 2025 – present</div>
-            <ul>
-              <li>Public affairs lead for Equitable Innovation Oxford, a new organisation working closely with HMT to drive economic growth and startup deployment.</li>
-              <li>Developed Equinox’s first public affairs strategy after leading a policy development and data collection phase, primarily working on tech/AI, energy, and finance policy.</li>
-            </ul>
-          </div>
-
-          <div class="role">
-            <div class="role-title">Senior Policy & Public Affairs Officer, Citizens Advice</div>
-            <div class="role-meta">August 2024 – August 2025</div>
-            <ul>
-              <li>Led public affairs strategy and campaigns in the energy team, successfully influenced government heat networks regulation.</li>
-              <li>Built a strong stakeholder network across government, regulators, and business in a new sector (heat networks) for Citizens Advice. Briefed colleagues for meetings e.g. with no.10.</li>
-              <li>Project-managed workstreams end-to-end (policy development → stakeholder engagement → consultation responses → ministerial/regulator-facing outputs); line-managed colleagues.</li>
-            </ul>
-          </div>
-
-          <div class="role">
-            <div class="role-title">Public Affairs Lead, Living Streets</div>
-            <div class="role-meta">November 2022 – May 2024</div>
-            <ul>
-              <li>Built and scaled an external affairs team, leading strategy and implementation – developed a strong parliamentary network (~35 MP meetings in first year); secured funding (£10mn+).</li>
-              <li>Acted as spokesperson at events e.g. conferences and parliamentary committees.</li>
-              <li>Organised three flagship conferences (400+ attendees). Line managed colleagues.</li>
-            </ul>
-          </div>
-
-          <div class="role">
-            <div class="role-title">Policy Analyst, Association of Renewable Energy and Clean Technology</div>
-            <div class="role-meta">January 2022 – November 2022</div>
-            <ul>
-              <li>Policy and public affairs lead on power and flexibility, managing a 300-member policy forum, briefing energy sector CEOs and Directors and lobbying government on their behalf.</li>
-              <li>Successfully influenced government policy to remove VAT on energy storage materials.</li>
-            </ul>
-          </div>
-
-          <div class="role">
-            <div class="role-title">Analyst, Oxford University Silk Road Think Tank</div>
-            <div class="role-meta">2019 – 2022</div>
-            <ul>
-              <li>Led, recruited and scaled a research team focused on Chinese power investments.</li>
-            </ul>
-          </div>
-
-          <div class="role">
-            <div class="role-title">School Governor, The Grove Free School</div>
-            <div class="role-meta">2022 – 2024</div>
-            <ul>
-              <li>Scrutinised overall strategy and policies as a member of the school governing board.</li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="cv-section">
-          <h3>Education</h3>
-
-          <div class="role">
-            <div class="role-title">MLitt Modern History, University of St Andrews</div>
-            <ul>
-              <li>Distinction.</li>
-              <li>Stephen W Bonarjee Prize winner 2020–21, awarded for finishing top of my cohort.</li>
-            </ul>
-          </div>
-
-          <div class="role">
-            <div class="role-title">BA History & Politics, University of Oxford</div>
-            <ul>
-              <li>2:1.</li>
-              <li>First-generation university student, received a college scholarship for academic excellence.</li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="cv-section">
-          <h3>Other</h3>
-          <ul>
-            <li>Completed AI safety policy courses: Bluedot ‘Introduction to Transformative AI’; GCP ‘Intro to AI Safety & Biosecurity’, 2025 and strong tech policy network.</li>
-            <li>I write about tech policy and other things on my Substack, <em>courseconditions.substack.com</em>.</li>
-            <li>Race Director, Bannister Miles.</li>
-          </ul>
-        </div>
-
-        <div class="cv-actions">
-          <a class="btn" href="resume.pdf" target="_blank" rel="noopener">Download CV (PDF)</a>
-        </div>
-      </section>
-
-      <!-- WRITING -->
-      <section id="writing" role="tabpanel" hidden>
-        <div id="posts-container"><p class="post-meta">Loading latest posts…</p></div>
-        <p style="margin-top:12px;color:var(--muted);font-size:0.9rem">
-          If posts don't load due to CORS, tell me and I’ll provide a tiny serverless function to fetch the feed server-side.
-        </p>
-      </section>
-
-      <!-- 2025 -->
-     <section id="y2025" role="tabpanel" hidden>
-  <h3>Ten things I’m proud of doing last year</h3>
-  <p style="color:var(--muted);max-width:42em">
-    A short personal inventory of work, running, and life from the past year.
-  </p>
-
-  <ol>
-    <li>Completing Border to Hel, a 480km race through rural Poland. My team finished second and I ran 104km at ~3.40/km pace.</li>
-
-    <li>Successfully influencing government regulation of heat networks, securing better legal protections for c.20% of UK consumers by 2040.</li>
-
-    <li>Winning the Oxford Town & Gown 10k, a closed-road race with 7,000 participants that runs through the centre of the city I call home.</li>
-
-    <li>Getting a new job, leading public affairs on a key strategic project for the University of Oxford.</li>
-
-    <li>Building a tight-knit community in a new city after a stint of travelling abroad.</li>
-
-    <li>Using a two-week gap between jobs to undertake a solo, self-planned hut-to-hut running adventure through the Julian Alps in Slovenia.</li>
-
-    <li>Starting a Substack on tech policy, music, and running.</li>
-
-    <li>Running a shiny new 5k PB (15:15) after a difficult period of illness.</li>
-
-    <li>Upskilling in AI policy via a series of intensive courses and reading, as I think it’s the most pressing issue I can work on.</li>
-
-    <li>Gifting my Dad a holiday abroad for Christmas — his first trip out of the UK in several years.</li>
-  </ol>
-</section>
-
-    </div>
-  </div>
-
-  <footer>© <span id="year"></span> Callum Coleman</footer>
+  </aside>
 </div>
 
 <script>
-  // CONFIG
-  const SUBSTACK_BASE = 'https://courseconditions.substack.com';
-  const RSS2JSON_PROXY = 'https://api.rss2json.com/v1/api.json?rss_url=';
+  const tabs = document.querySelectorAll('.tab');
+  const panels = document.querySelectorAll('.panel');
 
-  // Tabs
-  (function(){
-    document.querySelectorAll('.tab').forEach(btn => btn.setAttribute('type','button'));
-    function showPanel(name){
-      document.querySelectorAll('.tab').forEach(t => t.setAttribute('aria-selected','false'));
-      document.querySelectorAll('.tab-panels > section').forEach(s => s.hidden = true);
-      const tab = document.querySelector('.tab[aria-controls="'+name+'"]');
-      const panel = document.getElementById(name);
-      if(tab) tab.setAttribute('aria-selected','true');
-      if(panel) panel.hidden = false;
-    }
-    const tabList = document.querySelector('.tab-list');
-    if(tabList){
-      tabList.addEventListener('click', (e) => {
-        const btn = e.target.closest('.tab');
-        if(!btn) return;
-        const target = btn.getAttribute('aria-controls');
-        if(target){
-          showPanel(target);
-          if(target === 'writing') loadPosts();
-        }
-      });
-    }
-    if(document.readyState === 'complete' || document.readyState === 'interactive'){
-      showPanel('about');
-    } else {
-      document.addEventListener('DOMContentLoaded', () => showPanel('about'));
-    }
-  })();
-
-  // POSTS (RSS -> thumbnails)
-  let postsLoaded = false;
-  async function loadPosts(){
-    if(postsLoaded) return;
-    postsLoaded = true;
-    const container = document.getElementById('posts-container');
-    container.innerHTML = '<p class="post-meta">Loading latest posts…</p>';
-
-    function renderPosts(posts){
-      const list = document.createElement('div');
-      list.className = 'posts';
-      posts.forEach(p => {
-        const article = document.createElement('article');
-        article.className = 'post';
-        const thumbWrap = document.createElement('div');
-        thumbWrap.className = 'post-thumb';
-        if(p.thumb){
-          const img = document.createElement('img');
-          img.src = p.thumb;
-          img.alt = '';
-          img.loading = 'lazy';
-          img.onerror = () => { thumbWrap.innerHTML = '<div class="thumb-placeholder">🖼️</div>'; };
-          thumbWrap.appendChild(img);
-        } else {
-          thumbWrap.innerHTML = '<div class="thumb-placeholder">🖼️</div>';
-        }
-        const body = document.createElement('div');
-        body.className = 'post-body';
-        const h3 = document.createElement('h3');
-        h3.className = 'post-title';
-        h3.innerHTML = `<a href="${escapeHtml(p.link)}" target="_blank" rel="noopener">${escapeHtml(p.title)}</a>`;
-        const meta = document.createElement('div');
-        meta.className = 'post-meta';
-        meta.textContent = p.pubDate ? new Date(p.pubDate).toLocaleDateString() : '';
-        body.appendChild(h3); body.appendChild(meta);
-        article.appendChild(thumbWrap); article.appendChild(body);
-        list.appendChild(article);
-      });
-      container.innerHTML = ''; container.appendChild(list);
-    }
-
-    try{
-      const res = await fetch(SUBSTACK_BASE + '/feed');
-      if(!res.ok) throw new Error();
-      const text = await res.text();
-      const xml = new DOMParser().parseFromString(text,'text/xml');
-      const items = Array.from(xml.querySelectorAll('item')).slice(0,8);
-      const posts = items.map(item => {
-        const title = item.querySelector('title')?.textContent || 'Untitled';
-        const link = item.querySelector('link')?.textContent || '#';
-        const pubDate = item.querySelector('pubDate')?.textContent || '';
-        let thumb = null;
-        const mc = item.querySelector('media\\:content');
-        if(mc && mc.getAttribute) thumb = mc.getAttribute('url');
-        if(!thumb){
-          const desc = item.querySelector('description')?.textContent || '';
-          const m = desc.match(/<img[^>]+src=["']([^"']+)["']/i);
-          if(m) thumb = m[1];
-        }
-        return { title, link, pubDate, thumb };
-      });
-      renderPosts(posts); return;
-    }catch(e){}
-
-    try{
-      const r = await fetch(RSS2JSON_PROXY + encodeURIComponent(SUBSTACK_BASE + '/feed'));
-      const data = await r.json();
-      const posts = (data.items || []).slice(0,8).map(it => ({
-        title: it.title, link: it.link,
-        pubDate: it.pubDate || it.pubDate_raw,
-        thumb: it.thumbnail || it.image || null
-      }));
-      renderPosts(posts); return;
-    }catch(e){}
-
-    container.innerHTML = '<p class="post-meta">Unable to load posts.</p>';
+  function show(id){
+    panels.forEach(p=>p.classList.remove('active'));
+    tabs.forEach(t=>t.setAttribute('aria-selected','false'));
+    document.getElementById(id).classList.add('active');
+    document.querySelector(`.tab[aria-controls="${id}"]`).setAttribute('aria-selected','true');
+    if(id === 'writing') loadPosts();
   }
 
-  function escapeHtml(s){return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+  tabs.forEach(tab=>{
+    tab.addEventListener('click',()=>show(tab.getAttribute('aria-controls')));
+  });
+
+  show('about');
+
+  async function loadPosts(){
+    const c = document.getElementById('posts-container');
+    const r = await fetch('https://api.rss2json.com/v1/api.json?rss_url=https://courseconditions.substack.com/feed');
+    const j = await r.json();
+    c.innerHTML = j.items.slice(0,6).map(p=>`
+      <article class="post">
+        <div class="post-thumb">${p.thumbnail ? `<img src="${p.thumbnail}">` : ``}</div>
+        <div>
+          <h3 class="post-title"><a href="${p.link}" target="_blank">${p.title}</a></h3>
+          <div class="post-meta">${new Date(p.pubDate).toLocaleDateString()}</div>
+        </div>
+      </article>
+    `).join('');
+  }
+
   document.getElementById('year').textContent = new Date().getFullYear();
 </script>
+
 </body>
 </html>
-
-
-
-
