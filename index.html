@@ -23,6 +23,8 @@
       --radius:14px;
       --shadow:0 10px 30px rgba(11,17,26,0.08);
       --max:1000px;
+      --banner-height:33vh;
+      --banner-overlay: linear-gradient(180deg, rgba(11,17,26,0.28), rgba(11,17,26,0.40));
     }
 
     *{box-sizing:border-box}
@@ -38,10 +40,25 @@
     a{color:var(--accent);text-decoration:none}
     a:hover{text-decoration:underline}
 
-    /* Layout */
+    /* BANNER - full width, sits behind top of the page */
+    .site-banner{
+      position:fixed;
+      top:0;
+      left:0;
+      width:100%;
+      height:var(--banner-height);
+      background: var(--banner-overlay), url("banner.jpg") center / cover no-repeat;
+      z-index:0;
+      border-bottom:1px solid rgba(0,0,0,0.06);
+    }
+
+    /* Layout - wrap sits above banner (z-index), and overlaps it slightly */
     .wrap{
+      position:relative;
+      z-index:2;
       max-width:var(--max);
-      margin:40px auto;
+      /* overlap card onto banner by 70px on desktop */
+      margin:calc(var(--banner-height) * 0.55) auto 40px;
       padding:32px;
       display:grid;
       grid-template-columns:1fr 320px;
@@ -74,8 +91,11 @@
       border-radius:14px;
       overflow:hidden;
       margin-bottom:14px;
+      border: 3px solid rgba(255,255,255,0.06); /* subtle frame when overlapping banner */
+      box-shadow: 0 8px 20px rgba(11,17,26,0.12);
+      background: #f7f7f7;
     }
-    .avatar img{width:100%;height:100%;object-fit:cover}
+    .avatar img{width:100%;height:100%;object-fit:cover;display:block}
 
     h1{
       font-family:Merriweather,serif;
@@ -193,320 +213,334 @@
       text-align:center;
     }
 
+    /* Responsive adjustments */
     @media(max-width:980px){
-      .wrap{grid-template-columns:1fr;padding:20px}
+      .wrap{grid-template-columns:1fr;padding:20px;margin-top:calc(var(--banner-height) * 0.45)}
+      .site-banner{height:25vh}
+      .avatar{width:96px;height:96px}
+    }
+
+    @media(max-width:560px){
+      .site-banner{height:22vh}
+      .wrap{margin-top:calc(var(--banner-height) * 0.38);padding:18px}
+      .post-thumb{width:96px;height:64px;flex:0 0 96px}
     }
   </style>
 </head>
 <body>
 
-<div class="wrap">
-  <main>
-    <div class="tabs" role="tablist" aria-label="Main tabs">
-      <div class="tab-list" role="presentation">
-        <button class="tab" role="tab" aria-selected="true" aria-controls="about">About</button>
-        <button class="tab" role="tab" aria-selected="false" aria-controls="cv">CV</button>
-        <button class="tab" role="tab" aria-selected="false" aria-controls="writing">Writing</button>
-        <button class="tab" role="tab" aria-selected="false" aria-controls="y2025">2025</button>
+  <!-- Banner (full width) - uses banner.jpg from repository root -->
+  <div class="site-banner" aria-hidden="true"></div>
+
+  <div class="wrap">
+    <main>
+      <div class="tabs" role="tablist" aria-label="Main tabs">
+        <div class="tab-list" role="presentation">
+          <button class="tab" role="tab" aria-selected="true" aria-controls="about">About</button>
+          <button class="tab" role="tab" aria-selected="false" aria-controls="cv">CV</button>
+          <button class="tab" role="tab" aria-selected="false" aria-controls="writing">Writing</button>
+          <button class="tab" role="tab" aria-selected="false" aria-controls="y2025">2025</button>
+        </div>
+
+        <div class="tab-panels">
+          <!-- ABOUT -->
+          <section id="about" class="panel active" role="tabpanel" aria-labelledby="">
+            <h1>Callum Coleman</h1>
+            <div class="strap">Oxford-based policy professional, writer, runner & race director.</div>
+
+            <p>I’m an experienced public affairs professional with a track-record of influencing government policy in highly-regulated sectors.</p>
+
+            <p>My background and expertise is in tech, energy, transport, and innovation policy.</p>
+
+            <p>When not working I run and write. Read thoughts on tech, running, and life <a href="https://courseconditions.substack.com" target="_blank" rel="noopener">on my newsletter</a>.</p>
+
+            <p>
+              <a href="mailto:callumzcoleman@gmail.com">Email</a> ·
+              <a href="https://www.linkedin.com/in/callum-coleman-3382521ba/" target="_blank" rel="noopener">LinkedIn</a>
+            </p>
+
+            <p style="color:var(--muted);font-size:0.9rem">
+              This is the first website I’ve developed using AI — please blame your chatbot of choice for any particularly egregious shortcomings.
+            </p>
+          </section>
+
+          <!-- CV -->
+          <section id="cv" class="panel" role="tabpanel" hidden>
+            <div class="cv-section">
+              <h3>Professional Experience</h3>
+
+              <div class="role">
+                <div class="role-title">Public Affairs Manager, University of Oxford</div>
+                <div class="role-meta">August 2025 – present</div>
+                <ul>
+                  <li>Public affairs lead for Equitable Innovation Oxford, a new organisation working closely with HMT to drive economic growth and startup deployment.</li>
+                  <li>Developed Equinox’s first public affairs strategy after leading a policy development and data collection phase, primarily working on tech/AI, energy, and finance policy.</li>
+                </ul>
+              </div>
+
+              <div class="role">
+                <div class="role-title">Senior Policy & Public Affairs Officer, Citizens Advice</div>
+                <div class="role-meta">August 2024 – August 2025</div>
+                <ul>
+                  <li>Led public affairs strategy and campaigns in the energy team, successfully influenced government heat networks regulation.</li>
+                  <li>Built a strong stakeholder network across government, regulators, and business in a new sector (heat networks) for Citizens Advice. Briefed colleagues for meetings e.g. with no.10.</li>
+                  <li>Project-managed workstreams end-to-end (policy development → stakeholder engagement → consultation responses → ministerial/regulator-facing outputs); line-managed colleagues.</li>
+                </ul>
+              </div>
+
+              <div class="role">
+                <div class="role-title">Public Affairs Lead, Living Streets</div>
+                <div class="role-meta">November 2022 – May 2024</div>
+                <ul>
+                  <li>Built and scaled an external affairs team, leading strategy and implementation – developed a strong parliamentary network (~35 MP meetings in first year); secured funding (£10mn+).</li>
+                  <li>Acted as spokesperson at events e.g. conferences and parliamentary committees.</li>
+                  <li>Organised three flagship conferences (400+ attendees). Line managed colleagues.</li>
+                </ul>
+              </div>
+
+              <div class="role">
+                <div class="role-title">Policy Analyst, Association of Renewable Energy and Clean Technology</div>
+                <div class="role-meta">January 2022 – November 2022</div>
+                <ul>
+                  <li>Policy and public affairs lead on power and flexibility, managing a 300-member policy forum, briefing energy sector CEOs and Directors and lobbying government on their behalf.</li>
+                  <li>Successfully influenced government policy to remove VAT on energy storage materials.</li>
+                </ul>
+              </div>
+
+              <div class="role">
+                <div class="role-title">Analyst, Oxford University Silk Road Think Tank</div>
+                <div class="role-meta">2019 – 2022</div>
+                <ul>
+                  <li>Led, recruited and scaled a research team focused on Chinese power investments.</li>
+                </ul>
+              </div>
+
+              <div class="role">
+                <div class="role-title">School Governor, The Grove Free School</div>
+                <div class="role-meta">2022 – 2024</div>
+                <ul>
+                  <li>Scrutinised overall strategy and policies as a member of the school governing board.</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="cv-section">
+              <h3>Education</h3>
+
+              <div class="role">
+                <div class="role-title">MLitt Modern History, University of St Andrews (Distinction)</div>
+                <ul>
+                  <li>Stephen W Bonarjee Prize winner 2020–21, awarded for finishing top of my cohort.</li>
+                </ul>
+              </div>
+
+              <div class="role">
+                <div class="role-title">BA History & Politics, University of Oxford (2:1)</div>
+                <ul>
+                  <li>First-generation university student, received a college scholarship for academic excellence.</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="cv-section">
+              <h3>Other</h3>
+              <ul>
+                <li>AI safety policy courses: Bluedot ‘Introduction to Transformative AI’; GCP ‘Intro to AI Safety & Biosecurity’, 2025 and strong tech policy network.</li>
+                <li>I write about tech policy and other things on my Substack, <em>courseconditions.substack.com</em>.</li>
+                <li>Race Director, Bannister Miles.</li>
+              </ul>
+            </div>
+
+            <div class="cv-actions">
+              <a class="btn" href="resume.pdf" target="_blank" rel="noopener">Download CV (PDF)</a>
+            </div>
+          </section>
+
+          <!-- WRITING -->
+          <section id="writing" class="panel" role="tabpanel" hidden>
+            <div id="posts-container"><p class="post-meta">Loading latest posts…</p></div>
+            <p style="margin-top:12px;color:var(--muted);font-size:0.9rem">
+              If posts don't load due to CORS, tell me and I’ll provide a tiny serverless function to fetch the feed server-side.
+            </p>
+          </section>
+
+          <!-- 2025 -->
+          <section id="y2025" class="panel" role="tabpanel" hidden>
+            <h3>Ten things I’m proud of doing last year</h3>
+            <p style="color:var(--muted);max-width:42em">
+              A short personal reflection on work, running, and life from the past year.
+            </p>
+            <ol>
+              <li>Completing Border to Hel, a 480km race through rural Poland. My team finished second and I ran 104km at ~3.40/km pace.</li>
+
+              <li>Successfully influencing government regulation of heat networks, securing better legal protections for c.20% of UK consumers by 2040.</li>
+
+              <li>Winning the Oxford Town & Gown 10k, a closed-road race with 7,000 participants that runs through the centre of the city I call home.</li>
+
+              <li>Getting a new job, leading public affairs on a key strategic project for the University of Oxford.</li>
+
+              <li>Building a tight-knit community in a new city after a stint of travelling abroad.</li>
+
+              <li>Using a two-week gap between jobs to undertake a solo, self-planned hut-to-hut running adventure through the Julian Alps in Slovenia.</li>
+
+              <li>Starting a Substack on tech policy, music, and running.</li>
+
+              <li>Running a shiny new 5k PB (15:15) after a difficult period of illness.</li>
+
+              <li>Upskilling in AI policy via a series of intensive courses and reading, as I think it’s the most pressing issue I can work on.</li>
+
+              <li>Gifting my Dad a holiday abroad for Christmas — his first trip out of the UK in several years.</li>
+            </ol>
+          </section>
+        </div>
       </div>
 
-      <div class="tab-panels">
-        <!-- ABOUT -->
-        <section id="about" class="panel active" role="tabpanel" aria-labelledby="">
-          <h1>Callum Coleman</h1>
-          <div class="strap">Oxford-based policy professional, writer, runner & race director.</div>
+      <footer>© <span id="year"></span> Callum Coleman</footer>
+    </main>
 
-          <p>I’m an experienced public affairs professional with a track-record of influencing government policy in highly-regulated sectors.</p>
-
-          <p>My background and expertise is in tech, energy, transport, and innovation policy.</p>
-
-          <p>When not working I run and write. Read thoughts on tech, running, and life <a href="https://courseconditions.substack.com" target="_blank" rel="noopener">on my newsletter</a>.</p>
-
-          <p>
-            <a href="mailto:callumzcoleman@gmail.com">Email</a> ·
-            <a href="https://www.linkedin.com/in/callum-coleman-3382521ba/" target="_blank" rel="noopener">LinkedIn</a>
-          </p>
-
-          <p style="color:var(--muted);font-size:0.9rem">
-            This is the first website I’ve developed using AI — please blame your chatbot of choice for any particularly egregious shortcomings.
-          </p>
-        </section>
-
-        <!-- CV -->
-        <section id="cv" class="panel" role="tabpanel" hidden>
-          <div class="cv-section">
-            <h3>Professional Experience</h3>
-
-            <div class="role">
-              <div class="role-title">Public Affairs Manager, University of Oxford</div>
-              <div class="role-meta">August 2025 – present</div>
-              <ul>
-                <li>Public affairs lead for Equitable Innovation Oxford, working closely with government to drive economic growth and startup deployment.</li>
-                <li>Lead policy development and public affairs strategy, primarily working on tech/AI, energy, and finance policy.</li>
-              </ul>
-            </div>
-
-            <div class="role">
-              <div class="role-title">Senior Policy & Public Affairs Officer, Citizens Advice</div>
-              <div class="role-meta">August 2024 – August 2025</div>
-              <ul>
-                <li>Led public affairs strategy and campaigns in the energy team, successfully influenced government heat networks regulation.</li>
-                <li>Built a strong stakeholder network across government, regulators, and business in a new sector (heat networks) for Citizens Advice. Briefed colleagues for meetings e.g. with no.10.</li>
-                <li>Project-managed workstreams end-to-end (policy development → stakeholder engagement → consultation responses → ministerial/regulator-facing outputs); line-managed colleagues.</li>
-              </ul>
-            </div>
-
-            <div class="role">
-              <div class="role-title">Public Affairs Lead, Living Streets</div>
-              <div class="role-meta">November 2022 – May 2024</div>
-              <ul>
-                <li>Built and scaled an external affairs team, leading strategy and implementation – developed a strong parliamentary network (~35 MP meetings in first year); secured funding (£10mn+).</li>
-                <li>Acted as spokesperson at events e.g. conferences and parliamentary committees.</li>
-                <li>Organised three flagship conferences (400+ attendees). Line managed colleagues.</li>
-              </ul>
-            </div>
-
-            <div class="role">
-              <div class="role-title">Policy Analyst, Association of Renewable Energy and Clean Technology</div>
-              <div class="role-meta">January 2022 – November 2022</div>
-              <ul>
-                <li>Policy and public affairs lead on power and flexibility, managing a 300-member policy forum, briefing energy sector CEOs and Directors and lobbying government on their behalf.</li>
-                <li>Successfully influenced government policy to remove VAT on energy storage materials.</li>
-              </ul>
-            </div>
-
-            <div class="role">
-              <div class="role-title">Analyst, Oxford University Silk Road Think Tank</div>
-              <div class="role-meta">2019 – 2022</div>
-              <ul>
-                <li>Led, recruited and scaled a research team focused on Chinese power investments.</li>
-              </ul>
-            </div>
-
-            <div class="role">
-              <div class="role-title">School Governor, The Grove Free School</div>
-              <div class="role-meta">2022 – 2024</div>
-              <ul>
-                <li>Scrutinised overall strategy and policies as a member of the school governing board.</li>
-              </ul>
-            </div>
-          </div>
-
-          <div class="cv-section">
-            <h3>Education</h3>
-
-            <div class="role">
-              <div class="role-title">MLitt Modern History, University of St Andrews (Distinction)</div>
-              <ul>
-                <li>Stephen W Bonarjee Prize winner 2020–21, awarded for finishing top of my cohort.</li>
-              </ul>
-            </div>
-
-            <div class="role">
-              <div class="role-title">BA History & Politics, University of Oxford (2:1)</div>
-              <ul>
-                <li>First-generation university student, received a college scholarship for academic excellence.</li>
-              </ul>
-            </div>
-          </div>
-
-          <div class="cv-section">
-            <h3>Other</h3>
-            <ul>
-              <li>AI safety policy courses: Bluedot ‘Introduction to Transformative AI’; GCP ‘Intro to AI Safety & Biosecurity’, 2025 and strong tech policy network.</li>
-              <li>I write about tech policy and other things on my Substack, <em>courseconditions.substack.com</em>.</li>
-              <li>Race Director, Bannister Miles.</li>
-            </ul>
-          </div>
-
-          <div class="cv-actions">
-            <a class="btn" href="resume.pdf" target="_blank" rel="noopener">Download CV (PDF)</a>
-          </div>
-        </section>
-
-        <!-- WRITING -->
-        <section id="writing" class="panel" role="tabpanel" hidden>
-          <div id="posts-container"><p class="post-meta">Loading latest posts…</p></div>
-          <p style="margin-top:12px;color:var(--muted);font-size:0.9rem">
-          </p>
-        </section>
-
-        <!-- 2025 -->
-        <section id="y2025" class="panel" role="tabpanel" hidden>
-          <h3>Ten things I’m proud of doing last year</h3>
-          <p style="color:var(--muted);max-width:42em">
-            A short personal reflection on work, running, and life from the past year.
-          </p>
-          <ol>
-            <li>Completing Border to Hel, a 480km race through rural Poland. My team finished second and I ran 104km at ~3.40/km pace.</li>
-
-            <li>Successfully influencing government regulation of heat networks, securing better legal protections for c.20% of UK consumers by 2040.</li>
-
-            <li>Winning the Oxford Town & Gown 10k, a closed-road race with 7,000 participants that runs through the centre of the city I call home.</li>
-
-            <li>Getting a new job, leading public affairs on a key strategic project for the University of Oxford.</li>
-
-            <li>Building a tight-knit community in a new city after a stint of travelling abroad.</li>
-
-            <li>Using a two-week gap between jobs to undertake a solo, self-planned hut-to-hut running adventure through the Julian Alps in Slovenia.</li>
-
-            <li>Starting a Substack on tech policy, music, and running.</li>
-
-            <li>Running a shiny new 5k PB (15:15) after a difficult period of illness.</li>
-
-            <li>Upskilling in AI policy via a series of intensive courses and reading, as I think it’s the most pressing issue I can work on.</li>
-
-            <li>Gifting my Dad a holiday abroad for Christmas — his first trip out of the UK in several years.</li>
-          </ol>
-        </section>
+    <aside>
+      <div class="sidebar">
+        <div class="avatar"><img src="photo.jpg" alt="Callum Coleman"></div>
+        <strong>Callum Coleman</strong>
+        <div class="strap">Oxford-based policy professional, writer, runner & race director.</div>
       </div>
-    </div>
+    </aside>
+  </div>
 
-    <footer>© <span id="year"></span> Callum Coleman</footer>
-  </main>
+  <script>
+    // CONFIG
+    const SUBSTACK_BASE = 'https://courseconditions.substack.com';
+    const RSS2JSON_PROXY = 'https://api.rss2json.com/v1/api.json?rss_url=';
 
-  <aside>
-    <div class="sidebar">
-      <div class="avatar"><img src="photo.jpg" alt="Callum Coleman"></div>
-      <strong>Callum Coleman</strong>
-      <div class="strap">Oxford-based policy professional, writer, runner & race director.</div>
-    </div>
-  </aside>
-</div>
-
-<script>
-  // CONFIG
-  const SUBSTACK_BASE = 'https://courseconditions.substack.com';
-  const RSS2JSON_PROXY = 'https://api.rss2json.com/v1/api.json?rss_url=';
-
-  // Tabs - robust
-  (function(){
-    const tabs = Array.from(document.querySelectorAll('.tab'));
-    const panels = Array.from(document.querySelectorAll('.panel'));
-    function showPanel(name){
-      panels.forEach(p => { p.hidden = true; p.classList.remove('active'); });
-      tabs.forEach(t => t.setAttribute('aria-selected','false'));
-      const panel = document.getElementById(name);
-      const tab = document.querySelector(`.tab[aria-controls="${name}"]`);
-      if(panel){ panel.hidden = false; panel.classList.add('active'); }
-      if(tab) tab.setAttribute('aria-selected','true');
-      if(name === 'writing') loadPosts();
-    }
-    tabs.forEach(t => t.addEventListener('click', () => showPanel(t.getAttribute('aria-controls'))));
-    // default
-    if(document.readyState === 'loading'){
-      document.addEventListener('DOMContentLoaded', ()=> showPanel('about'));
-    } else {
-      showPanel('about');
-    }
-  })();
-
-  // Posts: try direct RSS, fallback to rss2json proxy; extract thumbnails
-  let postsLoaded = false;
-  async function loadPosts(){
-    if(postsLoaded) return;
-    postsLoaded = true;
-    const container = document.getElementById('posts-container');
-    container.innerHTML = '<p class="post-meta">Loading latest posts…</p>';
-
-    function renderPosts(posts){
-      if(!posts || posts.length === 0){
-        container.innerHTML = '<p class="post-meta">No posts found.</p>';
-        return;
+    // Tabs - robust
+    (function(){
+      const tabs = Array.from(document.querySelectorAll('.tab'));
+      const panels = Array.from(document.querySelectorAll('.panel'));
+      function showPanel(name){
+        panels.forEach(p => { p.hidden = true; p.classList.remove('active'); });
+        tabs.forEach(t => t.setAttribute('aria-selected','false'));
+        const panel = document.getElementById(name);
+        const tab = document.querySelector(`.tab[aria-controls="${name}"]`);
+        if(panel){ panel.hidden = false; panel.classList.add('active'); }
+        if(tab) tab.setAttribute('aria-selected','true');
+        if(name === 'writing') loadPosts();
+        // smooth scroll to top of main content when switching (nice UX if banner present)
+        window.scrollTo({ top: 0, behavior: 'smooth' });
       }
-      const list = document.createElement('div');
-      list.className = 'posts';
-      posts.forEach(p => {
-        const art = document.createElement('article');
-        art.className = 'post';
-        const thumbWrap = document.createElement('div');
-        thumbWrap.className = 'post-thumb';
-        if(p.thumb){
-          const img = document.createElement('img');
-          img.src = p.thumb;
-          img.alt = '';
-          img.loading = 'lazy';
-          img.onerror = () => { thumbWrap.textContent = '🖼️'; };
-          thumbWrap.appendChild(img);
-        } else {
-          thumbWrap.textContent = '🖼️';
-        }
-        const body = document.createElement('div');
-        const h3 = document.createElement('h3');
-        h3.className = 'post-title';
-        h3.innerHTML = `<a href="${escapeHtml(p.link)}" target="_blank" rel="noopener">${escapeHtml(p.title)}</a>`;
-        const meta = document.createElement('div');
-        meta.className = 'post-meta';
-        meta.textContent = p.pubDate ? new Date(p.pubDate).toLocaleDateString() : '';
-        body.appendChild(h3);
-        body.appendChild(meta);
-        art.appendChild(thumbWrap);
-        art.appendChild(body);
-        list.appendChild(art);
-      });
-      container.innerHTML = '';
-      container.appendChild(list);
-    }
+      tabs.forEach(t => t.addEventListener('click', () => showPanel(t.getAttribute('aria-controls'))));
+      // default
+      if(document.readyState === 'loading'){
+        document.addEventListener('DOMContentLoaded', ()=> showPanel('about'));
+      } else {
+        showPanel('about');
+      }
+    })();
 
-    // try direct fetch
-    try{
-      const res = await fetch(SUBSTACK_BASE + '/feed');
-      if(res.ok){
-        const text = await res.text();
-        const xml = new DOMParser().parseFromString(text,'application/xml');
-        const items = Array.from(xml.querySelectorAll('item')).slice(0,8);
-        const posts = items.map(item => {
-          const title = item.querySelector('title')?.textContent || 'Untitled';
-          const link = item.querySelector('link')?.textContent || '#';
-          const pubDate = item.querySelector('pubDate')?.textContent || '';
-          let thumb = null;
-          const mc = item.querySelector('media\\:content, content, media\\:thumbnail, enclosure');
-          if(mc && mc.getAttribute){
-            thumb = mc.getAttribute('url') || mc.getAttribute('src') || mc.getAttribute('href');
+    // Posts: try direct RSS, fallback to rss2json proxy; extract thumbnails
+    let postsLoaded = false;
+    async function loadPosts(){
+      if(postsLoaded) return;
+      postsLoaded = true;
+      const container = document.getElementById('posts-container');
+      container.innerHTML = '<p class="post-meta">Loading latest posts…</p>';
+
+      function renderPosts(posts){
+        if(!posts || posts.length === 0){
+          container.innerHTML = '<p class="post-meta">No posts found.</p>';
+          return;
+        }
+        const list = document.createElement('div');
+        list.className = 'posts';
+        posts.forEach(p => {
+          const art = document.createElement('article');
+          art.className = 'post';
+          const thumbWrap = document.createElement('div');
+          thumbWrap.className = 'post-thumb';
+          if(p.thumb){
+            const img = document.createElement('img');
+            img.src = p.thumb;
+            img.alt = '';
+            img.loading = 'lazy';
+            img.onerror = () => { thumbWrap.textContent = '🖼️'; };
+            thumbWrap.appendChild(img);
+          } else {
+            thumbWrap.textContent = '🖼️';
           }
-          if(!thumb){
-            const desc = item.querySelector('description')?.textContent || item.querySelector('content\\:encoded')?.textContent || '';
-            const m = desc.match(/<img[^>]+src=["']([^"']+)["']/i);
+          const body = document.createElement('div');
+          const h3 = document.createElement('h3');
+          h3.className = 'post-title';
+          h3.innerHTML = `<a href="${escapeHtml(p.link)}" target="_blank" rel="noopener">${escapeHtml(p.title)}</a>`;
+          const meta = document.createElement('div');
+          meta.className = 'post-meta';
+          meta.textContent = p.pubDate ? new Date(p.pubDate).toLocaleDateString() : '';
+          body.appendChild(h3);
+          body.appendChild(meta);
+          art.appendChild(thumbWrap);
+          art.appendChild(body);
+          list.appendChild(art);
+        });
+        container.innerHTML = '';
+        container.appendChild(list);
+      }
+
+      // try direct fetch
+      try{
+        const res = await fetch(SUBSTACK_BASE + '/feed');
+        if(res.ok){
+          const text = await res.text();
+          const xml = new DOMParser().parseFromString(text,'application/xml');
+          const items = Array.from(xml.querySelectorAll('item')).slice(0,8);
+          const posts = items.map(item => {
+            const title = item.querySelector('title')?.textContent || 'Untitled';
+            const link = item.querySelector('link')?.textContent || '#';
+            const pubDate = item.querySelector('pubDate')?.textContent || '';
+            let thumb = null;
+            const mc = item.querySelector('media\\:content, content, media\\:thumbnail, enclosure');
+            if(mc && mc.getAttribute){
+              thumb = mc.getAttribute('url') || mc.getAttribute('src') || mc.getAttribute('href');
+            }
+            if(!thumb){
+              const desc = item.querySelector('description')?.textContent || item.querySelector('content\\:encoded')?.textContent || '';
+              const m = desc.match(/<img[^>]+src=["']([^"']+)["']/i);
+              if(m) thumb = m[1];
+            }
+            return { title, link, pubDate, thumb };
+          });
+          renderPosts(posts);
+          return;
+        }
+      }catch(e){
+        console.warn('Direct feed fetch failed', e);
+      }
+
+      // proxy fallback
+      try{
+        const proxyUrl = RSS2JSON_PROXY + encodeURIComponent(SUBSTACK_BASE + '/feed');
+        const r = await fetch(proxyUrl);
+        if(!r.ok) throw new Error('Proxy fetch failed');
+        const data = await r.json();
+        const posts = (data.items || []).slice(0,8).map(it => {
+          let thumb = it.thumbnail || it.image || (it.enclosure && it.enclosure.link) || null;
+          if(!thumb && it.content){
+            const m = it.content.match(/<img[^>]+src=["']([^"']+)["']/i);
             if(m) thumb = m[1];
           }
-          return { title, link, pubDate, thumb };
+          return { title: it.title || 'Untitled', link: it.link || '#', pubDate: it.pubDate || it.pubDate_raw || '', thumb };
         });
         renderPosts(posts);
         return;
+      }catch(e){
+        console.warn('Proxy fetch failed', e);
       }
-    }catch(e){
-      console.warn('Direct feed fetch failed', e);
+
+      container.innerHTML = '<p class="post-meta">Unable to load posts automatically. Ask me and I can provide a tiny serverless function to fetch your feed server-side for guaranteed results.</p>';
     }
 
-    // proxy fallback
-    try{
-      const proxyUrl = RSS2JSON_PROXY + encodeURIComponent(SUBSTACK_BASE + '/feed');
-      const r = await fetch(proxyUrl);
-      if(!r.ok) throw new Error('Proxy fetch failed');
-      const data = await r.json();
-      const posts = (data.items || []).slice(0,8).map(it => {
-        let thumb = it.thumbnail || it.image || (it.enclosure && it.enclosure.link) || null;
-        if(!thumb && it.content){
-          const m = it.content.match(/<img[^>]+src=["']([^"']+)["']/i);
-          if(m) thumb = m[1];
-        }
-        return { title: it.title || 'Untitled', link: it.link || '#', pubDate: it.pubDate || it.pubDate_raw || '', thumb };
-      });
-      renderPosts(posts);
-      return;
-    }catch(e){
-      console.warn('Proxy fetch failed', e);
-    }
+    function escapeHtml(s){ return (s||'').toString().replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 
-    container.innerHTML = '<p class="post-meta">Unable to load posts automatically. Ask me and I can provide a tiny serverless function to fetch your feed server-side for guaranteed results.</p>';
-  }
-
-  function escapeHtml(s){ return (s||'').toString().replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
-
-  // set year
-  document.getElementById('year').textContent = new Date().getFullYear();
-</script>
+    // set year
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
 
 </body>
 </html>
-
