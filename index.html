@@ -127,33 +127,33 @@
     .timeline{
       position:relative;
       margin:18px 0 6px;
-      padding:10px 0 10px 32px;
+      padding:10px 0 10px 44px;
       display:flex;
       flex-direction:column;
-      gap:16px;
+      gap:22px;
     }
     .timeline::before{
       content:"";
       position:absolute;
       top:0;
       bottom:0;
-      left:16px;
-      width:3px;
-      background:linear-gradient(180deg,var(--accent),var(--accent-2));
+      left:20px;
+      width:2px;
+      background:rgba(153,124,104,0.35);
       border-radius:999px;
-      box-shadow:0 10px 24px rgba(111,44,70,0.18);
+      box-shadow:none;
     }
     .timeline-item{
       position:relative;
       width:100%;
-      display:grid;
-      grid-template-columns:minmax(110px, 140px) 1fr;
-      gap:12px;
-      padding:20px 20px 20px 14px;
-      background:linear-gradient(160deg, rgba(255,255,255,0.96), rgba(255,242,233,0.92));
-      border-radius:16px;
-      border:1px solid rgba(34,26,18,0.08);
-      box-shadow:0 18px 36px rgba(30,22,15,0.10);
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      padding:22px 26px;
+      background:#f8f3ee;
+      border-radius:18px;
+      border:1px solid rgba(153,124,104,0.18);
+      box-shadow:0 14px 30px rgba(44,32,22,0.08);
       transition:transform .22s ease,box-shadow .22s ease,opacity .22s ease;
       opacity:0;
       transform:translateY(12px);
@@ -162,55 +162,48 @@
     .timeline-item::after{
       content:"";
       position:absolute;
-      left:-32px;
-      top:28px;
-      width:12px;
-      height:12px;
+      left:-34px;
+      top:26px;
+      width:10px;
+      height:10px;
       border-radius:50%;
-      background:var(--card-bg);
-      border:3px solid var(--accent);
-      box-shadow:0 10px 18px rgba(30,22,15,0.14);
-    }
-    .timeline-item::before{
-      content:"";
-      position:absolute;
-      left:-18px;
-      top:28px;
-      width:16px;
-      height:16px;
-      border-radius:50%;
-      background:rgba(215,154,122,0.35);
-      filter:blur(6px);
+      background:#d08b5b;
+      box-shadow:0 0 0 6px rgba(208,139,91,0.12);
     }
     .timeline-item:hover{
       transform:translateY(-2px);
-      box-shadow:0 22px 44px rgba(30,22,15,0.16);
+      box-shadow:0 20px 36px rgba(44,32,22,0.14);
     }
     .timeline-date{
-      display:flex;
-      align-items:flex-start;
-      font-weight:700;
-      text-transform:uppercase;
-      letter-spacing:0.08em;
-      font-size:0.72rem;
-      color:var(--muted);
-      margin-top:4px;
-    }
-
-    .role-meta{
+      align-self:flex-end;
       display:inline-flex;
       align-items:center;
       gap:8px;
-      padding:4px 10px;
+      padding:6px 12px;
       border-radius:999px;
-      background:var(--accent-soft);
-      color:var(--accent);
-      font-weight:700;
-      font-size:0.75rem;
-      letter-spacing:0.06em;
-      margin-bottom:12px;
+      font-weight:600;
+      font-size:0.78rem;
+      color:#8a5d40;
+      background:rgba(208,139,91,0.12);
+      letter-spacing:0.02em;
     }
-    .role-title{font-weight:700;margin-bottom:6px;font-size:1.02rem}
+    .timeline-date::before{
+      content:"📅";
+      font-size:0.8rem;
+    }
+
+    .role-meta{
+      display:block;
+      color:#c2784b;
+      font-weight:600;
+      font-size:0.92rem;
+      margin:0 0 6px;
+    }
+    .role-title{
+      font-weight:700;
+      margin-bottom:8px;
+      font-size:1.2rem;
+    }
     .timeline-body ul{
       margin:0;
       padding-left:18px;
@@ -223,11 +216,9 @@
       .timeline{padding-left:28px}
       .timeline::before{left:12px}
       .timeline-item{
-        grid-template-columns:1fr;
         padding:20px;
       }
-      .timeline-item::after{left:-24px}
-      .timeline-item::before{left:-16px}
+      .timeline-item::after{left:-26px}
     }
 
     /* posts */
@@ -423,7 +414,7 @@
       <!-- 2025 -->
       <section id="y2025" class="block" aria-labelledby="y2025-heading">
         <h2 id="y2025-heading">2025</h2>
-        <p style="color:var(--muted);max-width:52ch">Ten things I'm proud of from last year.</p>
+        <p style="color:var(--muted);max-width:52ch">A short personal inventory of work, running, and life from the past year.</p>
         <ol>
           <li>Completing Border to Hel, a 480km race through rural Poland. My team finished second and I ran 104km at ~3.40/km pace.</li>
           <li>Successfully influencing government regulation of heat networks, securing better legal protections for c.20% of UK consumers by 2040.</li>
@@ -586,5 +577,3 @@
   </script>
 </body>
 </html>
-
-
