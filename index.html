@@ -1,593 +1,591 @@
-+<!doctype html>
-+<html lang="en">
-+<head>
-+  <meta charset="utf-8" />
-+  <meta name="viewport" content="width=device-width,initial-scale=1" />
-+  <title>Callum Coleman</title>
-+  <meta name="description" content="Callum Coleman — Oxford-based policy professional." />
-+
-+  <!-- Fonts -->
-+  <link rel="preconnect" href="https://fonts.googleapis.com">
-+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Merriweather:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
-+
-+  <style>
-+    :root{
-+      --page-bg:#f7f2ed;
-+      --card-bg:#fffaf5;
-+      --text:#1c1a17;
-+      --muted:#6f665c;
-+      --accent:#6f2c46;
-+      --accent-2:#d79a7a;
-+      --accent-soft:rgba(111,44,70,0.12);
-+      --rule:rgba(34,26,18,0.08);
-+      --radius:14px;
-+      --shadow:0 18px 40px rgba(30,22,15,0.12);
-+      --max:1100px;
-+    }
-+
-+    *{box-sizing:border-box}
-+    html,body{
-+      margin:0;
-+      background:radial-gradient(circle at top, #fff7f0 0%, var(--page-bg) 45%, #f2ece6 100%);
-+      color:var(--text);
-+      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
-+      line-height:1.55;
-+      -webkit-font-smoothing:antialiased;
-+      scroll-behavior:smooth;
-+    }
-+
-+    a{color:var(--accent);text-decoration:none}
-+    a:hover{text-decoration:underline}
-+
-+    /* STICKY NAV */
-+    header.site-header{
-+      position:sticky;
-+      top:0;
-+      z-index:50;
-+      backdrop-filter: blur(6px);
-+      background:linear-gradient(180deg, rgba(255,249,242,0.92), rgba(255,245,238,0.88));
-+      border-bottom:1px solid rgba(11,17,26,0.04);
-+      box-shadow: 0 10px 28px rgba(41,27,18,0.08);
-+    }
-+    .header-inner{
-+      max-width:var(--max);
-+      margin:0 auto;
-+      padding:10px 18px;
-+      display:flex;
-+      align-items:center;
-+      gap:18px;
-+    }
-+    .brand{
-+      display:flex;
-+      gap:12px;
-+      align-items:center;
-+      flex:1;
-+    }
-+    .brand .avatar-small{
-+      width:44px;height:44px;border-radius:8px;overflow:hidden;border:1px solid rgba(11,17,26,0.04);
-+    }
-+    .brand hgroup{line-height:1}
-+    .brand h2{margin:0;font-family:Merriweather,serif;font-size:1.02rem}
-+    .brand p{margin:0;color:var(--muted);font-size:0.85rem}
-+
-+    nav.top-nav{display:flex;gap:8px}
-+    nav.top-nav a{
-+      padding:8px 12px;border-radius:8px;font-weight:700;color:var(--muted);
-+      border:1px solid rgba(34,26,18,0.08);background:transparent;text-decoration:none;
-+    }
-+    nav.top-nav a.active{background:var(--accent-soft);color:var(--accent);box-shadow:0 10px 20px rgba(111,44,70,0.12);}
-+
-+    /* Layout */
-+    .wrap{
-+      max-width:var(--max);
-+      margin:36px auto;
-+      padding:0 18px 48px;
-+      display:grid;
-+      grid-template-columns:1fr 340px;
-+      gap:28px;
-+      align-items:start;
-+    }
-+
-+    main{
-+      background:var(--card-bg);
-+      border-radius:16px;
-+      box-shadow:var(--shadow);
-+      border:1px solid var(--rule);
-+      padding:28px;
-+    }
-+
-+    aside{
-+      align-self:start;
-+    }
-+
-+    .sidebar{
-+      background:var(--card-bg);
-+      border-radius:16px;
-+      border:1px solid var(--rule);
-+      box-shadow:0 14px 30px rgba(30,22,15,0.08);
-+      padding:18px;
-+      position:sticky;
-+      top:80px;
-+    }
-+
-+    .avatar{
-+      width:120px;height:120px;border-radius:12px;overflow:hidden;margin-bottom:12px;border:2px solid rgba(11,17,26,0.04);
-+    }
-+    .avatar img{width:100%;height:100%;object-fit:cover}
-+
-+    h1{font-family:Merriweather,serif;font-size:2rem;margin:6px 0}
-+    .strap{color:var(--muted);font-weight:600;font-size:0.95rem;margin-bottom:14px}
-+
-+    /* SECTION BLOCKS */
-+    section.block{padding:18px 0;border-bottom:1px solid rgba(34,26,18,0.06)}
-+    section.block h2{font-family:Merriweather,serif;margin:0 0 10px}
-+
-+    /* TIMELINE */
-+    .timeline{
-+      position:relative;
-+      margin:18px 0 6px;
-+      padding:10px 0 10px 40px;
-+      display:flex;
-+      flex-direction:column;
-+      gap:16px;
-+    }
-+    .timeline::before{
-+      content:"";
-+      position:absolute;
-+      top:0;
-+      bottom:0;
-+      left:16px;
-+      width:3px;
-+      background:linear-gradient(180deg,var(--accent),var(--accent-2));
-+      border-radius:999px;
-+      box-shadow:0 10px 24px rgba(111,44,70,0.18);
-+    }
-+    .timeline-item{
-+      position:relative;
-+      width:100%;
-+      display:grid;
-+      grid-template-columns:minmax(140px, 180px) 1fr;
-+      gap:18px;
-+      padding:20px 24px 20px 18px;
-+      background:linear-gradient(160deg, rgba(255,255,255,0.96), rgba(255,242,233,0.92));
-+      border-radius:16px;
-+      border:1px solid rgba(34,26,18,0.08);
-+      box-shadow:0 18px 36px rgba(30,22,15,0.10);
-+      transition:transform .22s ease,box-shadow .22s ease,opacity .22s ease;
-+      opacity:0;
-+      transform:translateY(12px);
-+    }
-+    .timeline-item.visible{opacity:1;transform:none}
-+    .timeline-item::after{
-+      content:"";
-+      position:absolute;
-+      left:-32px;
-+      top:28px;
-+      width:12px;
-+      height:12px;
-+      border-radius:50%;
-+      background:var(--card-bg);
-+      border:3px solid var(--accent);
-+      box-shadow:0 10px 18px rgba(30,22,15,0.14);
-+    }
-+    .timeline-item::before{
-+      content:"";
-+      position:absolute;
-+      left:-18px;
-+      top:28px;
-+      width:16px;
-+      height:16px;
-+      border-radius:50%;
-+      background:rgba(215,154,122,0.35);
-+      filter:blur(6px);
-+    }
-+    .timeline-item:hover{
-+      transform:translateY(-2px);
-+      box-shadow:0 22px 44px rgba(30,22,15,0.16);
-+    }
-+    .timeline-date{
-+      display:flex;
-+      align-items:flex-start;
-+      font-weight:700;
-+      text-transform:uppercase;
-+      letter-spacing:0.08em;
-+      font-size:0.72rem;
-+      color:var(--muted);
-+      margin-top:4px;
-+    }
-+
-+    .role-meta{
-+      display:inline-flex;
-+      align-items:center;
-+      gap:8px;
-+      padding:4px 10px;
-+      border-radius:999px;
-+      background:var(--accent-soft);
-+      color:var(--accent);
-+      font-weight:700;
-+      font-size:0.75rem;
-+      letter-spacing:0.06em;
-+      margin-bottom:12px;
-+    }
-+    .role-title{font-weight:700;margin-bottom:6px;font-size:1.02rem}
-+    .timeline-body ul{
-+      margin:0;
-+      padding-left:18px;
-+    }
-+
-+    /* small screens: stack */
-+    @media(max-width:980px){
-+      .wrap{grid-template-columns:1fr;padding:20px}
-+      .sidebar{position:static;top:auto}
-+      .timeline{padding-left:28px}
-+      .timeline::before{left:12px}
-+      .timeline-item{
-+        grid-template-columns:1fr;
-+        padding:20px;
-+      }
-+      .timeline-item::after{left:-24px}
-+      .timeline-item::before{left:-16px}
-+    }
-+
-+    /* posts */
-+    .posts{display:flex;flex-direction:column;gap:14px;margin-top:6px}
-+    .post{display:flex;gap:16px;padding:12px;border-radius:12px;border:1px solid var(--rule);background:#fff6ef;align-items:flex-start}
-+    .post-thumb{width:140px;height:86px;border-radius:8px;overflow:hidden;background:#fdebdc;flex:0 0 140px;display:flex;align-items:center;justify-content:center}
-+    .post-thumb img{width:100%;height:100%;object-fit:cover}
-+    .post-title{font-family:Merriweather,serif;margin:0 0 6px}
-+    .post-meta{color:var(--muted);font-size:0.85rem}
-+
-+    .btn{
-+      display:inline-flex;
-+      align-items:center;
-+      gap:8px;
-+      padding:10px 16px;
-+      border-radius:999px;
-+      border:1px solid rgba(111,44,70,0.18);
-+      background:linear-gradient(120deg, rgba(111,44,70,0.14), rgba(215,154,122,0.16));
-+      color:var(--accent);
-+      font-weight:700;
-+      text-decoration:none;
-+      box-shadow:0 12px 24px rgba(111,44,70,0.12);
-+    }
-+    .btn:hover{transform:translateY(-1px);text-decoration:none}
-+
-+    footer{margin-top:18px;color:var(--muted);font-size:0.9rem;text-align:center}
-+  </style>
-+</head>
-+<body>
-+
-+  <!-- STICKY HEADER WITH NAV -->
-+  <header class="site-header" role="banner">
-+    <div class="header-inner">
-+      <div class="brand" aria-hidden="false">
-+        <div class="avatar-small"><img src="photo.jpg" alt="Callum Coleman" style="width:100%;height:100%;object-fit:cover"></div>
-+        <hgroup>
-+          <h2>Callum Coleman</h2>
-+          <p style="margin-top:4px;color:var(--muted);font-size:0.85rem">Oxford-based policy professional</p>
-+        </hgroup>
-+      </div>
-+
-+      <nav class="top-nav" aria-label="Site navigation">
-+        <a href="#about" data-target="about" class="active">About</a>
-+        <a href="#cv" data-target="cv">CV</a>
-+        <a href="#writing" data-target="writing">Writing</a>
-+        <a href="#y2025" data-target="y2025">2025</a>
-+      </nav>
-+    </div>
-+  </header>
-+
-+  <div class="wrap">
-+    <main>
-+      <!-- ABOUT -->
-+      <section id="about" class="block" aria-labelledby="about-heading">
-+        <h1 id="about-heading">Callum Coleman</h1>
-+        <div class="strap">Oxford-based policy professional, writer, runner & race director.</div>
-+
-+        <p>I’m an experienced public affairs professional with a track-record of influencing government policy in highly-regulated sectors.</p>
-+
-+        <p>My background and expertise is in tech, energy, transport, and innovation policy.</p>
-+
-+        <p>When not working I run and write. Read thoughts on tech, running, and life <a href="https://courseconditions.substack.com" target="_blank" rel="noopener">on my newsletter</a>.</p>
-+
-+        <p>
-+          <a href="mailto:callumzcoleman@gmail.com">Email</a> ·
-+          <a href="https://www.linkedin.com/in/callum-coleman-3382521ba/" target="_blank" rel="noopener">LinkedIn</a>
-+        </p>
-+
-+        <p style="color:var(--muted);font-size:0.9rem">This is the first website I’ve developed using AI — please blame your chatbot of choice for any particularly egregious shortcomings.</p>
-+      </section>
-+
-+      <!-- CV (timeline) -->
-+      <section id="cv" class="block" aria-labelledby="cv-heading">
-+        <h2 id="cv-heading">CV</h2>
-+
-+        <div class="timeline" id="timeline">
-+          <!-- Each timeline-item is structured with a date column and content body. -->
-+          <article class="timeline-item">
-+            <div class="timeline-date">August 2025 – present</div>
-+            <div class="timeline-body">
-+              <div class="role-meta">Current role</div>
-+              <div class="role-title">Public Affairs Manager, University of Oxford</div>
-+              <ul>
-+                <li>Public affairs lead for Equitable Innovation Oxford, a new organisation working closely with HMT to drive economic growth and startup deployment.</li>
-+                <li>Developed Equinox’s first public affairs strategy after leading a policy development and data collection phase, primarily working on tech/AI, energy, and finance policy.</li>
-+              </ul>
-+            </div>
-+          </article>
-+
-+          <article class="timeline-item">
-+            <div class="timeline-date">August 2024 – August 2025</div>
-+            <div class="timeline-body">
-+              <div class="role-meta">Public affairs</div>
-+              <div class="role-title">Senior Policy & Public Affairs Officer, Citizens Advice</div>
-+              <ul>
-+                <li>Led public affairs strategy and campaigns in the energy team, successfully influenced government heat networks regulation.</li>
-+                <li>Built a strong stakeholder network across government, regulators, and business in a new sector (heat networks) for Citizens Advice. Briefed colleagues for meetings e.g. with no.10.</li>
-+                <li>Project-managed workstreams end-to-end (policy development → stakeholder engagement → consultation responses → ministerial/regulator-facing outputs); line-managed colleagues.</li>
-+              </ul>
-+            </div>
-+          </article>
-+
-+          <article class="timeline-item">
-+            <div class="timeline-date">November 2022 – May 2024</div>
-+            <div class="timeline-body">
-+              <div class="role-meta">Leadership</div>
-+              <div class="role-title">Public Affairs Lead, Living Streets</div>
-+              <ul>
-+                <li>Built and scaled an external affairs team, leading strategy and implementation – developed a strong parliamentary network (~35 MP meetings in first year); secured funding (£10mn+).</li>
-+                <li>Acted as spokesperson at events e.g. conferences and parliamentary committees.</li>
-+                <li>Organised three flagship conferences (400+ attendees). Line managed colleagues.</li>
-+              </ul>
-+            </div>
-+          </article>
-+
-+          <article class="timeline-item">
-+            <div class="timeline-date">January 2022 – November 2022</div>
-+            <div class="timeline-body">
-+              <div class="role-meta">Energy policy</div>
-+              <div class="role-title">Policy Analyst, Association of Renewable Energy and Clean Technology</div>
-+              <ul>
-+                <li>Policy and public affairs lead on power and flexibility, managing a 300-member policy forum, briefing energy sector CEOs and Directors and lobbying government on their behalf.</li>
-+                <li>Successfully influenced government policy to remove VAT on energy storage materials.</li>
-+              </ul>
-+            </div>
-+          </article>
-+
-+          <article class="timeline-item">
-+            <div class="timeline-date">2019 – 2022</div>
-+            <div class="timeline-body">
-+              <div class="role-meta">Research</div>
-+              <div class="role-title">Analyst, Oxford University Silk Road Think Tank</div>
-+              <ul>
-+                <li>Led, recruited and scaled a research team focused on Chinese power investments.</li>
-+              </ul>
-+            </div>
-+          </article>
-+
-+          <article class="timeline-item">
-+            <div class="timeline-date">2022 – 2024</div>
-+            <div class="timeline-body">
-+              <div class="role-meta">Governance</div>
-+              <div class="role-title">School Governor, The Grove Free School</div>
-+              <ul>
-+                <li>Scrutinised overall strategy and policies as a member of the school governing board.</li>
-+              </ul>
-+            </div>
-+          </article>
-+
-+          <!-- Education / Other as timeline entries or separate block -->
-+          <article class="timeline-item">
-+            <div class="timeline-date">Education</div>
-+            <div class="timeline-body">
-+              <div class="role-meta">Postgraduate</div>
-+              <div class="role-title">MLitt Modern History, University of St Andrews (Distinction)</div>
-+              <ul><li>Stephen W Bonarjee Prize winner 2020–21, awarded for finishing top of my cohort.</li></ul>
-+            </div>
-+          </article>
-+
-+          <article class="timeline-item">
-+            <div class="timeline-date">Education</div>
-+            <div class="timeline-body">
-+              <div class="role-meta">Undergraduate</div>
-+              <div class="role-title">BA History & Politics, University of Oxford (2:1)</div>
-+              <ul><li>First-generation university student, received a college scholarship for academic excellence.</li></ul>
-+            </div>
-+          </article>
-+
-+          <article class="timeline-item">
-+            <div class="timeline-date">Other</div>
-+            <div class="timeline-body">
-+              <div class="role-meta">Interests</div>
-+              <div class="role-title">Other / Interests</div>
-+              <ul>
-+                <li>Completed AI safety policy courses: Bluedot ‘Introduction to Transformative AI’; GCP ‘Intro to AI Safety & Biosecurity’, 2025.</li>
-+                <li>Race Director, Bannister Miles.</li>
-+              </ul>
-+            </div>
-+          </article>
-+        </div>
-+
-+        <div style="margin-top:14px">
-+          <a class="btn" href="resume.pdf" target="_blank" rel="noopener">Download CV (PDF)</a>
-+        </div>
-+      </section>
-+
-+      <!-- Writing -->
-+      <section id="writing" class="block" aria-labelledby="writing-heading">
-+        <h2 id="writing-heading">Writing</h2>
-+        <div id="posts-container"><p class="post-meta">Scroll here to load latest posts…</p></div>
-+      </section>
-+
-+      <!-- 2025 -->
-+      <section id="y2025" class="block" aria-labelledby="y2025-heading">
-+        <h2 id="y2025-heading">2025</h2>
-+        <p style="color:var(--muted);max-width:52ch">A short personal inventory of work, running, and life from the past year.</p>
-+        <ol>
-+          <li>Completing Border to Hel, a 480km race through rural Poland. My team finished second and I ran 104km at ~3.40/km pace.</li>
-+          <li>Successfully influencing government regulation of heat networks, securing better legal protections for c.20% of UK consumers by 2040.</li>
-+          <li>Winning the Oxford Town & Gown 10k, a closed-road race with 7,000 participants that runs through the centre of the city I call home.</li>
-+          <li>Getting a new job, leading public affairs on a key strategic project for the University of Oxford.</li>
-+          <li>Building a tight-knit community in a new city after a stint of travelling abroad.</li>
-+          <li>Using a two-week gap between jobs to undertake a solo, self-planned hut-to-hut running adventure through the Julian Alps in Slovenia.</li>
-+          <li>Starting a Substack on tech policy, music, and running.</li>
-+          <li>Running a shiny new 5k PB (15:15) after a difficult period of illness.</li>
-+          <li>Upskilling in AI policy via a series of intensive courses and reading, as I think it’s the most pressing issue I can work on.</li>
-+          <li>Gifting my Dad a holiday abroad for Christmas — his first trip out of the UK in several years.</li>
-+        </ol>
-+      </section>
-+
-+      <footer style="padding-top:16px">© <span id="year"></span> Callum Coleman</footer>
-+    </main>
-+
-+    <aside>
-+      <div class="sidebar" aria-label="Sidebar">
-+        <div class="avatar"><img src="photo.jpg" alt="Callum Coleman"></div>
-+        <strong>Callum Coleman</strong>
-+        <div class="strap">Oxford-based policy professional, writer, runner & race director.</div>
-+        <p style="color:var(--muted);font-size:0.95rem;margin-top:10px">Need a faster load for posts? I can provide a tiny serverless fetch you can deploy to Netlify/Vercel to avoid CORS/proxy issues.</p>
-+      </div>
-+    </aside>
-+  </div>
-+
-+  <script>
-+    // config
-+    const SUBSTACK_BASE = 'https://courseconditions.substack.com';
-+    const RSS2JSON_PROXY = 'https://api.rss2json.com/v1/api.json?rss_url=';
-+
-+    // Sticky nav active highlighting
-+    (function(){
-+      const navLinks = Array.from(document.querySelectorAll('nav.top-nav a'));
-+      const sections = navLinks.map(a => document.getElementById(a.dataset ? a.dataset.target : a.getAttribute('href').slice(1)));
-+
-+      function clearActive(){ navLinks.forEach(a => a.classList.remove('active')); }
-+      navLinks.forEach(a=>{
-+        a.addEventListener('click', (e)=>{
-+          // let browser handle scroll; mark active immediately
-+          clearActive(); a.classList.add('active');
-+        });
-+      });
-+
-+      const io = new IntersectionObserver(entries => {
-+        entries.forEach(entry => {
-+          if(entry.isIntersecting){
-+            const id = entry.target.id;
-+            clearActive();
-+            const link = document.querySelector(`nav.top-nav a[data-target="${id}"]`);
-+            if(link) link.classList.add('active');
-+            if(id === 'writing') loadPosts();
-+          }
-+        });
-+      }, { root: null, rootMargin: '0px 0px -55% 0px', threshold: 0 });
-+
-+      // observe main blocks
-+      document.querySelectorAll('main section.block').forEach(s => io.observe(s));
-+    })();
-+
-+    // Timeline reveal: observe each timeline item
-+    (function(){
-+      const items = Array.from(document.querySelectorAll('.timeline-item'));
-+      const tIo = new IntersectionObserver((entries)=>{
-+        entries.forEach(en=>{
-+          if(en.isIntersecting){
-+            en.target.classList.add('visible');
-+            tIo.unobserve(en.target);
-+          }
-+        });
-+      }, { root: null, rootMargin: '0px 0px -10% 0px', threshold: 0.1 });
-+      items.forEach(it => tIo.observe(it));
-+    })();
-+
-+    // Posts loader (lazy)
-+    let postsLoaded = false;
-+    async function loadPosts(){
-+      if(postsLoaded) return;
-+      postsLoaded = true;
-+      const container = document.getElementById('posts-container');
-+      container.innerHTML = '<p class="post-meta">Loading latest posts…</p>';
-+
-+      function renderPosts(posts){
-+        if(!posts || posts.length === 0){
-+          container.innerHTML = '<p class="post-meta">No posts found.</p>';
-+          return;
-+        }
-+        const list = document.createElement('div');
-+        list.className = 'posts';
-+        posts.forEach(p=>{
-+          const art = document.createElement('article');
-+          art.className = 'post';
-+          const thumb = document.createElement('div'); thumb.className = 'post-thumb';
-+          if(p.thumb){
-+            const img = document.createElement('img'); img.src = p.thumb; img.loading = 'lazy'; img.onerror = ()=>thumb.textContent='🖼️';
-+            thumb.appendChild(img);
-+          } else {
-+            thumb.textContent = '🖼️';
-+          }
-+          const body = document.createElement('div');
-+          const h3 = document.createElement('h3'); h3.className='post-title';
-+          h3.innerHTML = `<a href="${escapeHtml(p.link)}" target="_blank" rel="noopener">${escapeHtml(p.title)}</a>`;
-+          const meta = document.createElement('div'); meta.className='post-meta'; meta.textContent = p.pubDate ? new Date(p.pubDate).toLocaleDateString() : '';
-+          body.appendChild(h3); body.appendChild(meta);
-+          art.appendChild(thumb); art.appendChild(body);
-+          list.appendChild(art);
-+        });
-+        container.innerHTML = ''; container.appendChild(list);
-+      }
-+
-+      // try direct
-+      try{
-+        const res = await fetch(SUBSTACK_BASE + '/feed');
-+        if(res.ok){
-+          const text = await res.text();
-+          const xml = new DOMParser().parseFromString(text,'application/xml');
-+          const items = Array.from(xml.querySelectorAll('item')).slice(0,8);
-+          const posts = items.map(item=>{
-+            const title = item.querySelector('title')?.textContent || 'Untitled';
-+            const link = item.querySelector('link')?.textContent || '#';
-+            const pubDate = item.querySelector('pubDate')?.textContent || '';
-+            let thumb = null;
-+            const mc = item.querySelector('media\\:content, content, media\\:thumbnail, enclosure');
-+            if(mc && mc.getAttribute) thumb = mc.getAttribute('url') || mc.getAttribute('src') || mc.getAttribute('href');
-+            if(!thumb){
-+              const desc = item.querySelector('description')?.textContent || item.querySelector('content\\:encoded')?.textContent || '';
-+              const m = desc.match(/<img[^>]+src=["']([^"']+)["']/i);
-+              if(m) thumb = m[1];
-+            }
-+            return { title, link, pubDate, thumb };
-+          });
-+          renderPosts(posts); return;
-+        }
-+      }catch(e){ console.warn('Direct feed failed', e); }
-+
-+      // proxy fallback
-+      try{
-+        const proxyUrl = RSS2JSON_PROXY + encodeURIComponent(SUBSTACK_BASE + '/feed');
-+        const r = await fetch(proxyUrl);
-+        if(!r.ok) throw new Error('Proxy failed');
-+        const data = await r.json();
-+        const posts = (data.items || []).slice(0,8).map(it=>{
-+          let thumb = it.thumbnail || it.image || (it.enclosure && it.enclosure.link) || null;
-+          if(!thumb && it.content){
-+            const m = it.content.match(/<img[^>]+src=["']([^"']+)["']/i);
-+            if(m) thumb = m[1];
-+          }
-+          return { title: it.title || 'Untitled', link: it.link || '#', pubDate: it.pubDate || it.pubDate_raw || '', thumb };
-+        });
-+        renderPosts(posts); return;
-+      }catch(e){ console.warn('Proxy failed', e); }
-+
-+      container.innerHTML = '<p class="post-meta">Unable to load posts automatically. Ask me and I can provide a tiny serverless function to fetch your feed server-side.</p>';
-+    }
-+
-+    function escapeHtml(s){ return (s||'').toString().replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
-+
-+    // set year
-+    document.getElementById('year').textContent = new Date().getFullYear();
-+  </script>
-+</body>
-+</html>
- 
-EOF
-)
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Callum Coleman</title>
+  <meta name="description" content="Callum Coleman — Oxford-based policy professional." />
 
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Merriweather:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --page-bg:#f7f2ed;
+      --card-bg:#fffaf5;
+      --text:#1c1a17;
+      --muted:#6f665c;
+      --accent:#6f2c46;
+      --accent-2:#d79a7a;
+      --accent-soft:rgba(111,44,70,0.12);
+      --rule:rgba(34,26,18,0.08);
+      --radius:14px;
+      --shadow:0 18px 40px rgba(30,22,15,0.12);
+      --max:1100px;
+    }
+
+    *{box-sizing:border-box}
+    html,body{
+      margin:0;
+      background:radial-gradient(circle at top, #fff7f0 0%, var(--page-bg) 45%, #f2ece6 100%);
+      color:var(--text);
+      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
+      line-height:1.55;
+      -webkit-font-smoothing:antialiased;
+      scroll-behavior:smooth;
+    }
+
+    a{color:var(--accent);text-decoration:none}
+    a:hover{text-decoration:underline}
+
+    /* STICKY NAV */
+    header.site-header{
+      position:sticky;
+      top:0;
+      z-index:50;
+      backdrop-filter: blur(6px);
+      background:linear-gradient(180deg, rgba(255,249,242,0.92), rgba(255,245,238,0.88));
+      border-bottom:1px solid rgba(11,17,26,0.04);
+      box-shadow: 0 10px 28px rgba(41,27,18,0.08);
+    }
+    .header-inner{
+      max-width:var(--max);
+      margin:0 auto;
+      padding:10px 18px;
+      display:flex;
+      align-items:center;
+      gap:18px;
+    }
+    .brand{
+      display:flex;
+      gap:12px;
+      align-items:center;
+      flex:1;
+    }
+    .brand .avatar-small{
+      width:44px;height:44px;border-radius:8px;overflow:hidden;border:1px solid rgba(11,17,26,0.04);
+    }
+    .brand hgroup{line-height:1}
+    .brand h2{margin:0;font-family:Merriweather,serif;font-size:1.02rem}
+    .brand p{margin:0;color:var(--muted);font-size:0.85rem}
+
+    nav.top-nav{display:flex;gap:8px}
+    nav.top-nav a{
+      padding:8px 12px;border-radius:8px;font-weight:700;color:var(--muted);
+      border:1px solid rgba(34,26,18,0.08);background:transparent;text-decoration:none;
+    }
+    nav.top-nav a.active{background:var(--accent-soft);color:var(--accent);box-shadow:0 10px 20px rgba(111,44,70,0.12);}
+
+    /* Layout */
+    .wrap{
+      max-width:var(--max);
+      margin:36px auto;
+      padding:0 18px 48px;
+      display:grid;
+      grid-template-columns:1fr 340px;
+      gap:28px;
+      align-items:start;
+    }
+
+    main{
+      background:var(--card-bg);
+      border-radius:16px;
+      box-shadow:var(--shadow);
+      border:1px solid var(--rule);
+      padding:28px;
+    }
+
+    aside{
+      align-self:start;
+    }
+
+    .sidebar{
+      background:var(--card-bg);
+      border-radius:16px;
+      border:1px solid var(--rule);
+      box-shadow:0 14px 30px rgba(30,22,15,0.08);
+      padding:18px;
+      position:sticky;
+      top:80px;
+    }
+
+    .avatar{
+      width:120px;height:120px;border-radius:12px;overflow:hidden;margin-bottom:12px;border:2px solid rgba(11,17,26,0.04);
+    }
+    .avatar img{width:100%;height:100%;object-fit:cover}
+
+    h1{font-family:Merriweather,serif;font-size:2rem;margin:6px 0}
+    .strap{color:var(--muted);font-weight:600;font-size:0.95rem;margin-bottom:14px}
+
+    /* SECTION BLOCKS */
+    section.block{padding:18px 0;border-bottom:1px solid rgba(34,26,18,0.06)}
+    section.block h2{font-family:Merriweather,serif;margin:0 0 10px}
+
+    /* TIMELINE */
+    .timeline{
+      position:relative;
+      margin:18px 0 6px;
+      padding:10px 0 10px 40px;
+      display:flex;
+      flex-direction:column;
+      gap:16px;
+    }
+    .timeline::before{
+      content:"";
+      position:absolute;
+      top:0;
+      bottom:0;
+      left:16px;
+      width:3px;
+      background:linear-gradient(180deg,var(--accent),var(--accent-2));
+      border-radius:999px;
+      box-shadow:0 10px 24px rgba(111,44,70,0.18);
+    }
+    .timeline-item{
+      position:relative;
+      width:100%;
+      display:grid;
+      grid-template-columns:minmax(140px, 180px) 1fr;
+      gap:18px;
+      padding:20px 24px 20px 18px;
+      background:linear-gradient(160deg, rgba(255,255,255,0.96), rgba(255,242,233,0.92));
+      border-radius:16px;
+      border:1px solid rgba(34,26,18,0.08);
+      box-shadow:0 18px 36px rgba(30,22,15,0.10);
+      transition:transform .22s ease,box-shadow .22s ease,opacity .22s ease;
+      opacity:0;
+      transform:translateY(12px);
+    }
+    .timeline-item.visible{opacity:1;transform:none}
+    .timeline-item::after{
+      content:"";
+      position:absolute;
+      left:-32px;
+      top:28px;
+      width:12px;
+      height:12px;
+      border-radius:50%;
+      background:var(--card-bg);
+      border:3px solid var(--accent);
+      box-shadow:0 10px 18px rgba(30,22,15,0.14);
+    }
+    .timeline-item::before{
+      content:"";
+      position:absolute;
+      left:-18px;
+      top:28px;
+      width:16px;
+      height:16px;
+      border-radius:50%;
+      background:rgba(215,154,122,0.35);
+      filter:blur(6px);
+    }
+    .timeline-item:hover{
+      transform:translateY(-2px);
+      box-shadow:0 22px 44px rgba(30,22,15,0.16);
+    }
+    .timeline-date{
+      display:flex;
+      align-items:flex-start;
+      font-weight:700;
+      text-transform:uppercase;
+      letter-spacing:0.08em;
+      font-size:0.72rem;
+      color:var(--muted);
+      margin-top:4px;
+    }
+
+    .role-meta{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:4px 10px;
+      border-radius:999px;
+      background:var(--accent-soft);
+      color:var(--accent);
+      font-weight:700;
+      font-size:0.75rem;
+      letter-spacing:0.06em;
+      margin-bottom:12px;
+    }
+    .role-title{font-weight:700;margin-bottom:6px;font-size:1.02rem}
+    .timeline-body ul{
+      margin:0;
+      padding-left:18px;
+    }
+
+    /* small screens: stack */
+    @media(max-width:980px){
+      .wrap{grid-template-columns:1fr;padding:20px}
+      .sidebar{position:static;top:auto}
+      .timeline{padding-left:28px}
+      .timeline::before{left:12px}
+      .timeline-item{
+        grid-template-columns:1fr;
+        padding:20px;
+      }
+      .timeline-item::after{left:-24px}
+      .timeline-item::before{left:-16px}
+    }
+
+    /* posts */
+    .posts{display:flex;flex-direction:column;gap:14px;margin-top:6px}
+    .post{display:flex;gap:16px;padding:12px;border-radius:12px;border:1px solid var(--rule);background:#fff6ef;align-items:flex-start}
+    .post-thumb{width:140px;height:86px;border-radius:8px;overflow:hidden;background:#fdebdc;flex:0 0 140px;display:flex;align-items:center;justify-content:center}
+    .post-thumb img{width:100%;height:100%;object-fit:cover}
+    .post-title{font-family:Merriweather,serif;margin:0 0 6px}
+    .post-meta{color:var(--muted);font-size:0.85rem}
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:10px 16px;
+      border-radius:999px;
+      border:1px solid rgba(111,44,70,0.18);
+      background:linear-gradient(120deg, rgba(111,44,70,0.14), rgba(215,154,122,0.16));
+      color:var(--accent);
+      font-weight:700;
+      text-decoration:none;
+      box-shadow:0 12px 24px rgba(111,44,70,0.12);
+    }
+    .btn:hover{transform:translateY(-1px);text-decoration:none}
+
+    footer{margin-top:18px;color:var(--muted);font-size:0.9rem;text-align:center}
+  </style>
+</head>
+<body>
+
+  <!-- STICKY HEADER WITH NAV -->
+  <header class="site-header" role="banner">
+    <div class="header-inner">
+      <div class="brand" aria-hidden="false">
+        <div class="avatar-small"><img src="photo.jpg" alt="Callum Coleman" style="width:100%;height:100%;object-fit:cover"></div>
+        <hgroup>
+          <h2>Callum Coleman</h2>
+          <p style="margin-top:4px;color:var(--muted);font-size:0.85rem">Oxford-based policy professional</p>
+        </hgroup>
+      </div>
+
+      <nav class="top-nav" aria-label="Site navigation">
+        <a href="#about" data-target="about" class="active">About</a>
+        <a href="#cv" data-target="cv">CV</a>
+        <a href="#writing" data-target="writing">Writing</a>
+        <a href="#y2025" data-target="y2025">2025</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="wrap">
+    <main>
+      <!-- ABOUT -->
+      <section id="about" class="block" aria-labelledby="about-heading">
+        <h1 id="about-heading">Callum Coleman</h1>
+        <div class="strap">Oxford-based policy professional, writer, runner & race director.</div>
+
+        <p>I’m an experienced public affairs professional with a track-record of influencing government policy in highly-regulated sectors.</p>
+
+        <p>My background and expertise is in tech, energy, transport, and innovation policy.</p>
+
+        <p>When not working I run and write. Read thoughts on tech, running, and life <a href="https://courseconditions.substack.com" target="_blank" rel="noopener">on my newsletter</a>.</p>
+
+        <p>
+          <a href="mailto:callumzcoleman@gmail.com">Email</a> ·
+          <a href="https://www.linkedin.com/in/callum-coleman-3382521ba/" target="_blank" rel="noopener">LinkedIn</a>
+        </p>
+
+        <p style="color:var(--muted);font-size:0.9rem">This is the first website I’ve developed using AI — please blame your chatbot of choice for any particularly egregious shortcomings.</p>
+      </section>
+
+      <!-- CV (timeline) -->
+      <section id="cv" class="block" aria-labelledby="cv-heading">
+        <h2 id="cv-heading">CV</h2>
+
+        <div class="timeline" id="timeline">
+          <!-- Each timeline-item is structured with a date column and content body. -->
+          <article class="timeline-item">
+            <div class="timeline-date">August 2025 – present</div>
+            <div class="timeline-body">
+              <div class="role-meta">Current role</div>
+              <div class="role-title">Public Affairs Manager, University of Oxford</div>
+              <ul>
+                <li>Public affairs lead for Equitable Innovation Oxford, a new organisation working closely with HMT to drive economic growth and startup deployment.</li>
+                <li>Developed Equinox’s first public affairs strategy after leading a policy development and data collection phase, primarily working on tech/AI, energy, and finance policy.</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="timeline-item">
+            <div class="timeline-date">August 2024 – August 2025</div>
+            <div class="timeline-body">
+              <div class="role-meta">Public affairs</div>
+              <div class="role-title">Senior Policy & Public Affairs Officer, Citizens Advice</div>
+              <ul>
+                <li>Led public affairs strategy and campaigns in the energy team, successfully influenced government heat networks regulation.</li>
+                <li>Built a strong stakeholder network across government, regulators, and business in a new sector (heat networks) for Citizens Advice. Briefed colleagues for meetings e.g. with no.10.</li>
+                <li>Project-managed workstreams end-to-end (policy development → stakeholder engagement → consultation responses → ministerial/regulator-facing outputs); line-managed colleagues.</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="timeline-item">
+            <div class="timeline-date">November 2022 – May 2024</div>
+            <div class="timeline-body">
+              <div class="role-meta">Leadership</div>
+              <div class="role-title">Public Affairs Lead, Living Streets</div>
+              <ul>
+                <li>Built and scaled an external affairs team, leading strategy and implementation – developed a strong parliamentary network (~35 MP meetings in first year); secured funding (£10mn+).</li>
+                <li>Acted as spokesperson at events e.g. conferences and parliamentary committees.</li>
+                <li>Organised three flagship conferences (400+ attendees). Line managed colleagues.</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="timeline-item">
+            <div class="timeline-date">January 2022 – November 2022</div>
+            <div class="timeline-body">
+              <div class="role-meta">Energy policy</div>
+              <div class="role-title">Policy Analyst, Association of Renewable Energy and Clean Technology</div>
+              <ul>
+                <li>Policy and public affairs lead on power and flexibility, managing a 300-member policy forum, briefing energy sector CEOs and Directors and lobbying government on their behalf.</li>
+                <li>Successfully influenced government policy to remove VAT on energy storage materials.</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="timeline-item">
+            <div class="timeline-date">2019 – 2022</div>
+            <div class="timeline-body">
+              <div class="role-meta">Research</div>
+              <div class="role-title">Analyst, Oxford University Silk Road Think Tank</div>
+              <ul>
+                <li>Led, recruited and scaled a research team focused on Chinese power investments.</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="timeline-item">
+            <div class="timeline-date">2022 – 2024</div>
+            <div class="timeline-body">
+              <div class="role-meta">Governance</div>
+              <div class="role-title">School Governor, The Grove Free School</div>
+              <ul>
+                <li>Scrutinised overall strategy and policies as a member of the school governing board.</li>
+              </ul>
+            </div>
+          </article>
+
+          <!-- Education / Other as timeline entries or separate block -->
+          <article class="timeline-item">
+            <div class="timeline-date">Education</div>
+            <div class="timeline-body">
+              <div class="role-meta">Postgraduate</div>
+              <div class="role-title">MLitt Modern History, University of St Andrews (Distinction)</div>
+              <ul><li>Stephen W Bonarjee Prize winner 2020–21, awarded for finishing top of my cohort.</li></ul>
+            </div>
+          </article>
+
+          <article class="timeline-item">
+            <div class="timeline-date">Education</div>
+            <div class="timeline-body">
+              <div class="role-meta">Undergraduate</div>
+              <div class="role-title">BA History & Politics, University of Oxford (2:1)</div>
+              <ul><li>First-generation university student, received a college scholarship for academic excellence.</li></ul>
+            </div>
+          </article>
+
+          <article class="timeline-item">
+            <div class="timeline-date">Other</div>
+            <div class="timeline-body">
+              <div class="role-meta">Interests</div>
+              <div class="role-title">Other / Interests</div>
+              <ul>
+                <li>Completed AI safety policy courses: Bluedot ‘Introduction to Transformative AI’; GCP ‘Intro to AI Safety & Biosecurity’, 2025.</li>
+                <li>I write about tech policy and other things on my Substack, <em>courseconditions.substack.com</em>.</li>
+                <li>Race Director, Bannister Miles.</li>
+              </ul>
+            </div>
+          </article>
+        </div>
+
+        <div style="margin-top:14px">
+          <a class="btn" href="resume.pdf" target="_blank" rel="noopener">Download CV (PDF)</a>
+        </div>
+      </section>
+
+      <!-- Writing -->
+      <section id="writing" class="block" aria-labelledby="writing-heading">
+        <h2 id="writing-heading">Writing</h2>
+        <div id="posts-container"><p class="post-meta">Scroll here to load latest posts…</p></div>
+        <p style="margin-top:12px;color:var(--muted);font-size:0.9rem">If posts don't load due to CORS, tell me and I’ll provide a tiny serverless function to fetch the feed server-side.</p>
+      </section>
+
+      <!-- 2025 -->
+      <section id="y2025" class="block" aria-labelledby="y2025-heading">
+        <h2 id="y2025-heading">2025</h2>
+        <p style="color:var(--muted);max-width:52ch">A short personal inventory of work, running, and life from the past year.</p>
+        <ol>
+          <li>Completing Border to Hel, a 480km race through rural Poland. My team finished second and I ran 104km at ~3.40/km pace.</li>
+          <li>Successfully influencing government regulation of heat networks, securing better legal protections for c.20% of UK consumers by 2040.</li>
+          <li>Winning the Oxford Town & Gown 10k, a closed-road race with 7,000 participants that runs through the centre of the city I call home.</li>
+          <li>Getting a new job, leading public affairs on a key strategic project for the University of Oxford.</li>
+          <li>Building a tight-knit community in a new city after a stint of travelling abroad.</li>
+          <li>Using a two-week gap between jobs to undertake a solo, self-planned hut-to-hut running adventure through the Julian Alps in Slovenia.</li>
+          <li>Starting a Substack on tech policy, music, and running.</li>
+          <li>Running a shiny new 5k PB (15:15) after a difficult period of illness.</li>
+          <li>Upskilling in AI policy via a series of intensive courses and reading, as I think it’s the most pressing issue I can work on.</li>
+          <li>Gifting my Dad a holiday abroad for Christmas — his first trip out of the UK in several years.</li>
+        </ol>
+      </section>
+
+      <footer style="padding-top:16px">© <span id="year"></span> Callum Coleman</footer>
+    </main>
+
+    <aside>
+      <div class="sidebar" aria-label="Sidebar">
+        <div class="avatar"><img src="photo.jpg" alt="Callum Coleman"></div>
+        <strong>Callum Coleman</strong>
+        <div class="strap">Oxford-based policy professional, writer, runner & race director.</div>
+        <p style="color:var(--muted);font-size:0.95rem;margin-top:10px">Need a faster load for posts? I can provide a tiny serverless fetch you can deploy to Netlify/Vercel to avoid CORS/proxy issues.</p>
+      </div>
+    </aside>
+  </div>
+
+  <script>
+    // config
+    const SUBSTACK_BASE = 'https://courseconditions.substack.com';
+    const RSS2JSON_PROXY = 'https://api.rss2json.com/v1/api.json?rss_url=';
+
+    // Sticky nav active highlighting
+    (function(){
+      const navLinks = Array.from(document.querySelectorAll('nav.top-nav a'));
+      const sections = navLinks.map(a => document.getElementById(a.dataset ? a.dataset.target : a.getAttribute('href').slice(1)));
+
+      function clearActive(){ navLinks.forEach(a => a.classList.remove('active')); }
+      navLinks.forEach(a=>{
+        a.addEventListener('click', (e)=>{
+          // let browser handle scroll; mark active immediately
+          clearActive(); a.classList.add('active');
+        });
+      });
+
+      const io = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if(entry.isIntersecting){
+            const id = entry.target.id;
+            clearActive();
+            const link = document.querySelector(`nav.top-nav a[data-target="${id}"]`);
+            if(link) link.classList.add('active');
+            if(id === 'writing') loadPosts();
+          }
+        });
+      }, { root: null, rootMargin: '0px 0px -55% 0px', threshold: 0 });
+
+      // observe main blocks
+      document.querySelectorAll('main section.block').forEach(s => io.observe(s));
+    })();
+
+    // Timeline reveal: observe each timeline item
+    (function(){
+      const items = Array.from(document.querySelectorAll('.timeline-item'));
+      const tIo = new IntersectionObserver((entries)=>{
+        entries.forEach(en=>{
+          if(en.isIntersecting){
+            en.target.classList.add('visible');
+            tIo.unobserve(en.target);
+          }
+        });
+      }, { root: null, rootMargin: '0px 0px -10% 0px', threshold: 0.1 });
+      items.forEach(it => tIo.observe(it));
+    })();
+
+    // Posts loader (lazy)
+    let postsLoaded = false;
+    async function loadPosts(){
+      if(postsLoaded) return;
+      postsLoaded = true;
+      const container = document.getElementById('posts-container');
+      container.innerHTML = '<p class="post-meta">Loading latest posts…</p>';
+
+      function renderPosts(posts){
+        if(!posts || posts.length === 0){
+          container.innerHTML = '<p class="post-meta">No posts found.</p>';
+          return;
+        }
+        const list = document.createElement('div');
+        list.className = 'posts';
+        posts.forEach(p=>{
+          const art = document.createElement('article');
+          art.className = 'post';
+          const thumb = document.createElement('div'); thumb.className = 'post-thumb';
+          if(p.thumb){
+            const img = document.createElement('img'); img.src = p.thumb; img.loading = 'lazy'; img.onerror = ()=>thumb.textContent='🖼️';
+            thumb.appendChild(img);
+          } else {
+            thumb.textContent = '🖼️';
+          }
+          const body = document.createElement('div');
+          const h3 = document.createElement('h3'); h3.className='post-title';
+          h3.innerHTML = `<a href="${escapeHtml(p.link)}" target="_blank" rel="noopener">${escapeHtml(p.title)}</a>`;
+          const meta = document.createElement('div'); meta.className='post-meta'; meta.textContent = p.pubDate ? new Date(p.pubDate).toLocaleDateString() : '';
+          body.appendChild(h3); body.appendChild(meta);
+          art.appendChild(thumb); art.appendChild(body);
+          list.appendChild(art);
+        });
+        container.innerHTML = ''; container.appendChild(list);
+      }
+
+      // try direct
+      try{
+        const res = await fetch(SUBSTACK_BASE + '/feed');
+        if(res.ok){
+          const text = await res.text();
+          const xml = new DOMParser().parseFromString(text,'application/xml');
+          const items = Array.from(xml.querySelectorAll('item')).slice(0,8);
+          const posts = items.map(item=>{
+            const title = item.querySelector('title')?.textContent || 'Untitled';
+            const link = item.querySelector('link')?.textContent || '#';
+            const pubDate = item.querySelector('pubDate')?.textContent || '';
+            let thumb = null;
+            const mc = item.querySelector('media\\:content, content, media\\:thumbnail, enclosure');
+            if(mc && mc.getAttribute) thumb = mc.getAttribute('url') || mc.getAttribute('src') || mc.getAttribute('href');
+            if(!thumb){
+              const desc = item.querySelector('description')?.textContent || item.querySelector('content\\:encoded')?.textContent || '';
+              const m = desc.match(/<img[^>]+src=["']([^"']+)["']/i);
+              if(m) thumb = m[1];
+            }
+            return { title, link, pubDate, thumb };
+          });
+          renderPosts(posts); return;
+        }
+      }catch(e){ console.warn('Direct feed failed', e); }
+
+      // proxy fallback
+      try{
+        const proxyUrl = RSS2JSON_PROXY + encodeURIComponent(SUBSTACK_BASE + '/feed');
+        const r = await fetch(proxyUrl);
+        if(!r.ok) throw new Error('Proxy failed');
+        const data = await r.json();
+        const posts = (data.items || []).slice(0,8).map(it=>{
+          let thumb = it.thumbnail || it.image || (it.enclosure && it.enclosure.link) || null;
+          if(!thumb && it.content){
+            const m = it.content.match(/<img[^>]+src=["']([^"']+)["']/i);
+            if(m) thumb = m[1];
+          }
+          return { title: it.title || 'Untitled', link: it.link || '#', pubDate: it.pubDate || it.pubDate_raw || '', thumb };
+        });
+        renderPosts(posts); return;
+      }catch(e){ console.warn('Proxy failed', e); }
+
+      container.innerHTML = '<p class="post-meta">Unable to load posts automatically. Ask me and I can provide a tiny serverless function to fetch your feed server-side.</p>';
+    }
+
+    function escapeHtml(s){ return (s||'').toString().replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+    // set year
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
