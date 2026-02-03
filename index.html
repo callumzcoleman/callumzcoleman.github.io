@@ -127,7 +127,7 @@
     .timeline{
       position:relative;
       margin:18px 0 6px;
-      padding:10px 0 10px 24px;
+      padding:10px 0 10px 40px;
       display:flex;
       flex-direction:column;
       gap:16px;
@@ -137,8 +137,8 @@
       position:absolute;
       top:0;
       bottom:0;
-      left:8px;
-      width:2px;
+      left:16px;
+      width:3px;
       background:linear-gradient(180deg,var(--accent),var(--accent-2));
       border-radius:999px;
       box-shadow:0 10px 24px rgba(162,59,95,0.18);
@@ -146,10 +146,13 @@
     .timeline-item{
       position:relative;
       width:100%;
-      padding:18px 20px 18px 24px;
+      display:grid;
+      grid-template-columns:minmax(140px, 180px) 1fr;
+      gap:18px;
+      padding:20px 24px 20px 18px;
       background:linear-gradient(160deg, rgba(255,255,255,0.96), rgba(255,242,233,0.92));
-      border-radius:14px;
-      border:1px solid rgba(11,17,26,0.05);
+      border-radius:16px;
+      border:1px solid rgba(34,26,18,0.08);
       box-shadow:0 18px 36px rgba(30,22,15,0.10);
       transition:transform .22s ease,box-shadow .22s ease,opacity .22s ease;
       opacity:0;
@@ -160,21 +163,21 @@
       content:"";
       position:absolute;
       left:-32px;
-      top:24px;
-      width:14px;
-      height:14px;
+      top:28px;
+      width:12px;
+      height:12px;
       border-radius:50%;
       background:var(--card-bg);
-      border:4px solid var(--accent);
+      border:3px solid var(--accent);
       box-shadow:0 10px 18px rgba(30,22,15,0.14);
     }
     .timeline-item::before{
       content:"";
       position:absolute;
-      left:-16px;
-      top:26px;
-      width:12px;
-      height:12px;
+      left:-18px;
+      top:28px;
+      width:16px;
+      height:16px;
       border-radius:50%;
       background:rgba(226,168,75,0.35);
       filter:blur(6px);
@@ -183,10 +186,15 @@
       transform:translateY(-2px);
       box-shadow:0 22px 44px rgba(30,22,15,0.16);
     }
-    .timeline-item.left,
-    .timeline-item.right{
-      left:0;
-      margin:0;
+    .timeline-date{
+      display:flex;
+      align-items:flex-start;
+      font-weight:700;
+      text-transform:uppercase;
+      letter-spacing:0.08em;
+      font-size:0.72rem;
+      color:var(--muted);
+      margin-top:4px;
     }
 
     .role-meta{
@@ -197,10 +205,10 @@
       border-radius:999px;
       background:var(--accent-soft);
       color:var(--accent);
-      font-weight:600;
-      font-size:0.8rem;
-      letter-spacing:0.02em;
-      margin-bottom:10px;
+      font-weight:700;
+      font-size:0.75rem;
+      letter-spacing:0.06em;
+      margin-bottom:12px;
     }
     .role-title{font-weight:700;margin-bottom:6px;font-size:1.02rem}
 
@@ -208,10 +216,14 @@
     @media(max-width:980px){
       .wrap{grid-template-columns:1fr;padding:20px}
       .sidebar{position:static;top:auto}
-      .timeline{padding-left:18px}
-      .timeline::before{left:6px}
-      .timeline-item{padding-left:22px}
-      .timeline-item::after{left:-28px}
+      .timeline{padding-left:28px}
+      .timeline::before{left:12px}
+      .timeline-item{
+        grid-template-columns:1fr;
+        padding:20px;
+      }
+      .timeline-item::after{left:-24px}
+      .timeline-item::before{left:-16px}
     }
 
     /* posts */
@@ -288,82 +300,108 @@
         <h2 id="cv-heading">CV</h2>
 
         <div class="timeline" id="timeline">
-          <!-- Each timeline-item is structured; positioning alternates via CSS (odd -> left, even -> right) -->
-          <article class="timeline-item left">
-            <div class="role-meta">August 2025 – present</div>
-            <div class="role-title">Public Affairs Manager, University of Oxford</div>
-            <ul>
-              <li>Public affairs lead for Equitable Innovation Oxford, a new organisation working closely with HMT to drive economic growth and startup deployment.</li>
-              <li>Developed Equinox’s first public affairs strategy after leading a policy development and data collection phase, primarily working on tech/AI, energy, and finance policy.</li>
-            </ul>
+          <!-- Each timeline-item is structured with a date column and content body. -->
+          <article class="timeline-item">
+            <div class="timeline-date">August 2025 – present</div>
+            <div class="timeline-body">
+              <div class="role-meta">Current role</div>
+              <div class="role-title">Public Affairs Manager, University of Oxford</div>
+              <ul>
+                <li>Public affairs lead for Equitable Innovation Oxford, a new organisation working closely with HMT to drive economic growth and startup deployment.</li>
+                <li>Developed Equinox’s first public affairs strategy after leading a policy development and data collection phase, primarily working on tech/AI, energy, and finance policy.</li>
+              </ul>
+            </div>
           </article>
 
-          <article class="timeline-item right">
-            <div class="role-meta">August 2024 – August 2025</div>
-            <div class="role-title">Senior Policy & Public Affairs Officer, Citizens Advice</div>
-            <ul>
-              <li>Led public affairs strategy and campaigns in the energy team, successfully influenced government heat networks regulation.</li>
-              <li>Built a strong stakeholder network across government, regulators, and business in a new sector (heat networks) for Citizens Advice. Briefed colleagues for meetings e.g. with no.10.</li>
-              <li>Project-managed workstreams end-to-end (policy development → stakeholder engagement → consultation responses → ministerial/regulator-facing outputs); line-managed colleagues.</li>
-            </ul>
+          <article class="timeline-item">
+            <div class="timeline-date">August 2024 – August 2025</div>
+            <div class="timeline-body">
+              <div class="role-meta">Public affairs</div>
+              <div class="role-title">Senior Policy & Public Affairs Officer, Citizens Advice</div>
+              <ul>
+                <li>Led public affairs strategy and campaigns in the energy team, successfully influenced government heat networks regulation.</li>
+                <li>Built a strong stakeholder network across government, regulators, and business in a new sector (heat networks) for Citizens Advice. Briefed colleagues for meetings e.g. with no.10.</li>
+                <li>Project-managed workstreams end-to-end (policy development → stakeholder engagement → consultation responses → ministerial/regulator-facing outputs); line-managed colleagues.</li>
+              </ul>
+            </div>
           </article>
 
-          <article class="timeline-item left">
-            <div class="role-meta">November 2022 – May 2024</div>
-            <div class="role-title">Public Affairs Lead, Living Streets</div>
-            <ul>
-              <li>Built and scaled an external affairs team, leading strategy and implementation – developed a strong parliamentary network (~35 MP meetings in first year); secured funding (£10mn+).</li>
-              <li>Acted as spokesperson at events e.g. conferences and parliamentary committees.</li>
-              <li>Organised three flagship conferences (400+ attendees). Line managed colleagues.</li>
-            </ul>
+          <article class="timeline-item">
+            <div class="timeline-date">November 2022 – May 2024</div>
+            <div class="timeline-body">
+              <div class="role-meta">Leadership</div>
+              <div class="role-title">Public Affairs Lead, Living Streets</div>
+              <ul>
+                <li>Built and scaled an external affairs team, leading strategy and implementation – developed a strong parliamentary network (~35 MP meetings in first year); secured funding (£10mn+).</li>
+                <li>Acted as spokesperson at events e.g. conferences and parliamentary committees.</li>
+                <li>Organised three flagship conferences (400+ attendees). Line managed colleagues.</li>
+              </ul>
+            </div>
           </article>
 
-          <article class="timeline-item right">
-            <div class="role-meta">January 2022 – November 2022</div>
-            <div class="role-title">Policy Analyst, Association of Renewable Energy and Clean Technology</div>
-            <ul>
-              <li>Policy and public affairs lead on power and flexibility, managing a 300-member policy forum, briefing energy sector CEOs and Directors and lobbying government on their behalf.</li>
-              <li>Successfully influenced government policy to remove VAT on energy storage materials.</li>
-            </ul>
+          <article class="timeline-item">
+            <div class="timeline-date">January 2022 – November 2022</div>
+            <div class="timeline-body">
+              <div class="role-meta">Energy policy</div>
+              <div class="role-title">Policy Analyst, Association of Renewable Energy and Clean Technology</div>
+              <ul>
+                <li>Policy and public affairs lead on power and flexibility, managing a 300-member policy forum, briefing energy sector CEOs and Directors and lobbying government on their behalf.</li>
+                <li>Successfully influenced government policy to remove VAT on energy storage materials.</li>
+              </ul>
+            </div>
           </article>
 
-          <article class="timeline-item left">
-            <div class="role-meta">2019 – 2022</div>
-            <div class="role-title">Analyst, Oxford University Silk Road Think Tank</div>
-            <ul>
-              <li>Led, recruited and scaled a research team focused on Chinese power investments.</li>
-            </ul>
+          <article class="timeline-item">
+            <div class="timeline-date">2019 – 2022</div>
+            <div class="timeline-body">
+              <div class="role-meta">Research</div>
+              <div class="role-title">Analyst, Oxford University Silk Road Think Tank</div>
+              <ul>
+                <li>Led, recruited and scaled a research team focused on Chinese power investments.</li>
+              </ul>
+            </div>
           </article>
 
-          <article class="timeline-item right">
-            <div class="role-meta">2022 – 2024</div>
-            <div class="role-title">School Governor, The Grove Free School</div>
-            <ul>
-              <li>Scrutinised overall strategy and policies as a member of the school governing board.</li>
-            </ul>
+          <article class="timeline-item">
+            <div class="timeline-date">2022 – 2024</div>
+            <div class="timeline-body">
+              <div class="role-meta">Governance</div>
+              <div class="role-title">School Governor, The Grove Free School</div>
+              <ul>
+                <li>Scrutinised overall strategy and policies as a member of the school governing board.</li>
+              </ul>
+            </div>
           </article>
 
           <!-- Education / Other as timeline entries or separate block -->
-          <article class="timeline-item left">
-            <div class="role-meta">Education</div>
-            <div class="role-title">MLitt Modern History, University of St Andrews (Distinction)</div>
-            <ul><li>Stephen W Bonarjee Prize winner 2020–21, awarded for finishing top of my cohort.</li></ul>
+          <article class="timeline-item">
+            <div class="timeline-date">Education</div>
+            <div class="timeline-body">
+              <div class="role-meta">Postgraduate</div>
+              <div class="role-title">MLitt Modern History, University of St Andrews (Distinction)</div>
+              <ul><li>Stephen W Bonarjee Prize winner 2020–21, awarded for finishing top of my cohort.</li></ul>
+            </div>
           </article>
 
-          <article class="timeline-item right">
-            <div class="role-meta">Education</div>
-            <div class="role-title">BA History & Politics, University of Oxford (2:1)</div>
-            <ul><li>First-generation university student, received a college scholarship for academic excellence.</li></ul>
+          <article class="timeline-item">
+            <div class="timeline-date">Education</div>
+            <div class="timeline-body">
+              <div class="role-meta">Undergraduate</div>
+              <div class="role-title">BA History & Politics, University of Oxford (2:1)</div>
+              <ul><li>First-generation university student, received a college scholarship for academic excellence.</li></ul>
+            </div>
           </article>
 
-          <article class="timeline-item left">
-            <div class="role-meta">Other</div>
-            <div class="role-title">Other / Interests</div>
-            <ul>
-              <li>Completed AI safety policy courses: Bluedot ‘Introduction to Transformative AI’; GCP ‘Intro to AI Safety & Biosecurity’, 2025.</li>
-              <li>I write about tech policy and other things on my Substack, <em>courseconditions.substack.com</em>.</li>
-              <li>Race Director, Bannister Miles.</li>
-            </ul>
+          <article class="timeline-item">
+            <div class="timeline-date">Other</div>
+            <div class="timeline-body">
+              <div class="role-meta">Interests</div>
+              <div class="role-title">Other / Interests</div>
+              <ul>
+                <li>Completed AI safety policy courses: Bluedot ‘Introduction to Transformative AI’; GCP ‘Intro to AI Safety & Biosecurity’, 2025.</li>
+                <li>Race Director, Bannister Miles.</li>
+              </ul>
+            </div>
           </article>
         </div>
 
@@ -376,6 +414,7 @@
       <section id="writing" class="block" aria-labelledby="writing-heading">
         <h2 id="writing-heading">Writing</h2>
         <div id="posts-container"><p class="post-meta">Scroll here to load latest posts…</p></div>
+        <p style="margin-top:12px;color:var(--muted);font-size:0.9rem">
       </section>
 
       <!-- 2025 -->
@@ -545,4 +584,3 @@
   </script>
 </body>
 </html>
-
