@@ -13,23 +13,23 @@
 
   <style>
     :root{
-      --page-bg:#f4f5f6;
-      --card-bg:#ffffff;
-      --text:#0b1220;
-      --muted:#6b7280;
-      --accent:#0f6ecb;
-      --accent-2:#00a3d1;
-      --accent-soft:rgba(15,110,203,0.08);
-      --rule:rgba(11,17,26,0.08);
-      --radius:12px;
-      --shadow:0 12px 32px rgba(11,17,26,0.08);
+      --page-bg:#f7f2ed;
+      --card-bg:#fffaf5;
+      --text:#1c1a17;
+      --muted:#6f665c;
+      --accent:#a23b5f;
+      --accent-2:#e2a84b;
+      --accent-soft:rgba(162,59,95,0.12);
+      --rule:rgba(34,26,18,0.08);
+      --radius:14px;
+      --shadow:0 18px 40px rgba(30,22,15,0.12);
       --max:1100px;
     }
 
     *{box-sizing:border-box}
     html,body{
       margin:0;
-      background:var(--page-bg);
+      background:radial-gradient(circle at top, #fff7f0 0%, var(--page-bg) 45%, #f2ece6 100%);
       color:var(--text);
       font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
       line-height:1.55;
@@ -46,9 +46,9 @@
       top:0;
       z-index:50;
       backdrop-filter: blur(6px);
-      background:linear-gradient(180deg, rgba(255,255,255,0.88), rgba(255,255,255,0.80));
+      background:linear-gradient(180deg, rgba(255,249,242,0.92), rgba(255,245,238,0.88));
       border-bottom:1px solid rgba(11,17,26,0.04);
-      box-shadow: 0 6px 18px rgba(11,17,26,0.02);
+      box-shadow: 0 10px 28px rgba(41,27,18,0.08);
     }
     .header-inner{
       max-width:var(--max);
@@ -74,9 +74,9 @@
     nav.top-nav{display:flex;gap:8px}
     nav.top-nav a{
       padding:8px 12px;border-radius:8px;font-weight:700;color:var(--muted);
-      border:1px solid rgba(11,17,26,0.03);background:transparent;text-decoration:none;
+      border:1px solid rgba(34,26,18,0.08);background:transparent;text-decoration:none;
     }
-    nav.top-nav a.active{background:var(--accent-soft);color:var(--accent);box-shadow:0 6px 18px rgba(15,110,203,0.06);}
+    nav.top-nav a.active{background:var(--accent-soft);color:var(--accent);box-shadow:0 10px 20px rgba(162,59,95,0.12);}
 
     /* Layout */
     .wrap{
@@ -91,7 +91,7 @@
 
     main{
       background:var(--card-bg);
-      border-radius:10px;
+      border-radius:16px;
       box-shadow:var(--shadow);
       border:1px solid var(--rule);
       padding:28px;
@@ -103,9 +103,9 @@
 
     .sidebar{
       background:var(--card-bg);
-      border-radius:12px;
+      border-radius:16px;
       border:1px solid var(--rule);
-      box-shadow:0 8px 22px rgba(11,17,26,0.04);
+      box-shadow:0 14px 30px rgba(30,22,15,0.08);
       padding:18px;
       position:sticky;
       top:80px;
@@ -116,11 +116,11 @@
     }
     .avatar img{width:100%;height:100%;object-fit:cover}
 
-    h1{font-family:Merriweather,serif;font-size:1.9rem;margin:6px 0}
+    h1{font-family:Merriweather,serif;font-size:2rem;margin:6px 0}
     .strap{color:var(--muted);font-weight:600;font-size:0.95rem;margin-bottom:14px}
 
     /* SECTION BLOCKS */
-    section.block{padding:18px 0;border-bottom:1px solid rgba(11,17,26,0.03)}
+    section.block{padding:18px 0;border-bottom:1px solid rgba(34,26,18,0.06)}
     section.block h2{font-family:Merriweather,serif;margin:0 0 10px}
 
     /* TIMELINE */
@@ -141,16 +141,16 @@
       width:2px;
       background:linear-gradient(180deg,var(--accent),var(--accent-2));
       border-radius:999px;
-      box-shadow:0 10px 24px rgba(15,110,203,0.18);
+      box-shadow:0 10px 24px rgba(162,59,95,0.18);
     }
     .timeline-item{
       position:relative;
       width:100%;
       padding:18px 20px 18px 24px;
-      background:linear-gradient(160deg, rgba(255,255,255,0.95), rgba(245,249,255,0.92));
+      background:linear-gradient(160deg, rgba(255,255,255,0.96), rgba(255,242,233,0.92));
       border-radius:14px;
       border:1px solid rgba(11,17,26,0.05);
-      box-shadow:0 14px 34px rgba(11,17,26,0.07);
+      box-shadow:0 18px 36px rgba(30,22,15,0.10);
       transition:transform .22s ease,box-shadow .22s ease,opacity .22s ease;
       opacity:0;
       transform:translateY(12px);
@@ -166,7 +166,7 @@
       border-radius:50%;
       background:var(--card-bg);
       border:4px solid var(--accent);
-      box-shadow:0 10px 18px rgba(11,17,26,0.12);
+      box-shadow:0 10px 18px rgba(30,22,15,0.14);
     }
     .timeline-item::before{
       content:"";
@@ -176,12 +176,12 @@
       width:12px;
       height:12px;
       border-radius:50%;
-      background:rgba(15,110,203,0.25);
+      background:rgba(226,168,75,0.35);
       filter:blur(6px);
     }
     .timeline-item:hover{
       transform:translateY(-2px);
-      box-shadow:0 18px 38px rgba(11,17,26,0.12);
+      box-shadow:0 22px 44px rgba(30,22,15,0.16);
     }
     .timeline-item.left,
     .timeline-item.right{
@@ -216,11 +216,26 @@
 
     /* posts */
     .posts{display:flex;flex-direction:column;gap:14px;margin-top:6px}
-    .post{display:flex;gap:16px;padding:12px;border-radius:10px;border:1px solid var(--rule);background:#fbfdff;align-items:flex-start}
-    .post-thumb{width:140px;height:86px;border-radius:8px;overflow:hidden;background:#e9f5fb;flex:0 0 140px;display:flex;align-items:center;justify-content:center}
+    .post{display:flex;gap:16px;padding:12px;border-radius:12px;border:1px solid var(--rule);background:#fff6ef;align-items:flex-start}
+    .post-thumb{width:140px;height:86px;border-radius:8px;overflow:hidden;background:#fdebdc;flex:0 0 140px;display:flex;align-items:center;justify-content:center}
     .post-thumb img{width:100%;height:100%;object-fit:cover}
     .post-title{font-family:Merriweather,serif;margin:0 0 6px}
     .post-meta{color:var(--muted);font-size:0.85rem}
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:10px 16px;
+      border-radius:999px;
+      border:1px solid rgba(162,59,95,0.18);
+      background:linear-gradient(120deg, rgba(162,59,95,0.14), rgba(226,168,75,0.16));
+      color:var(--accent);
+      font-weight:700;
+      text-decoration:none;
+      box-shadow:0 12px 24px rgba(162,59,95,0.12);
+    }
+    .btn:hover{transform:translateY(-1px);text-decoration:none}
 
     footer{margin-top:18px;color:var(--muted);font-size:0.9rem;text-align:center}
   </style>
