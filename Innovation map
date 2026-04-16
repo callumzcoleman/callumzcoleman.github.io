@@ -1,0 +1,533 @@
+!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Oxford Innovation Impact Map</title>
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+    crossorigin=""
+  />
+  <style>
+    body {
+      margin: 0;
+      font-family: Inter, Arial, sans-serif;
+      color: #111827;
+      background: #f9fafb;
+    }
+    .layout {
+      display: grid;
+      grid-template-columns: 360px 1fr;
+      min-height: 100vh;
+    }
+    aside {
+      padding: 20px;
+      background: #ffffff;
+      border-right: 1px solid #e5e7eb;
+      overflow: auto;
+    }
+    h1 {
+      font-size: 1.25rem;
+      margin-bottom: 0.5rem;
+    }
+    p, li {
+      font-size: 0.92rem;
+      line-height: 1.45;
+    }
+    ul {
+      padding-left: 0;
+      list-style: none;
+    }
+    #map {
+      width: 100%;
+      height: 100vh;
+    }
+    .small {
+      color: #4b5563;
+      font-size: 0.85rem;
+    }
+    @media (max-width: 900px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+      #map {
+        height: 70vh;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="layout">
+    <aside>
+      <h1>Oxford Innovation Impact Map</h1>
+      <p>
+        Pins highlight Oxford-area institutes, companies, and infrastructure with
+        day-to-day public impact themes for your article.
+      </p>
+      <h2 style="font-size:1rem;margin-top:1rem;">Legend by impact theme</h2>
+      <ul>
+        <li><span style='display:inline-block;width:10px;height:10px;border-radius:50%;background:#1B998B;margin-right:8px;'></span>Energy / Materials</li><li><span style='display:inline-block;width:10px;height:10px;border-radius:50%;background:#D7263D;margin-right:8px;'></span>Health</li><li><span style='display:inline-block;width:10px;height:10px;border-radius:50%;background:#F46036;margin-right:8px;'></span>Health / AI</li><li><span style='display:inline-block;width:10px;height:10px;border-radius:50%;background:#F6AE2D;margin-right:8px;'></span>Health / Genomics</li><li><span style='display:inline-block;width:10px;height:10px;border-radius:50%;background:#2E8B57;margin-right:8px;'></span>Clean Energy</li><li><span style='display:inline-block;width:10px;height:10px;border-radius:50%;background:#6A4C93;margin-right:8px;'></span>Quantum / Computing</li><li><span style='display:inline-block;width:10px;height:10px;border-radius:50%;background:#8338EC;margin-right:8px;'></span>Life Sciences tools</li><li><span style='display:inline-block;width:10px;height:10px;border-radius:50%;background:#3A86FF;margin-right:8px;'></span>Advanced Manufacturing / Materials</li><li><span style='display:inline-block;width:10px;height:10px;border-radius:50%;background:#1D3557;margin-right:8px;'></span>Cybersecurity</li><li><span style='display:inline-block;width:10px;height:10px;border-radius:50%;background:#457B9D;margin-right:8px;'></span>Scientific instruments / Imaging</li><li><span style='display:inline-block;width:10px;height:10px;border-radius:50%;background:#264653;margin-right:8px;'></span>Science infrastructure</li><li><span style='display:inline-block;width:10px;height:10px;border-radius:50%;background:#F6AE2D;margin-right:8px;'></span>Health / Materials research</li><li><span style='display:inline-block;width:10px;height:10px;border-radius:50%;background:#2E8B57;margin-right:8px;'></span>Clean energy</li><li><span style='display:inline-block;width:10px;height:10px;border-radius:50%;background:#8D99AE;margin-right:8px;'></span>Innovation districts</li>
+      </ul>
+      <h2 style="font-size:1rem;margin-top:1rem;">Layer groups</h2>
+      <ul>
+        <li>University</li>
+        <li>Companies</li>
+        <li>National infrastructure</li>
+      </ul>
+      <p class="small">
+        Data source: <code>scripts/oxford_innovation_points.json</code><br />
+        Note: latitude/longitude values are approximate map coordinates for storytelling and layout.
+      </p>
+    </aside>
+    <div id="map"></div>
+  </div>
+
+  <script
+    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+    crossorigin=""
+  ></script>
+  <script>
+    const map = L.map('map');
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
+
+    const university = L.layerGroup().addTo(map);
+    const companies = L.layerGroup().addTo(map);
+    const national_infrastructure = L.layerGroup().addTo(map);
+
+    const layers = {
+      "University": university,
+      "Companies": companies,
+      "National infrastructure": national_infrastructure
+    };
+    L.control.layers(null, layers, {collapsed: false}).addTo(map);
+
+    const bounds = [];
+    
+            const marker = L.circleMarker([51.75995, -1.25468], {
+                radius: 7,
+                color: '#1B998B',
+                fillColor: '#1B998B',
+                fillOpacity: 0.85,
+                weight: 1.5
+            });
+            marker.bindPopup(`<div style="font-family: Inter, Arial, sans-serif; max-width: 350px;"><h3 style='margin:0 0 6px 0;'>Inorganic Chemistry Laboratory (University of Oxford)</h3><p style='margin:0 0 4px 0;'><b>Type:</b> University institute</p><p style='margin:0 0 4px 0;'><b>Theme:</b> Energy / Materials</p><p style='margin:0 0 4px 0;'><b>Anchor:</b> South Parks Road (Oxford Science Area)</p><p style='margin:0 0 8px 0;'><b>Address:</b> Inorganic Chemistry Laboratory, South Parks Road, Oxford OX1 3QR</p><p style='margin:0 0 8px 0;'>Research that helped underpin the lithium-ion battery revolution powering phones, laptops and electric vehicles.</p><p style='margin:0 0 8px 0; color:#374151;'><b>Scale marker:</b> Not a commercial raise; landmark academic discovery recognised as a National Chemical Landmark.</p><p style='margin:0 0 8px 0; color:#4b5563;'><i>Note:</i> John B. Goodenough's cathode work was carried out at the ICL in Oxford.</p><a href='https://www.chem.ox.ac.uk/' target='_blank' rel='noopener noreferrer'>Website</a></div>`);
+            marker.addTo(university);
+            bounds.push([51.75995, -1.25468]);
+            
+            const marker = L.circleMarker([51.7591, -1.21887], {
+                radius: 7,
+                color: '#D7263D',
+                fillColor: '#D7263D',
+                fillOpacity: 0.85,
+                weight: 1.5
+            });
+            marker.bindPopup(`<div style="font-family: Inter, Arial, sans-serif; max-width: 350px;"><h3 style='margin:0 0 6px 0;'>The Jenner Institute (University of Oxford)</h3><p style='margin:0 0 4px 0;'><b>Type:</b> University institute</p><p style='margin:0 0 4px 0;'><b>Theme:</b> Health</p><p style='margin:0 0 4px 0;'><b>Anchor:</b> Old Road Campus (Headington)</p><p style='margin:0 0 8px 0;'><b>Address:</b> Old Road Campus Research Building, Roosevelt Drive, Oxford OX3 7DQ</p><p style='margin:0 0 8px 0;'>Vaccines that prevent infectious disease at population scale (e.g., COVID-19 and malaria programmes).</p><p style='margin:0 0 8px 0; color:#374151;'><b>Scale marker:</b> Scale marker: global vaccine rollouts; R21 malaria vaccine achieved WHO prequalification (rollout enabler).</p><p style='margin:0 0 8px 0; color:#4b5563;'><i>Note:</i> Administrative headquarters and main laboratories at ORCRB.</p><a href='https://www.jenner.ac.uk/' target='_blank' rel='noopener noreferrer'>Website</a></div>`);
+            marker.addTo(university);
+            bounds.push([51.7591, -1.21887]);
+            
+            const marker = L.circleMarker([51.75962, -1.25341], {
+                radius: 7,
+                color: '#D7263D',
+                fillColor: '#D7263D',
+                fillOpacity: 0.85,
+                weight: 1.5
+            });
+            marker.bindPopup(`<div style="font-family: Inter, Arial, sans-serif; max-width: 350px;"><h3 style='margin:0 0 6px 0;'>Sir William Dunn School of Pathology (University of Oxford)</h3><p style='margin:0 0 4px 0;'><b>Type:</b> University institute</p><p style='margin:0 0 4px 0;'><b>Theme:</b> Health</p><p style='margin:0 0 4px 0;'><b>Anchor:</b> South Parks Road (Oxford Science Area)</p><p style='margin:0 0 8px 0;'><b>Address:</b> Sir William Dunn School of Pathology, South Parks Road, Oxford OX1 3RE</p><p style='margin:0 0 8px 0;'>Site associated with penicillin's development into a usable medicine—foundational to the antibiotics era.</p><p style='margin:0 0 8px 0; color:#374151;'><b>Scale marker:</b> Historic impact; not a funding story.</p><p style='margin:0 0 8px 0; color:#4b5563;'><i>Note:</i> Good for an accessible 'Oxford discovery → modern medicine' narrative.</p><a href='https://www.path.ox.ac.uk/' target='_blank' rel='noopener noreferrer'>Website</a></div>`);
+            marker.addTo(university);
+            bounds.push([51.75962, -1.25341]);
+            
+    
+            const marker = L.circleMarker([51.71671, -1.21218], {
+                radius: 7,
+                color: '#D7263D',
+                fillColor: '#D7263D',
+                fillOpacity: 0.85,
+                weight: 1.5
+            });
+            marker.bindPopup(`<div style="font-family: Inter, Arial, sans-serif; max-width: 350px;"><h3 style='margin:0 0 6px 0;'>OrganOx</h3><p style='margin:0 0 4px 0;'><b>Type:</b> Company</p><p style='margin:0 0 4px 0;'><b>Theme:</b> Health</p><p style='margin:0 0 4px 0;'><b>Anchor:</b> Littlemore / Oxford Business Park area</p><p style='margin:0 0 8px 0;'><b>Address:</b> 3500 John Smith Drive, Oxford OX4 2WB</p><p style='margin:0 0 8px 0;'>Helps more donor organs be transplanted by keeping them healthier for longer outside the body.</p><p style='margin:0 0 8px 0; color:#374151;'><b>Scale marker:</b> Scale marker: acquired by Terumo for $1.5bn (Oct 2025).</p><p style='margin:0 0 8px 0; color:#4b5563;'><i>Note:</i> Oxford University spinout; organ perfusion technology.</p><a href='https://www.organox.com/' target='_blank' rel='noopener noreferrer'>Website</a></div>`);
+            marker.addTo(companies);
+            bounds.push([51.71671, -1.21218]);
+            
+            const marker = L.circleMarker([51.71597, -1.21071], {
+                radius: 7,
+                color: '#F46036',
+                fillColor: '#F46036',
+                fillOpacity: 0.85,
+                weight: 1.5
+            });
+            marker.bindPopup(`<div style="font-family: Inter, Arial, sans-serif; max-width: 350px;"><h3 style='margin:0 0 6px 0;'>Ultromics</h3><p style='margin:0 0 4px 0;'><b>Type:</b> Company</p><p style='margin:0 0 4px 0;'><b>Theme:</b> Health / AI</p><p style='margin:0 0 4px 0;'><b>Anchor:</b> Oxford Business Park South</p><p style='margin:0 0 8px 0;'><b>Address:</b> 4630 Kingsgate, Cascade Way, Oxford Business Park South, Oxford OX4 2SU</p><p style='margin:0 0 8px 0;'>AI that improves diagnosis of heart disease from routine ultrasound scans, enabling earlier care.</p><p style='margin:0 0 8px 0; color:#374151;'><b>Scale marker:</b> Raised $55m Series C (July 2025).</p><p style='margin:0 0 8px 0; color:#4b5563;'><i>Note:</i> Good 'AI with patient impact' example.</p><a href='https://www.ultromics.com/' target='_blank' rel='noopener noreferrer'>Website</a></div>`);
+            marker.addTo(companies);
+            bounds.push([51.71597, -1.21071]);
+            
+            const marker = L.circleMarker([51.71522, -1.21984], {
+                radius: 7,
+                color: '#F6AE2D',
+                fillColor: '#F6AE2D',
+                fillOpacity: 0.85,
+                weight: 1.5
+            });
+            marker.bindPopup(`<div style="font-family: Inter, Arial, sans-serif; max-width: 350px;"><h3 style='margin:0 0 6px 0;'>Oxford Nanopore Technologies</h3><p style='margin:0 0 4px 0;'><b>Type:</b> Company</p><p style='margin:0 0 4px 0;'><b>Theme:</b> Health / Genomics</p><p style='margin:0 0 4px 0;'><b>Anchor:</b> Oxford Science Park</p><p style='margin:0 0 8px 0;'><b>Address:</b> Gosling Building, Edmund Halley Road, Oxford Science Park, Oxford OX4 4DQ</p><p style='margin:0 0 8px 0;'>Portable DNA/RNA sequencing that supports faster disease surveillance and research.</p><p style='margin:0 0 8px 0; color:#374151;'><b>Scale marker:</b> Scale marker: IPO in 2021 (significant UK public-market listing).</p><p style='margin:0 0 8px 0; color:#4b5563;'><i>Note:</i> HQ at Oxford Science Park.</p><a href='https://nanoporetech.com/' target='_blank' rel='noopener noreferrer'>Website</a></div>`);
+            marker.addTo(companies);
+            bounds.push([51.71522, -1.21984]);
+            
+            const marker = L.circleMarker([51.81729, -1.30352], {
+                radius: 7,
+                color: '#2E8B57',
+                fillColor: '#2E8B57',
+                fillOpacity: 0.85,
+                weight: 1.5
+            });
+            marker.bindPopup(`<div style="font-family: Inter, Arial, sans-serif; max-width: 350px;"><h3 style='margin:0 0 6px 0;'>Oxford PV</h3><p style='margin:0 0 4px 0;'><b>Type:</b> Company</p><p style='margin:0 0 4px 0;'><b>Theme:</b> Clean Energy</p><p style='margin:0 0 4px 0;'><b>Anchor:</b> Oxford Pioneer Park (Yarnton)</p><p style='margin:0 0 8px 0;'><b>Address:</b> Unit 7–8 Oxford Pioneer Park, Mead Road, Yarnton, Kidlington (Yarnton) OX5 1QU</p><p style='margin:0 0 8px 0;'>Higher-efficiency solar technology that can generate more electricity from the same panel area.</p><p style='margin:0 0 8px 0; color:#374151;'><b>Scale marker:</b> Raised £65m Series D (2019) to scale towards manufacturing.</p><p style='margin:0 0 8px 0; color:#4b5563;'><i>Note:</i> UK site listed at Oxford Pioneer Park; manufacturing also in Germany.</p><a href='https://www.oxfordpv.com/' target='_blank' rel='noopener noreferrer'>Website</a></div>`);
+            marker.addTo(companies);
+            bounds.push([51.81729, -1.30352]);
+            
+            const marker = L.circleMarker([51.81545, -1.2901], {
+                radius: 7,
+                color: '#6A4C93',
+                fillColor: '#6A4C93',
+                fillOpacity: 0.85,
+                weight: 1.5
+            });
+            marker.bindPopup(`<div style="font-family: Inter, Arial, sans-serif; max-width: 350px;"><h3 style='margin:0 0 6px 0;'>Oxford Ionics</h3><p style='margin:0 0 4px 0;'><b>Type:</b> Company</p><p style='margin:0 0 4px 0;'><b>Theme:</b> Quantum / Computing</p><p style='margin:0 0 4px 0;'><b>Anchor:</b> Oxford Technology Park (Kidlington)</p><p style='margin:0 0 8px 0;'><b>Address:</b> Unit 6a, Oxford Technology Park, Technology Drive, Oxford (Kidlington area) OX5 1GN</p><p style='margin:0 0 8px 0;'>Quantum computing aimed at faster simulation and optimisation for drug discovery, materials and logistics.</p><p style='margin:0 0 8px 0; color:#374151;'><b>Scale marker:</b> Scale marker: acquired by IonQ for $1.075bn (2025).</p><p style='margin:0 0 8px 0; color:#4b5563;'><i>Note:</i> Oxford location per company contact page.</p><a href='https://www.oxionics.com/' target='_blank' rel='noopener noreferrer'>Website</a></div>`);
+            marker.addTo(companies);
+            bounds.push([51.81545, -1.2901]);
+            
+            const marker = L.circleMarker([51.72365, -1.19912], {
+                radius: 7,
+                color: '#8338EC',
+                fillColor: '#8338EC',
+                fillOpacity: 0.85,
+                weight: 1.5
+            });
+            marker.bindPopup(`<div style="font-family: Inter, Arial, sans-serif; max-width: 350px;"><h3 style='margin:0 0 6px 0;'>Refeyn</h3><p style='margin:0 0 4px 0;'><b>Type:</b> Company</p><p style='margin:0 0 4px 0;'><b>Theme:</b> Life Sciences tools</p><p style='margin:0 0 4px 0;'><b>Anchor:</b> Oxford (Trade City, Sandy Lane West)</p><p style='margin:0 0 8px 0;'><b>Address:</b> Unit 9, Trade City, Sandy Lane West, Oxford OX4 6FF</p><p style='margin:0 0 8px 0;'>Instruments that help researchers measure biomolecules quickly—speeding up drug and biotech development.</p><p style='margin:0 0 8px 0; color:#374151;'><b>Scale marker:</b> Scale marker: raised $90m+ (reported) and 500+ instruments in use (reported).</p><p style='margin:0 0 8px 0; color:#4b5563;'><i>Note:</i> Address from Refeyn contact page.</p><a href='https://refeyn.com/' target='_blank' rel='noopener noreferrer'>Website</a></div>`);
+            marker.addTo(companies);
+            bounds.push([51.72365, -1.19912]);
+            
+            const marker = L.circleMarker([51.81694, -1.30287], {
+                radius: 7,
+                color: '#3A86FF',
+                fillColor: '#3A86FF',
+                fillOpacity: 0.85,
+                weight: 1.5
+            });
+            marker.bindPopup(`<div style="font-family: Inter, Arial, sans-serif; max-width: 350px;"><h3 style='margin:0 0 6px 0;'>Alloyed</h3><p style='margin:0 0 4px 0;'><b>Type:</b> Company</p><p style='margin:0 0 4px 0;'><b>Theme:</b> Advanced Manufacturing / Materials</p><p style='margin:0 0 4px 0;'><b>Anchor:</b> Yarnton (Oxford Industrial Park)</p><p style='margin:0 0 8px 0;'><b>Address:</b> Unit 15, Oxford Industrial Park, Mead Road, Yarnton OX5 1QU</p><p style='margin:0 0 8px 0;'>Designs better metal alloys and components—lighter, stronger parts that improve energy efficiency.</p><p style='margin:0 0 8px 0; color:#374151;'><b>Scale marker:</b> Scale marker: raised £85m in equity financing (reported).</p><p style='margin:0 0 8px 0; color:#4b5563;'><i>Note:</i> OxMet Technologies rebranded as Alloyed.</p><a href='https://alloyed.com/' target='_blank' rel='noopener noreferrer'>Website</a></div>`);
+            marker.addTo(companies);
+            bounds.push([51.81694, -1.30287]);
+            
+            const marker = L.circleMarker([51.68022, -1.30317], {
+                radius: 7,
+                color: '#1D3557',
+                fillColor: '#1D3557',
+                fillOpacity: 0.85,
+                weight: 1.5
+            });
+            marker.bindPopup(`<div style="font-family: Inter, Arial, sans-serif; max-width: 350px;"><h3 style='margin:0 0 6px 0;'>Sophos</h3><p style='margin:0 0 4px 0;'><b>Type:</b> Company</p><p style='margin:0 0 4px 0;'><b>Theme:</b> Cybersecurity</p><p style='margin:0 0 4px 0;'><b>Anchor:</b> Abingdon Science Park</p><p style='margin:0 0 8px 0;'><b>Address:</b> The Pentagon, Abingdon Science Park, Abingdon OX14 3YP</p><p style='margin:0 0 8px 0;'>Protects organisations from ransomware and cyber disruption—keeping services and businesses running.</p><p style='margin:0 0 8px 0; color:#374151;'><b>Scale marker:</b> Scale marker: acquired by Thoma Bravo in a ~$3.9bn deal (2019/2020).</p><p style='margin:0 0 8px 0; color:#4b5563;'><i>Note:</i> Address per Companies House / NCSC listing.</p><a href='https://www.sophos.com/' target='_blank' rel='noopener noreferrer'>Website</a></div>`);
+            marker.addTo(companies);
+            bounds.push([51.68022, -1.30317]);
+            
+            const marker = L.circleMarker([51.68192, -1.38137], {
+                radius: 7,
+                color: '#457B9D',
+                fillColor: '#457B9D',
+                fillOpacity: 0.85,
+                weight: 1.5
+            });
+            marker.bindPopup(`<div style="font-family: Inter, Arial, sans-serif; max-width: 350px;"><h3 style='margin:0 0 6px 0;'>Oxford Instruments</h3><p style='margin:0 0 4px 0;'><b>Type:</b> Company</p><p style='margin:0 0 4px 0;'><b>Theme:</b> Scientific instruments / Imaging</p><p style='margin:0 0 4px 0;'><b>Anchor:</b> Tubney Woods (Abingdon)</p><p style='margin:0 0 8px 0;'><b>Address:</b> Tubney Woods, Abingdon OX13 5QX</p><p style='margin:0 0 8px 0;'>Pioneered technologies that helped make MRI scanning and advanced research tools widely available.</p><p style='margin:0 0 8px 0; color:#374151;'><b>Scale marker:</b> Scale marker: established FTSE-listed scientific instruments group (2,000+ employees reported).</p><p style='margin:0 0 8px 0; color:#4b5563;'><i>Note:</i> Good 'Oxford innovation to everyday healthcare' bridge via MRI.</p><a href='https://www.oxinst.com/' target='_blank' rel='noopener noreferrer'>Website</a></div>`);
+            marker.addTo(companies);
+            bounds.push([51.68192, -1.38137]);
+            
+    
+            const marker = L.circleMarker([51.57344, -1.31466], {
+                radius: 7,
+                color: '#264653',
+                fillColor: '#264653',
+                fillOpacity: 0.85,
+                weight: 1.5
+            });
+            marker.bindPopup(`<div style="font-family: Inter, Arial, sans-serif; max-width: 350px;"><h3 style='margin:0 0 6px 0;'>Harwell Campus</h3><p style='margin:0 0 4px 0;'><b>Type:</b> Campus</p><p style='margin:0 0 4px 0;'><b>Theme:</b> Science infrastructure</p><p style='margin:0 0 4px 0;'><b>Anchor:</b> Harwell (Didcot)</p><p style='margin:0 0 8px 0;'><b>Address:</b> Harwell Campus, Didcot OX11 0DE</p><p style='margin:0 0 8px 0;'>Home to national labs and deep-tech companies—enabling breakthroughs in energy, space and health.</p><p style='margin:0 0 8px 0; color:#374151;'><b>Scale marker:</b> Scale marker: major UK national science and innovation campus (multiple national facilities).</p><p style='margin:0 0 8px 0; color:#4b5563;'><i>Note:</i> Good 'place-based innovation' anchor.</p><a href='https://www.harwellcampus.com/' target='_blank' rel='noopener noreferrer'>Website</a></div>`);
+            marker.addTo(national_infrastructure);
+            bounds.push([51.57344, -1.31466]);
+            
+            const marker = L.circleMarker([51.57184, -1.31628], {
+                radius: 7,
+                color: '#F6AE2D',
+                fillColor: '#F6AE2D',
+                fillOpacity: 0.85,
+                weight: 1.5
+            });
+            marker.bindPopup(`<div style="font-family: Inter, Arial, sans-serif; max-width: 350px;"><h3 style='margin:0 0 6px 0;'>Diamond Light Source</h3><p style='margin:0 0 4px 0;'><b>Type:</b> National facility</p><p style='margin:0 0 4px 0;'><b>Theme:</b> Health / Materials research</p><p style='margin:0 0 4px 0;'><b>Anchor:</b> Harwell Campus</p><p style='margin:0 0 8px 0;'><b>Address:</b> Diamond Light Source, Harwell Science and Innovation Campus, Didcot OX11 0DE</p><p style='margin:0 0 8px 0;'>Supports faster drug discovery and materials research by letting scientists 'see' structures at tiny scales.</p><p style='margin:0 0 8px 0; color:#374151;'><b>Scale marker:</b> Scale marker: UK national synchrotron used by thousands of researchers.</p><p style='margin:0 0 8px 0; color:#4b5563;'><i>Note:</i> Use as 'infrastructure that speeds up medicine'.</p><a href='https://www.diamond.ac.uk/' target='_blank' rel='noopener noreferrer'>Website</a></div>`);
+            marker.addTo(national_infrastructure);
+            bounds.push([51.57184, -1.31628]);
+            
+            const marker = L.circleMarker([51.6548, -1.23136], {
+                radius: 7,
+                color: '#2E8B57',
+                fillColor: '#2E8B57',
+                fillOpacity: 0.85,
+                weight: 1.5
+            });
+            marker.bindPopup(`<div style="font-family: Inter, Arial, sans-serif; max-width: 350px;"><h3 style='margin:0 0 6px 0;'>Culham Campus / UKAEA</h3><p style='margin:0 0 4px 0;'><b>Type:</b> Campus</p><p style='margin:0 0 4px 0;'><b>Theme:</b> Clean energy</p><p style='margin:0 0 4px 0;'><b>Anchor:</b> Culham Science Centre (near Abingdon)</p><p style='margin:0 0 8px 0;'><b>Address:</b> Culham Science Centre, Abingdon OX14 3DB</p><p style='margin:0 0 8px 0;'>National centre for fusion research—aiming for abundant clean energy and high-skill jobs.</p><p style='margin:0 0 8px 0; color:#374151;'><b>Scale marker:</b> Scale marker: UK national fusion R&D site (major public investment over decades).</p><p style='margin:0 0 8px 0; color:#4b5563;'><i>Note:</i> Strong 'clean energy superpower' tie.</p><a href='https://www.gov.uk/government/organisations/uk-atomic-energy-authority' target='_blank' rel='noopener noreferrer'>Website</a></div>`);
+            marker.addTo(national_infrastructure);
+            bounds.push([51.6548, -1.23136]);
+            
+            const marker = L.circleMarker([51.71489, -1.22044], {
+                radius: 7,
+                color: '#8D99AE',
+                fillColor: '#8D99AE',
+                fillOpacity: 0.85,
+                weight: 1.5
+            });
+            marker.bindPopup(`<div style="font-family: Inter, Arial, sans-serif; max-width: 350px;"><h3 style='margin:0 0 6px 0;'>Oxford Science Park</h3><p style='margin:0 0 4px 0;'><b>Type:</b> Place hub</p><p style='margin:0 0 4px 0;'><b>Theme:</b> Innovation districts</p><p style='margin:0 0 4px 0;'><b>Anchor:</b> Littlemore / south Oxford</p><p style='margin:0 0 8px 0;'><b>Address:</b> Oxford Science Park, Oxford OX4 4DQ</p><p style='margin:0 0 8px 0;'>Cluster of science-based companies that create jobs and translate research into products.</p><p style='margin:0 0 8px 0; color:#374151;'><b>Scale marker:</b> Scale marker: hosts multiple high-growth companies including Oxford Nanopore.</p><p style='margin:0 0 8px 0; color:#4b5563;'><i>Note:</i> Use if you want a 'cluster' pin in addition to company pins.</p><a href='https://www.oxfordsp.com/' target='_blank' rel='noopener noreferrer'>Website</a></div>`);
+            marker.addTo(national_infrastructure);
+            bounds.push([51.71489, -1.22044]);
+            
+
+    if (bounds.length > 0) {
+      map.fitBounds(bounds, { padding: [22, 22] });
+    } else {
+      map.setView([51.7520, -1.2577], 11);
+    }
+  </script>
+</body>
+</html>
+scripts/build_oxford_innovation_map.py
+scripts/build_oxford_innovation_map.py
+New
++229
+-0
+
+#!/usr/bin/env python3
+"""Build an interactive Oxford innovation map from JSON pin data."""
+
+from __future__ import annotations
+
+import json
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+INPUT_PATH = ROOT / "scripts" / "oxford_innovation_points.json"
+OUTPUT_PATH = ROOT / "artifacts" / "oxford_innovation_map.html"
+
+THEME_COLORS = {
+    "Health": "#D7263D",
+    "Health / AI": "#F46036",
+    "Health / Genomics": "#F6AE2D",
+    "Health / Materials research": "#F6AE2D",
+    "Energy / Materials": "#1B998B",
+    "Clean Energy": "#2E8B57",
+    "Clean energy": "#2E8B57",
+    "Quantum / Computing": "#6A4C93",
+    "Cybersecurity": "#1D3557",
+    "Scientific instruments / Imaging": "#457B9D",
+    "Science infrastructure": "#264653",
+    "Innovation districts": "#8D99AE",
+    "Advanced Manufacturing / Materials": "#3A86FF",
+    "Life Sciences tools": "#8338EC",
+}
+
+TYPE_LAYERS = {
+    "University institute": "University",
+    "Company": "Companies",
+    "Campus": "National infrastructure",
+    "National facility": "National infrastructure",
+    "Place hub": "National infrastructure",
+}
+
+
+def _popup_html(point: dict[str, str]) -> str:
+    return "".join(
+        [
+            '<div style="font-family: Inter, Arial, sans-serif; max-width: 350px;">',
+            f"<h3 style='margin:0 0 6px 0;'>{point['name']}</h3>",
+            f"<p style='margin:0 0 4px 0;'><b>Type:</b> {point['type']}</p>",
+            f"<p style='margin:0 0 4px 0;'><b>Theme:</b> {point['impact_theme']}</p>",
+            f"<p style='margin:0 0 4px 0;'><b>Anchor:</b> {point['place_anchor']}</p>",
+            f"<p style='margin:0 0 8px 0;'><b>Address:</b> {point['address']}, {point['city']} {point['postcode']}</p>",
+            f"<p style='margin:0 0 8px 0;'>{point['human_benefit_one_liner']}</p>",
+            f"<p style='margin:0 0 8px 0; color:#374151;'><b>Scale marker:</b> {point['funding_or_scale_marker']}</p>",
+            f"<p style='margin:0 0 8px 0; color:#4b5563;'><i>Note:</i> {point['notes']}</p>",
+            f"<a href='{point['website']}' target='_blank' rel='noopener noreferrer'>Website</a>",
+            "</div>",
+        ]
+    )
+
+
+def build_map() -> None:
+    points = json.loads(INPUT_PATH.read_text(encoding="utf-8"))
+
+    marker_js_by_layer: dict[str, list[str]] = {
+        "University": [],
+        "Companies": [],
+        "National infrastructure": [],
+    }
+    legend_items = []
+
+    seen_themes: set[str] = set()
+    for point in points:
+        theme = point["impact_theme"]
+        color = THEME_COLORS.get(theme, "#6B7280")
+        if theme not in seen_themes:
+            legend_items.append(
+                f"<li><span style='display:inline-block;width:10px;height:10px;border-radius:50%;background:{color};margin-right:8px;'></span>{theme}</li>"
+            )
+            seen_themes.add(theme)
+
+        popup = _popup_html(point).replace("`", "'")
+        layer = TYPE_LAYERS.get(point["type"], "National infrastructure")
+        marker_js_by_layer[layer].append(
+            """
+            const marker = L.circleMarker([{lat}, {lon}], {{
+                radius: 7,
+                color: '{color}',
+                fillColor: '{color}',
+                fillOpacity: 0.85,
+                weight: 1.5
+            }});
+            marker.bindPopup(`{popup}`);
+            marker.addTo({layer_var});
+            bounds.push([{lat}, {lon}]);
+            """.format(
+                lat=point["lat"],
+                lon=point["lon"],
+                color=color,
+                popup=popup,
+                layer_var=layer.lower().replace(" ", "_"),
+            )
+        )
+
+    html = f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Oxford Innovation Impact Map</title>
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+    crossorigin=""
+  />
+  <style>
+    body {{
+      margin: 0;
+      font-family: Inter, Arial, sans-serif;
+      color: #111827;
+      background: #f9fafb;
+    }}
+    .layout {{
+      display: grid;
+      grid-template-columns: 360px 1fr;
+      min-height: 100vh;
+    }}
+    aside {{
+      padding: 20px;
+      background: #ffffff;
+      border-right: 1px solid #e5e7eb;
+      overflow: auto;
+    }}
+    h1 {{
+      font-size: 1.25rem;
+      margin-bottom: 0.5rem;
+    }}
+    p, li {{
+      font-size: 0.92rem;
+      line-height: 1.45;
+    }}
+    ul {{
+      padding-left: 0;
+      list-style: none;
+    }}
+    #map {{
+      width: 100%;
+      height: 100vh;
+    }}
+    .small {{
+      color: #4b5563;
+      font-size: 0.85rem;
+    }}
+    @media (max-width: 900px) {{
+      .layout {{
+        grid-template-columns: 1fr;
+      }}
+      #map {{
+        height: 70vh;
+      }}
+    }}
+  </style>
+</head>
+<body>
+  <div class="layout">
+    <aside>
+      <h1>Oxford Innovation Impact Map</h1>
+      <p>
+        Pins highlight Oxford-area institutes, companies, and infrastructure with
+        day-to-day public impact themes for your article.
+      </p>
+      <h2 style="font-size:1rem;margin-top:1rem;">Legend by impact theme</h2>
+      <ul>
+        {''.join(legend_items)}
+      </ul>
+      <h2 style="font-size:1rem;margin-top:1rem;">Layer groups</h2>
+      <ul>
+        <li>University</li>
+        <li>Companies</li>
+        <li>National infrastructure</li>
+      </ul>
+      <p class="small">
+        Data source: <code>scripts/oxford_innovation_points.json</code><br />
+        Note: latitude/longitude values are approximate map coordinates for storytelling and layout.
+      </p>
+    </aside>
+    <div id="map"></div>
+  </div>
+
+  <script
+    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+    crossorigin=""
+  ></script>
+  <script>
+    const map = L.map('map');
+    L.tileLayer('https://{{s}}.tile.openstreetmap.org/{{z}}/{{x}}/{{y}}.png', {{
+      maxZoom: 19,
+      attribution: '&copy; OpenStreetMap contributors'
+    }}).addTo(map);
+
+    const university = L.layerGroup().addTo(map);
+    const companies = L.layerGroup().addTo(map);
+    const national_infrastructure = L.layerGroup().addTo(map);
+
+    const layers = {{
+      "University": university,
+      "Companies": companies,
+      "National infrastructure": national_infrastructure
+    }};
+    L.control.layers(null, layers, {{collapsed: false}}).addTo(map);
+
+    const bounds = [];
+    {''.join(marker_js_by_layer['University'])}
+    {''.join(marker_js_by_layer['Companies'])}
+    {''.join(marker_js_by_layer['National infrastructure'])}
+
+    if (bounds.length > 0) {{
+      map.fitBounds(bounds, {{ padding: [22, 22] }});
+    }} else {{
+      map.setView([51.7520, -1.2577], 11);
+    }}
+  </script>
+</body>
+</html>
+"""
+    OUTPUT_PATH.parent.mkdir(parents=True, exist_ok=True)
+    OUTPUT_PATH.write_text(html, encoding="utf-8")
+    print(f"Map written to {OUTPUT_PATH}")
+
+
+if __name__ == "__main__":
+    build_map()
