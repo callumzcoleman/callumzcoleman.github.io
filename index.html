@@ -4,569 +4,79 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Callum Coleman</title>
-  <meta name="description" content="Callum Coleman — Oxford-based policy professional and writer. Writing on tech policy, energy, running, and life." />
-
+  <meta name="description" content="Callum Coleman — AI Policy Fellow at the Centre for British Progress. Writing on AI policy at Britain’s Narrow Window." />
   <meta property="og:title" content="Callum Coleman" />
-  <meta property="og:description" content="Writing on tech policy, energy, running, and life." />
+  <meta property="og:description" content="AI Policy Fellow at the Centre for British Progress. Writing on AI policy at Britain’s Narrow Window." />
   <meta property="og:type" content="website" />
 
-  <!-- Fonts: Newsreader (editorial serif) + IBM Plex Mono (accents) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,400;1,6..72,500&display=swap" rel="stylesheet">
-
-  <style>
-    :root{
-      --paper:#fbf6ee;
-      --paper-2:#f4ecdf;
-      --ink:#1e1b17;
-      --ink-soft:#453f36;
-      --muted:#8b8174;
-      --rule:rgba(30,27,23,0.16);
-      --rule-soft:rgba(30,27,23,0.09);
-      --accent:#a83f28;
-      --accent-ink:#8f3420;
-      --max:1080px;
-      --read:760px;
-      --serif:"Newsreader",Georgia,"Times New Roman",serif;
-      --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
-    }
-
-    *{box-sizing:border-box}
-    html{scroll-behavior:smooth}
-    body{
-      margin:0;
-      background:var(--paper);
-      color:var(--ink);
-      font-family:var(--serif);
-      font-size:1.14rem;
-      line-height:1.62;
-      -webkit-font-smoothing:antialiased;
-      text-rendering:optimizeLegibility;
-    }
-
-    a{color:var(--accent);text-decoration:none}
-    a:hover{color:var(--accent-ink);text-decoration:underline;text-underline-offset:3px}
-
-    .mono{font-family:var(--mono)}
-    .label{
-      font-family:var(--mono);
-      text-transform:uppercase;
-      letter-spacing:0.14em;
-      font-size:0.7rem;
-      font-weight:500;
-      color:var(--muted);
-    }
-
-    /* ---------- HEADER ---------- */
-    header.masthead{
-      position:sticky;top:0;z-index:60;
-      background:rgba(251,246,238,0.9);
-      backdrop-filter:saturate(140%) blur(8px);
-      border-bottom:1px solid var(--rule);
-    }
-    .masthead-inner{
-      max-width:var(--max);margin:0 auto;
-      padding:14px 24px;
-      display:flex;align-items:center;gap:22px;
-    }
-    .brand{display:flex;align-items:baseline;gap:10px;flex:1;min-width:0}
-    .brand .mark{font-family:var(--mono);font-weight:600;font-size:0.7rem;color:var(--accent)}
-    .brand a{color:var(--ink);font-family:var(--mono);font-weight:600;
-      font-size:0.98rem;letter-spacing:0.01em;white-space:nowrap}
-    .brand a:hover{text-decoration:none;color:var(--accent)}
-
-    nav.nav{display:flex;align-items:center;gap:4px}
-    nav.nav a{
-      font-family:var(--mono);font-size:0.8rem;font-weight:400;
-      color:var(--ink-soft);padding:7px 11px;border-radius:6px;
-    }
-    nav.nav a:hover{color:var(--ink);background:var(--paper-2);text-decoration:none}
-    .subscribe{
-      font-family:var(--mono);font-size:0.78rem;font-weight:500;
-      background:var(--ink);color:var(--paper) !important;
-      padding:8px 16px;border-radius:999px;white-space:nowrap;
-      border:1px solid var(--ink);
-    }
-    .subscribe:hover{background:var(--accent);border-color:var(--accent);text-decoration:none}
-
-    /* ---------- LAYOUT ---------- */
-    .container{max-width:var(--read);margin:0 auto;padding:0 24px}
-    .wide{max-width:var(--max)}
-    section{scroll-margin-top:80px}
-    hr.rule{border:0;border-top:1px solid var(--rule);margin:0}
-
-    /* ---------- HERO / INTRO ---------- */
-    .intro{padding:72px 0 48px}
-    .intro .kicker{margin-bottom:22px}
-    .intro h1{
-      font-family:var(--serif);font-weight:600;
-      font-size:clamp(2.6rem,6vw,4rem);
-      line-height:1.05;letter-spacing:-0.015em;
-      margin:0 0 20px;
-    }
-    .intro .lede{
-      font-size:clamp(1.2rem,2.4vw,1.42rem);
-      line-height:1.5;color:var(--ink-soft);
-      max-width:34ch;margin:0 0 28px;
-    }
-    .intro .lede em{font-style:italic;color:var(--ink)}
-    .meta-row{
-      display:flex;flex-wrap:wrap;gap:8px 20px;align-items:center;
-      font-family:var(--mono);font-size:0.82rem;color:var(--ink-soft);
-    }
-    .meta-row a{color:var(--ink-soft)}
-    .meta-row a:hover{color:var(--accent)}
-    .dot{color:var(--muted)}
-
-    /* ---------- SECTION HEADS ---------- */
-    .section-head{
-      display:flex;align-items:baseline;justify-content:space-between;
-      gap:16px;padding:16px 0;border-top:2px solid var(--ink);
-      margin-top:8px;
-    }
-    .section-head h2{
-      font-family:var(--serif);font-weight:600;font-size:1.9rem;
-      margin:0;letter-spacing:-0.01em;
-    }
-    .section-head .aside{font-family:var(--mono);font-size:0.78rem;color:var(--muted)}
-    .section-head .aside a{color:var(--muted)}
-    .section-head .aside a:hover{color:var(--accent)}
-
-    /* ---------- WRITING INDEX ---------- */
-    .writing{padding:26px 0 20px}
-
-    .feature{
-      display:block;padding:30px 0 34px;border-bottom:1px solid var(--rule);
-    }
-    .feature .art-meta{margin-bottom:14px}
-    .feature h3{
-      font-family:var(--serif);font-weight:600;
-      font-size:clamp(1.8rem,4vw,2.5rem);line-height:1.1;
-      letter-spacing:-0.015em;margin:0 0 14px;color:var(--ink);
-    }
-    .feature .dek{font-size:1.16rem;color:var(--ink-soft);margin:0 0 18px;max-width:56ch}
-    .feature:hover h3{color:var(--accent-ink)}
-
-    .art-meta{
-      display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center;
-      font-family:var(--mono);font-size:0.76rem;color:var(--muted);
-      text-transform:uppercase;letter-spacing:0.06em;
-    }
-    .art-meta .tag{color:var(--accent)}
-
-    ul.post-list{list-style:none;margin:0;padding:0}
-    ul.post-list li{border-bottom:1px solid var(--rule-soft)}
-    .post{display:block;padding:24px 0}
-    .post h3{
-      font-family:var(--serif);font-weight:600;font-size:1.5rem;line-height:1.18;
-      margin:10px 0 8px;color:var(--ink);letter-spacing:-0.01em;
-    }
-    .post:hover h3{color:var(--accent-ink)}
-    .post .dek{font-size:1.04rem;color:var(--ink-soft);margin:0;max-width:62ch}
-    .read-more{
-      font-family:var(--mono);font-size:0.76rem;color:var(--accent);
-      margin-top:12px;display:inline-block;
-    }
-
-    /* skeleton */
-    .skeleton{padding:26px 0;border-bottom:1px solid var(--rule-soft)}
-    .sk-line{height:12px;border-radius:6px;background:var(--paper-2);
-      animation:pulse 1.4s ease-in-out infinite}
-    .sk-line.title{height:26px;width:70%;margin:12px 0}
-    .sk-line.meta{height:10px;width:40%}
-    .sk-line.dek{height:12px;width:90%;margin-top:12px}
-    @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.45}}
-    .feed-note{font-family:var(--mono);font-size:0.82rem;color:var(--muted);padding:22px 0}
-
-    /* ---------- ABOUT ---------- */
-    .about{padding:34px 0 20px}
-    .about-grid{display:grid;grid-template-columns:150px 1fr;gap:32px;align-items:start}
-    .portrait{
-      width:150px;height:186px;overflow:hidden;border-radius:3px;
-      border:1px solid var(--rule);background:var(--paper-2);
-      filter:grayscale(18%);
-    }
-    .portrait img{width:100%;height:100%;object-fit:cover}
-    .about-body p{margin:0 0 16px}
-    .about-body p:first-child{margin-top:0}
-
-    /* ---------- CV ---------- */
-    .cv{padding:34px 0 20px}
-    .cv-item{
-      display:grid;grid-template-columns:170px 1fr;gap:28px;
-      padding:22px 0;border-bottom:1px solid var(--rule-soft);
-    }
-    .cv-item:last-child{border-bottom:0}
-    .cv-when{font-family:var(--mono);font-size:0.8rem;color:var(--muted);
-      padding-top:5px;line-height:1.5}
-    .cv-role{font-family:var(--serif);font-weight:600;font-size:1.24rem;
-      line-height:1.25;margin:0 0 3px;letter-spacing:-0.01em}
-    .cv-org{font-family:var(--mono);font-size:0.78rem;color:var(--accent);
-      text-transform:uppercase;letter-spacing:0.06em;margin-bottom:10px}
-    .cv-item ul{margin:0;padding-left:18px;color:var(--ink-soft);font-size:1.02rem}
-    .cv-item ul li{margin-bottom:5px}
-    .cv-actions{padding:24px 0 8px}
-    .btn{
-      display:inline-flex;align-items:center;gap:8px;
-      font-family:var(--mono);font-size:0.8rem;font-weight:500;
-      border:1px solid var(--ink);color:var(--ink);
-      padding:10px 18px;border-radius:999px;
-    }
-    .btn:hover{background:var(--ink);color:var(--paper);text-decoration:none}
-
-    /* ---------- 2025 ---------- */
-    .year{padding:34px 0 24px}
-    .year > p.intro-line{color:var(--ink-soft);max-width:52ch;margin:0 0 8px}
-    ol.reflections{list-style:none;counter-reset:r;margin:20px 0 0;padding:0}
-    ol.reflections li{
-      counter-increment:r;position:relative;
-      padding:18px 0 18px 58px;border-top:1px solid var(--rule-soft);
-      color:var(--ink);
-    }
-    ol.reflections li::before{
-      content:counter(r,decimal-leading-zero);
-      position:absolute;left:0;top:18px;
-      font-family:var(--mono);font-size:0.86rem;color:var(--accent);
-      letter-spacing:0.04em;
-    }
-
-    /* ---------- FOOTER ---------- */
-    footer.site-footer{
-      border-top:2px solid var(--ink);margin-top:56px;
-      padding:32px 0 60px;
-    }
-    .footer-inner{
-      max-width:var(--read);margin:0 auto;padding:0 24px;
-      display:flex;flex-wrap:wrap;gap:12px 24px;align-items:baseline;
-      justify-content:space-between;
-      font-family:var(--mono);font-size:0.8rem;color:var(--muted);
-    }
-    .footer-inner a{color:var(--ink-soft)}
-    .footer-inner a:hover{color:var(--accent)}
-    .footer-links{display:flex;flex-wrap:wrap;gap:18px}
-    .colophon{font-size:0.72rem;color:var(--muted);max-width:44ch;line-height:1.5}
-
-    /* ---------- RESPONSIVE ---------- */
-    @media(max-width:720px){
-      body{font-size:1.08rem}
-      nav.nav a{display:none}
-      .about-grid{grid-template-columns:1fr;gap:22px}
-      .portrait{width:132px;height:164px}
-      .cv-item{grid-template-columns:1fr;gap:6px}
-      .cv-when{padding-top:0}
-      .intro{padding:52px 0 36px}
-      .section-head{flex-direction:column;gap:4px;align-items:flex-start}
-    }
-  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-  <header class="masthead">
-    <div class="masthead-inner">
-      <div class="brand">
-        <span class="mark">✳</span>
-        <a href="#top">Callum Coleman</a>
-      </div>
-      <nav class="nav" aria-label="Sections">
-        <a href="#writing">Writing</a>
-        <a href="#about">About</a>
-        <a href="#cv">CV</a>
-        <a href="#year">2025</a>
-      </nav>
-      <a class="subscribe" href="https://courseconditions.substack.com/subscribe" target="_blank" rel="noopener">Subscribe</a>
+  <header class="site">
+    <div class="brandbar">
+      <span class="star">&#10022;</span>
+      <a class="brand" href="index.html">Callum Coleman</a>
     </div>
+    <nav class="navbar">
+      <div class="navbar-inner">
+        <a href="index.html" class="active">Home</a>
+        <a href="writing.html">Writing</a>
+        <span class="spacer"></span>
+        <a href="https://narrowwindow.substack.com" target="_blank" rel="noopener">Newsletter&nbsp;&#8599;</a>
+        <a href="https://narrowwindow.substack.com/subscribe" target="_blank" rel="noopener">Subscribe</a>
+      </div>
+    </nav>
   </header>
 
-  <a id="top"></a>
+  <main class="wrap">
+    <h1 class="page-title">Callum Coleman</h1>
+    <p class="lead">AI policy in Britain — writing at <em>Britain’s Narrow Window</em>.</p>
 
-  <!-- INTRO -->
-  <section class="intro container">
-    <div class="kicker label">Oxford · Policy &amp; Writing</div>
-    <h1>Callum Coleman</h1>
-    <p class="lede">Public affairs professional writing on <em>tech policy, energy, running, and life</em>.</p>
-    <div class="meta-row">
+    <div class="prose">
+      <p>I am an AI Policy Fellow at the <a href="https://britishprogress.org" target="_blank" rel="noopener">Centre for British Progress</a>, currently working to set up a new UK AI policy think tank to help Britain prepare for transformative AI.</p>
+      <p>I previously worked on innovation and economic growth policy at the University of Oxford. I write on AI policy at <a href="https://narrowwindow.substack.com" target="_blank" rel="noopener">Britain’s Narrow Window</a> with Ed Lawrence.</p>
+    </div>
+
+    <div class="linkrow" style="margin-top:28px">
       <a href="mailto:callumzcoleman@gmail.com">Email</a>
-      <span class="dot">·</span>
-      <a href="https://courseconditions.substack.com" target="_blank" rel="noopener">Newsletter</a>
-      <span class="dot">·</span>
+      <span class="sep">&middot;</span>
+      <a href="https://narrowwindow.substack.com" target="_blank" rel="noopener">Substack</a>
+      <span class="sep">&middot;</span>
       <a href="https://www.linkedin.com/in/callum-coleman-3382521ba/" target="_blank" rel="noopener">LinkedIn</a>
     </div>
-  </section>
 
-  <!-- WRITING -->
-  <section id="writing" class="writing container">
-    <div class="section-head">
-      <h2>Writing</h2>
-      <div class="aside"><a href="https://courseconditions.substack.com" target="_blank" rel="noopener">Course Conditions ↗</a></div>
-    </div>
-    <div id="posts-container">
-      <div class="skeleton"><div class="sk-line meta"></div><div class="sk-line title"></div><div class="sk-line dek"></div></div>
-      <div class="skeleton"><div class="sk-line meta"></div><div class="sk-line title"></div><div class="sk-line dek"></div></div>
-      <div class="skeleton"><div class="sk-line meta"></div><div class="sk-line title"></div><div class="sk-line dek"></div></div>
-    </div>
-  </section>
-
-  <!-- ABOUT -->
-  <section id="about" class="about container">
-    <div class="section-head"><h2>About</h2></div>
-    <div class="about-grid">
-      <div class="portrait"><img src="photo.jpg" alt="Callum Coleman" loading="lazy"></div>
-      <div class="about-body">
-        <p>I’m an experienced public affairs professional with a track record of influencing government policy in highly-regulated sectors. My background and expertise is in tech, energy, transport, and innovation policy.</p>
-        <p>When I’m not working I run and write — mostly about technology, running, and the occasional detour into music and history. You can read those thoughts on <a href="https://courseconditions.substack.com" target="_blank" rel="noopener">my newsletter</a>.</p>
-        <p>I’m also a runner and race director. This is the first website I’ve built with the help of AI — please blame your chatbot of choice for any particularly egregious shortcomings.</p>
+    <!-- SELECTED WRITING: latest two posts, pulled live from Substack -->
+    <section class="section">
+      <div class="section-head">
+        <h2>Selected writing</h2>
+        <div class="aside"><a href="writing.html">All writing &#8594;</a></div>
       </div>
-    </div>
-  </section>
-
-  <!-- CV -->
-  <section id="cv" class="cv container">
-    <div class="section-head">
-      <h2>CV</h2>
-      <div class="aside"><a href="resume.pdf" target="_blank" rel="noopener">Download PDF ↗</a></div>
-    </div>
-
-    <div class="cv-item">
-      <div class="cv-when">Aug 2025 —<br>present</div>
-      <div>
-        <div class="cv-role">Public Affairs Manager</div>
-        <div class="cv-org">University of Oxford</div>
-        <ul>
-          <li>Public affairs lead for Equitable Innovation Oxford, a new organisation working closely with HMT to drive economic growth and startup deployment.</li>
-          <li>Developed Equinox’s first public affairs strategy after leading a policy development and data collection phase, primarily on tech/AI, energy, and finance policy.</li>
-        </ul>
+      <div id="home-posts">
+        <div class="sk"><div class="sk-bar m"></div><div class="sk-bar t"></div></div>
+        <div class="sk"><div class="sk-bar m"></div><div class="sk-bar t"></div></div>
       </div>
-    </div>
+    </section>
+  </main>
 
-    <div class="cv-item">
-      <div class="cv-when">Aug 2024 —<br>Aug 2025</div>
-      <div>
-        <div class="cv-role">Senior Policy &amp; Public Affairs Officer</div>
-        <div class="cv-org">Citizens Advice</div>
-        <ul>
-          <li>Led public affairs strategy and campaigns in the energy team; successfully influenced government heat networks regulation.</li>
-          <li>Built a stakeholder network across government, regulators, and business in a new sector for Citizens Advice; briefed colleagues for meetings including with No.10.</li>
-          <li>Project-managed workstreams end-to-end, from policy development through to ministerial and regulator-facing outputs; line-managed colleagues.</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="cv-item">
-      <div class="cv-when">Nov 2022 —<br>May 2024</div>
-      <div>
-        <div class="cv-role">Public Affairs Lead</div>
-        <div class="cv-org">Living Streets</div>
-        <ul>
-          <li>Built and scaled an external affairs team, leading strategy and delivery — developed a strong parliamentary network (~35 MP meetings in the first year) and secured £10mn+ in funding.</li>
-          <li>Acted as spokesperson at events including conferences and parliamentary committees.</li>
-          <li>Organised three flagship conferences (400+ attendees); line-managed colleagues.</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="cv-item">
-      <div class="cv-when">Jan 2022 —<br>Nov 2022</div>
-      <div>
-        <div class="cv-role">Policy Analyst</div>
-        <div class="cv-org">Association of Renewable Energy &amp; Clean Technology</div>
-        <ul>
-          <li>Policy and public affairs lead on power and flexibility, managing a 300-member policy forum, briefing energy sector CEOs and directors and lobbying government on their behalf.</li>
-          <li>Successfully influenced government policy to remove VAT on energy storage materials.</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="cv-item">
-      <div class="cv-when">2019 — 2022</div>
-      <div>
-        <div class="cv-role">Analyst</div>
-        <div class="cv-org">Oxford University Silk Road Think Tank</div>
-        <ul>
-          <li>Led, recruited and scaled a research team focused on Chinese power investments.</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="cv-item">
-      <div class="cv-when">Education</div>
-      <div>
-        <div class="cv-role">MLitt Modern History — Distinction</div>
-        <div class="cv-org">University of St Andrews</div>
-        <ul><li>Stephen W. Bonarjee Prize winner 2020–21, awarded for finishing top of my cohort.</li></ul>
-      </div>
-    </div>
-
-    <div class="cv-item">
-      <div class="cv-when">Education</div>
-      <div>
-        <div class="cv-role">BA History &amp; Politics — 2:1</div>
-        <div class="cv-org">University of Oxford</div>
-        <ul><li>First-generation university student; received a college scholarship for academic excellence.</li></ul>
-      </div>
-    </div>
-
-    <div class="cv-item">
-      <div class="cv-when">Also</div>
-      <div>
-        <div class="cv-role">Interests &amp; service</div>
-        <div class="cv-org">Beyond the day job</div>
-        <ul>
-          <li>Race Director, Bannister Miles.</li>
-          <li>School Governor, The Grove Free School (2022–2024).</li>
-          <li>AI safety policy courses: BlueDot ‘Introduction to Transformative AI’; GCP ‘Intro to AI Safety &amp; Biosecurity’, 2025.</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="cv-actions">
-      <a class="btn" href="resume.pdf" target="_blank" rel="noopener">Download full CV (PDF)</a>
-    </div>
-  </section>
-
-  <!-- 2025 -->
-  <section id="year" class="year container">
-    <div class="section-head"><h2>2025</h2><div class="aside">Ten things</div></div>
-    <p class="intro-line">Ten things I’m proud of from the past year.</p>
-    <ol class="reflections">
-      <li>Completing Border to Hel, a 480km race through rural Poland. My team finished second and I ran 104km at ~3:40/km pace.</li>
-      <li>Successfully influencing government regulation of heat networks, securing better legal protections for c.20% of UK consumers by 2040.</li>
-      <li>Winning the Oxford Town &amp; Gown 10k, a closed-road race with 7,000 participants that runs through the centre of the city I call home.</li>
-      <li>Getting a new job, leading public affairs on a key strategic project for the University of Oxford.</li>
-      <li>Building a tight-knit community in a new city after a stint of travelling abroad.</li>
-      <li>Using a two-week gap between jobs to undertake a solo, self-planned hut-to-hut running adventure through the Julian Alps in Slovenia.</li>
-      <li>Starting a Substack on tech policy, music, and running.</li>
-      <li>Running a shiny new 5k PB (15:15) after a difficult period of illness.</li>
-      <li>Upskilling in AI policy via a series of intensive courses and reading, as I think it’s the most pressing issue I can work on.</li>
-      <li>Gifting my Dad a holiday abroad for Christmas — his first trip out of the UK in several years.</li>
-    </ol>
-  </section>
-
-  <footer class="site-footer">
+  <footer class="site">
     <div class="footer-inner">
       <div class="footer-links">
         <a href="mailto:callumzcoleman@gmail.com">Email</a>
-        <a href="https://courseconditions.substack.com" target="_blank" rel="noopener">Newsletter</a>
+        <a href="https://narrowwindow.substack.com" target="_blank" rel="noopener">Newsletter</a>
         <a href="https://www.linkedin.com/in/callum-coleman-3382521ba/" target="_blank" rel="noopener">LinkedIn</a>
       </div>
-      <div>© <span id="year-now"></span> Callum Coleman</div>
+      <div>&copy; <span id="yr"></span> Callum Coleman</div>
     </div>
   </footer>
 
+  <script src="feed.js"></script>
   <script>
-    document.getElementById('year-now').textContent = new Date().getFullYear();
-
-    /* ---------- Substack feed → editorial index ---------- */
-    (function(){
-      const FEED = 'https://courseconditions.substack.com/feed';
-      const container = document.getElementById('posts-container');
-
-      const fmtDate = d => {
-        if(!d) return '';
-        const dt = new Date(d);
-        if(isNaN(dt)) return '';
-        return dt.toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'});
-      };
-      const stripHtml = html => {
-        const tmp = document.createElement('div');
-        tmp.innerHTML = html || '';
-        return (tmp.textContent || tmp.innerText || '').replace(/\s+/g,' ').trim();
-      };
-      const readingTime = text => {
-        const words = (text || '').split(/\s+/).filter(Boolean).length;
-        const mins = Math.max(1, Math.round(words / 200));
-        return mins + ' min read';
-      };
-      const excerpt = (text, n) => {
-        if(!text) return '';
-        if(text.length <= n) return text;
-        return text.slice(0, n).replace(/\s+\S*$/,'') + '…';
-      };
-
-      function metaHtml(p){
-        const bits = [];
-        if(p.date) bits.push('<span>'+fmtDate(p.date)+'</span>');
-        if(p.reading) bits.push('<span>'+p.reading+'</span>');
-        return '<div class="art-meta">'+bits.join('<span class="tag">·</span>')+'</div>';
-      }
-
-      function render(posts){
-        if(!posts.length){ fallback(); return; }
-        const [first, ...rest] = posts;
-
-        let html = '<a class="feature" href="'+first.link+'" target="_blank" rel="noopener">'
-          + metaHtml(first)
-          + '<h3>'+escapeHtml(first.title)+'</h3>'
-          + (first.dek ? '<p class="dek">'+escapeHtml(first.dek)+'</p>' : '')
-          + '<span class="read-more">Read on Substack →</span>'
-          + '</a>';
-
-        if(rest.length){
-          html += '<ul class="post-list">';
-          rest.forEach(p=>{
-            html += '<li><a class="post" href="'+p.link+'" target="_blank" rel="noopener">'
-              + metaHtml(p)
-              + '<h3>'+escapeHtml(p.title)+'</h3>'
-              + (p.dek ? '<p class="dek">'+escapeHtml(p.dek)+'</p>' : '')
-              + '</a></li>';
-          });
-          html += '</ul>';
-        }
-        container.innerHTML = html;
-      }
-
-      function fallback(){
-        container.innerHTML = '<p class="feed-note">Latest posts are on '
-          + '<a href="https://courseconditions.substack.com" target="_blank" rel="noopener">Course Conditions ↗</a>. '
-          + '(The live feed couldn’t load just now.)</p>';
-      }
-
-      function parseXml(text){
-        const xml = new DOMParser().parseFromString(text, 'application/xml');
-        if(xml.querySelector('parsererror')) throw new Error('bad xml');
-        return Array.from(xml.querySelectorAll('item')).slice(0,7).map(item=>{
-          const get = s => item.querySelector(s)?.textContent || '';
-          const contentEl = item.getElementsByTagName('content:encoded')[0];
-          const bodyHtml = (contentEl && contentEl.textContent) || get('description');
-          const bodyText = stripHtml(bodyHtml);
-          return {
-            title: stripHtml(get('title')) || 'Untitled',
-            link: get('link') || 'https://courseconditions.substack.com',
-            date: get('pubDate'),
-            dek: excerpt(bodyText, 180),
-            reading: readingTime(bodyText)
-          };
-        });
-      }
-
-      // Try a couple of CORS-friendly readers in sequence (Substack blocks direct fetch).
-      const readers = [
-        u => 'https://api.allorigins.win/raw?url=' + encodeURIComponent(u),
-        u => 'https://corsproxy.io/?url=' + encodeURIComponent(u)
-      ];
-
-      async function tryReaders(i){
-        if(i >= readers.length){ fallback(); return; }
-        try{
-          const res = await fetch(readers[i](FEED), {cache:'no-store'});
-          if(!res.ok) throw new Error('http '+res.status);
-          const text = await res.text();
-          const posts = parseXml(text);
-          if(!posts.length) throw new Error('empty');
-          render(posts);
-        }catch(e){
-          tryReaders(i+1);
-        }
-      }
-
-      function escapeHtml(s){
-        return (s||'').toString()
-          .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
-          .replace(/"/g,'&quot;');
-      }
-
-      tryReaders(0);
-    })();
+    document.getElementById('yr').textContent = new Date().getFullYear();
+    loadSubstack({ containerId: 'home-posts', limit: 2, variant: 'compact' });
   </script>
 </body>
 </html>

@@ -1,0 +1,162 @@
+/* ======================================================================
+   Callum Coleman — shared styles
+   Palette after Centre for British Progress: warm cream paper, dark
+   forest-green nav + accents, humanist sans (Figtree) for display/UI,
+   serif (Source Serif 4) for reading. Light, warm, editorial.
+   ====================================================================== */
+
+:root{
+  --cream:#faf7e8;        /* warm pale paper */
+  --cream-2:#f1edd7;      /* wells / hovers */
+  --ink:#1d1d18;          /* warm near-black */
+  --ink-soft:#4b4a40;     /* secondary text */
+  --muted:#8d897a;        /* meta / muted */
+  --green:#1e3f2d;        /* dark nav bar / strong accent */
+  --green-ink:#193524;
+  --green-accent:#8ccfa0; /* light underline / markers */
+  --green-link:#2f6a4a;   /* links + meta */
+  --green-link-ink:#214e36;
+  --rule:rgba(29,29,24,0.15);
+  --rule-soft:rgba(29,29,24,0.08);
+  --max:760px;
+  --sans:"Figtree",-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+  --serif:"Source Serif 4",Georgia,"Times New Roman",serif;
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  background:var(--cream);
+  color:var(--ink);
+  font-family:var(--serif);
+  font-size:1.14rem;
+  line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+
+a{color:var(--green-link);text-decoration:none}
+a:hover{color:var(--green-link-ink);text-decoration:underline;text-underline-offset:3px}
+
+.wrap{max-width:var(--max);margin:0 auto;padding:0 24px}
+
+/* ---------- header: cream brand strip + green nav bar ---------- */
+header.site{background:var(--cream)}
+.brandbar{
+  max-width:var(--max);margin:0 auto;padding:20px 24px 16px;
+  display:flex;align-items:center;gap:10px;
+}
+.star{color:var(--green);font-size:1.15rem;line-height:1;transform:translateY(1px)}
+.brand{
+  font-family:var(--sans);font-weight:700;font-size:1.12rem;
+  letter-spacing:-0.01em;color:var(--ink);white-space:nowrap;
+}
+.brand:hover{color:var(--green);text-decoration:none}
+
+.navbar{background:var(--green)}
+.navbar-inner{
+  max-width:var(--max);margin:0 auto;padding:0 12px;
+  display:flex;align-items:stretch;
+}
+.navbar a{
+  font-family:var(--sans);font-size:0.78rem;font-weight:600;
+  text-transform:uppercase;letter-spacing:0.09em;
+  color:rgba(250,247,232,0.82);
+  padding:13px 16px;display:inline-flex;align-items:center;
+  border-left:1px solid rgba(250,247,232,0.16);
+}
+.navbar a:first-child{border-left:0}
+.navbar a:hover{color:#fff;background:rgba(255,255,255,0.06);text-decoration:none}
+.navbar a.active{color:#fff;box-shadow:inset 0 -3px 0 var(--green-accent)}
+.navbar .spacer{margin-left:auto}
+.navbar .spacer + a{border-left:1px solid rgba(250,247,232,0.16)}
+
+/* ---------- page head ---------- */
+main{padding:54px 0 24px}
+h1.page-title{
+  font-family:var(--sans);font-weight:600;
+  font-size:clamp(2.4rem,6.5vw,4rem);
+  line-height:1.02;letter-spacing:-0.02em;margin:0 0 22px;color:var(--ink);
+}
+.lead{
+  font-family:var(--sans);font-weight:400;
+  font-size:clamp(1.2rem,2.4vw,1.42rem);line-height:1.42;
+  color:var(--ink-soft);margin:0 0 30px;max-width:42ch;
+}
+.lead em{font-style:normal;color:var(--green-link)}
+
+/* ---------- prose ---------- */
+.prose p{margin:0 0 18px;max-width:64ch}
+.prose p:last-child{margin-bottom:0}
+
+/* ---------- inline links row (contact / meta) ---------- */
+.linkrow{
+  display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center;
+  font-family:var(--sans);font-size:0.9rem;font-weight:500;
+}
+.linkrow .sep{color:var(--rule)}
+
+/* ---------- section with green underline ---------- */
+.section{margin-top:50px}
+.section-head{
+  display:flex;align-items:baseline;justify-content:space-between;gap:16px;
+  padding-bottom:12px;border-bottom:2px solid var(--green-accent);
+  margin-bottom:4px;
+}
+.section-head h2{
+  font-family:var(--serif);font-weight:600;font-size:1.6rem;margin:0;
+  letter-spacing:-0.01em;color:var(--ink);
+}
+.section-head .aside{font-family:var(--sans);font-size:0.84rem;font-weight:500}
+
+/* ---------- writing list ---------- */
+ul.posts{list-style:none;margin:0;padding:0}
+ul.posts li{border-bottom:1px solid var(--rule-soft)}
+.post{display:block;padding:22px 0}
+.post-meta{
+  font-family:var(--sans);font-size:0.74rem;font-weight:600;
+  text-transform:uppercase;letter-spacing:0.08em;color:var(--green-link);
+  display:flex;flex-wrap:wrap;gap:6px 12px;margin-bottom:8px;
+}
+.post-meta .dot{color:var(--rule)}
+.post h3{
+  font-family:var(--serif);font-weight:600;font-size:1.4rem;line-height:1.22;
+  margin:0 0 7px;color:var(--ink);letter-spacing:-0.01em;
+}
+.post:hover h3{color:var(--green-link-ink)}
+.post .excerpt{font-size:1.02rem;color:var(--ink-soft);margin:0;max-width:62ch}
+
+/* compact variant (home) */
+ul.posts.compact .post{padding:16px 0}
+ul.posts.compact .post h3{font-size:1.2rem;margin:0}
+ul.posts.compact .post-meta{margin-bottom:5px}
+
+/* feed states */
+.feed-note{font-family:var(--sans);font-size:0.92rem;color:var(--ink-soft);padding:18px 0}
+.sk{padding:22px 0;border-bottom:1px solid var(--rule-soft)}
+.sk-bar{height:12px;border-radius:5px;background:var(--cream-2);
+  animation:pulse 1.4s ease-in-out infinite}
+.sk-bar.m{height:9px;width:34%}
+.sk-bar.t{height:22px;width:66%;margin:11px 0}
+.sk-bar.e{height:11px;width:88%}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.45}}
+
+/* ---------- footer ---------- */
+footer.site{margin-top:60px;border-top:1px solid var(--rule);padding:26px 0 54px}
+.footer-inner{
+  max-width:var(--max);margin:0 auto;padding:0 24px;
+  display:flex;flex-wrap:wrap;gap:10px 22px;align-items:baseline;
+  justify-content:space-between;
+  font-family:var(--sans);font-size:0.82rem;color:var(--muted);
+}
+.footer-inner a{color:var(--ink-soft)}
+.footer-inner a:hover{color:var(--green-link)}
+.footer-links{display:flex;flex-wrap:wrap;gap:18px}
+
+/* ---------- responsive ---------- */
+@media(max-width:620px){
+  body{font-size:1.08rem}
+  main{padding:40px 0 18px}
+  .navbar a{padding:12px 13px;font-size:0.74rem;letter-spacing:0.07em}
+}
