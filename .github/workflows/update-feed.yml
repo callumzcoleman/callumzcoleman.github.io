@@ -1,0 +1,59 @@
+name: Update Substack feed cache
+
+# Fetches the Britain's Narrow Window RSS feed server-side (no CORS) and
+# writes posts.json into the Pages source branch, so the site's "Selected
+# writing" list never depends on third-party CORS proxies.
+
+on:
+  schedule:
+    - cron: '17 */6 * * *'   # every 6 hours
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-feed
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Pages source branch
+        uses: actions/checkout@v4
+        with:
+          ref: innov-map
+          fetch-depth: 1
+
+      - name: Fetch feed and write posts.json
+        run: |
+          python3 - <<'PY'
+          import urllib.request, xml.etree.ElementTree as ET, json
+          url = 'https://narrowwindow.substack.com/feed'
+          req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0 (feed-cache)'})
+          data = urllib.request.urlopen(req, timeout=30).read()
+          root = ET.fromstring(data)
+          def text(item, tag):
+              e = item.find(tag)
+              return (e.text or '').strip() if e is not None else ''
+          items = root.findall('.//item')[:10]
+          out = [{'title': text(it, 'title'),
+                  'link': text(it, 'link'),
+                  'date': text(it, 'pubDate')} for it in items]
+          with open('posts.json', 'w', encoding='utf-8') as f:
+              json.dump(out, f, ensure_ascii=False)
+          print('wrote', len(out), 'items')
+          PY
+
+      - name: Commit if changed
+        run: |
+          git config user.name "feed-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add posts.json
+          if git diff --cached --quiet; then
+            echo "No feed changes."
+          else
+            git commit -m "Update cached Substack feed [skip ci]"
+            git push origin HEAD:innov-map
+          fi
