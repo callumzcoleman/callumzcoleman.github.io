@@ -53,6 +53,7 @@ header.site{padding:38px 0 8px}
   letter-spacing:0.01em;color:var(--ink);
 }
 .hdr-right{justify-self:end}
+.star{color:var(--green);font-size:1.35rem;line-height:1}
 .btn-box{
   display:inline-block;border:1px solid var(--ink);color:var(--ink);
   padding:9px 18px;font-size:0.96rem;text-decoration:none;white-space:nowrap;
