@@ -1,25 +1,21 @@
 /* ======================================================================
-   Callum Coleman — shared styles
-   Palette after Centre for British Progress: warm cream paper, dark
-   forest-green nav + accents, humanist sans (Figtree) for display/UI,
-   serif (Source Serif 4) for reading. Light, warm, editorial.
+   Callum Coleman — single-page layout (after Anton Leicht's site)
+   Warm cream paper, forest-green accents, serif throughout.
    ====================================================================== */
 
 :root{
-  --cream:#faf7e8;        /* warm pale paper */
-  --cream-2:#f1edd7;      /* wells / hovers */
-  --ink:#1d1d18;          /* warm near-black */
-  --ink-soft:#4b4a40;     /* secondary text */
-  --muted:#8d897a;        /* meta / muted */
-  --green:#1e3f2d;        /* dark nav bar / strong accent */
-  --green-ink:#193524;
-  --green-accent:#8ccfa0; /* light underline / markers */
-  --green-link:#2f6a4a;   /* links + meta */
+  --cream:#faf7e8;
+  --cream-2:#f1edd7;
+  --ink:#1d1d18;
+  --ink-soft:#4b4a40;
+  --muted:#8d897a;
+  --green:#1e3f2d;
+  --green-accent:#8ccfa0;
+  --green-link:#2f6a4a;
   --green-link-ink:#214e36;
-  --rule:rgba(29,29,24,0.15);
+  --rule:rgba(29,29,24,0.16);
   --rule-soft:rgba(29,29,24,0.08);
-  --max:760px;
-  --sans:"Figtree",-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+  --max:1120px;
   --serif:"Source Serif 4",Georgia,"Times New Roman",serif;
 }
 
@@ -30,135 +26,102 @@ body{
   background:var(--cream);
   color:var(--ink);
   font-family:var(--serif);
-  font-size:1.14rem;
-  line-height:1.62;
+  font-size:1.15rem;
+  line-height:1.6;
   -webkit-font-smoothing:antialiased;
   text-rendering:optimizeLegibility;
 }
 
-a{color:var(--green-link);text-decoration:none}
-a:hover{color:var(--green-link-ink);text-decoration:underline;text-underline-offset:3px}
+a{color:var(--green-link);text-decoration:underline;text-underline-offset:3px;
+  text-decoration-thickness:1px;text-decoration-color:rgba(47,106,74,0.45)}
+a:hover{color:var(--green-link-ink);text-decoration-color:currentColor}
 
-.wrap{max-width:var(--max);margin:0 auto;padding:0 24px}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 34px}
 
-/* ---------- header: cream brand strip + green nav bar ---------- */
-header.site{background:var(--cream)}
-.brandbar{
-  max-width:var(--max);margin:0 auto;padding:20px 24px 16px;
-  display:flex;align-items:center;gap:10px;
+/* ---------- header ---------- */
+header.site{padding:38px 0 8px}
+.site-inner{
+  max-width:var(--max);margin:0 auto;padding:0 34px;
+  display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:24px;
 }
-.star{color:var(--green);font-size:1.15rem;line-height:1;transform:translateY(1px)}
-.brand{
-  font-family:var(--sans);font-weight:700;font-size:1.12rem;
-  letter-spacing:-0.01em;color:var(--ink);white-space:nowrap;
+.hdr-left{justify-self:start;display:flex;gap:10px;align-items:baseline;
+  font-size:0.98rem;color:var(--ink-soft)}
+.hdr-left .sep{color:var(--rule)}
+.name{
+  justify-self:center;text-align:center;white-space:nowrap;
+  font-weight:500;font-size:clamp(1.9rem,3.6vw,2.7rem);
+  letter-spacing:0.01em;color:var(--ink);
 }
-.brand:hover{color:var(--green);text-decoration:none}
+.hdr-right{justify-self:end}
+.btn-box{
+  display:inline-block;border:1px solid var(--ink);color:var(--ink);
+  padding:9px 18px;font-size:0.96rem;text-decoration:none;white-space:nowrap;
+}
+.btn-box:hover{background:var(--green);border-color:var(--green);color:var(--cream);text-decoration:none}
 
-.navbar{background:var(--green)}
-.navbar-inner{
-  max-width:var(--max);margin:0 auto;padding:0 12px;
-  display:flex;align-items:stretch;
+/* ---------- main 3-column ---------- */
+main{padding:50px 0 24px}
+.cols{
+  max-width:var(--max);margin:0 auto;padding:0 34px;
+  display:grid;grid-template-columns:160px minmax(0,1fr) 248px;
+  gap:46px;align-items:start;
 }
-.navbar a{
-  font-family:var(--sans);font-size:0.78rem;font-weight:600;
-  text-transform:uppercase;letter-spacing:0.09em;
-  color:rgba(250,247,232,0.82);
-  padding:13px 16px;display:inline-flex;align-items:center;
-  border-left:1px solid rgba(250,247,232,0.16);
-}
-.navbar a:first-child{border-left:0}
-.navbar a:hover{color:#fff;background:rgba(255,255,255,0.06);text-decoration:none}
-.navbar a.active{color:#fff;box-shadow:inset 0 -3px 0 var(--green-accent)}
-.navbar .spacer{margin-left:auto}
-.navbar .spacer + a{border-left:1px solid rgba(250,247,232,0.16)}
 
-/* ---------- page head ---------- */
-main{padding:52px 0 24px}
-main.home{padding-top:120px}
-h1.page-title{
-  font-family:var(--sans);font-weight:600;
-  font-size:clamp(2.4rem,6.5vw,4rem);
-  line-height:1.02;letter-spacing:-0.02em;margin:0 0 22px;color:var(--ink);
+/* photo (small) */
+.photo{
+  width:148px;height:148px;object-fit:cover;display:block;border-radius:2px;
+  box-shadow:0 12px 30px rgba(29,29,24,0.16);
 }
-.lead{
-  font-family:var(--sans);font-weight:400;
-  font-size:clamp(1.2rem,2.4vw,1.42rem);line-height:1.42;
-  color:var(--ink-soft);margin:0 0 30px;max-width:42ch;
-}
-.lead em{font-style:normal;color:var(--green-link)}
 
-/* ---------- prose ---------- */
-.prose p{margin:0 0 18px;max-width:64ch}
-.prose p:last-child{margin-bottom:0}
+/* centered bio */
+.bio{text-align:center;max-width:600px;margin:0 auto;
+  font-size:1.2rem;line-height:1.72;color:var(--ink)}
+.bio p{margin:0 0 24px}
+.bio p:last-child{margin-bottom:0}
 
-/* ---------- inline links row (contact / meta) ---------- */
-.linkrow{
-  display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center;
-  font-family:var(--sans);font-size:0.9rem;font-weight:500;
-}
-.linkrow .sep{color:var(--rule)}
-
-/* ---------- section with green underline ---------- */
-.section{margin-top:50px}
-.section-head{
-  display:flex;align-items:baseline;justify-content:space-between;gap:16px;
-  padding-bottom:12px;border-bottom:2px solid var(--green-accent);
-  margin-bottom:4px;
-}
-.section-head h2{
-  font-family:var(--serif);font-weight:600;font-size:1.6rem;margin:0;
-  letter-spacing:-0.01em;color:var(--ink);
-}
-.section-head .aside{font-family:var(--sans);font-size:0.84rem;font-weight:500}
-
-/* ---------- writing list ---------- */
-ul.posts{list-style:none;margin:0;padding:0}
-ul.posts li{border-bottom:1px solid var(--rule-soft)}
-.post{display:block;padding:22px 0}
-.post-meta{
-  font-family:var(--sans);font-size:0.74rem;font-weight:600;
-  text-transform:uppercase;letter-spacing:0.08em;color:var(--green-link);
-  display:flex;flex-wrap:wrap;gap:6px 12px;margin-bottom:8px;
-}
-.post-meta .dot{color:var(--rule)}
-.post h3{
-  font-family:var(--serif);font-weight:600;font-size:1.4rem;line-height:1.22;
-  margin:0 0 7px;color:var(--ink);letter-spacing:-0.01em;
-}
-.post:hover h3{color:var(--green-link-ink)}
-.post .excerpt{font-size:1.02rem;color:var(--ink-soft);margin:0;max-width:62ch}
-
-/* compact variant (home) */
-ul.posts.compact .post{padding:16px 0}
-ul.posts.compact .post h3{font-size:1.2rem;margin:0}
-ul.posts.compact .post-meta{margin-bottom:5px}
+/* selected writing (right rail) */
+.sel-col{border-left:1px solid var(--rule);padding-left:30px}
+.sel-col h2{font-weight:600;font-size:1.55rem;margin:0 0 22px;letter-spacing:-0.01em}
+ul.sel{list-style:none;margin:0;padding:0}
+ul.sel li{margin-bottom:20px}
+.sel-title{font-size:1.08rem;line-height:1.28;display:inline-block}
+.sel-sub{font-style:italic;color:var(--muted);font-size:0.94rem;margin-top:4px}
+.sel-more{display:inline-block;margin-top:6px;font-size:1.02rem}
 
 /* feed states */
-.feed-note{font-family:var(--sans);font-size:0.92rem;color:var(--ink-soft);padding:18px 0}
-.sk{padding:22px 0;border-bottom:1px solid var(--rule-soft)}
-.sk-bar{height:12px;border-radius:5px;background:var(--cream-2);
+.feed-note{color:var(--ink-soft);font-size:1rem}
+.sk{margin-bottom:20px}
+.sk-bar{height:13px;border-radius:5px;background:var(--cream-2);
   animation:pulse 1.4s ease-in-out infinite}
-.sk-bar.m{height:9px;width:34%}
-.sk-bar.t{height:22px;width:66%;margin:11px 0}
-.sk-bar.e{height:11px;width:88%}
+.sk-bar.t{width:88%}
+.sk-bar.s{height:10px;width:50%;margin-top:9px}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.45}}
 
+/* ---------- ornament ---------- */
+.ornament{display:flex;justify-content:center;margin:60px 0 8px;color:var(--green-link)}
+
 /* ---------- footer ---------- */
-footer.site{margin-top:60px;border-top:1px solid var(--rule);padding:26px 0 54px}
+footer.site{padding:26px 0 54px;margin-top:26px}
 .footer-inner{
-  max-width:var(--max);margin:0 auto;padding:0 24px;
-  display:flex;flex-wrap:wrap;gap:10px 22px;align-items:baseline;
-  justify-content:space-between;
-  font-family:var(--sans);font-size:0.82rem;color:var(--muted);
+  max-width:var(--max);margin:0 auto;padding:0 34px;
+  display:flex;flex-wrap:wrap;gap:12px 22px;align-items:baseline;
+  justify-content:space-between;font-size:0.96rem;color:var(--muted);
 }
-.footer-inner a{color:var(--ink-soft)}
-.footer-inner a:hover{color:var(--green-link)}
+.footer-inner .fname{font-size:1.08rem;color:var(--ink)}
 .footer-links{display:flex;flex-wrap:wrap;gap:18px}
+.footer-links a{color:var(--ink-soft)}
 
 /* ---------- responsive ---------- */
+@media(max-width:860px){
+  .cols{grid-template-columns:1fr;gap:34px;text-align:center;justify-items:center}
+  .bio{font-size:1.14rem}
+  .sel-col{border-left:0;border-top:1px solid var(--rule);padding-left:0;
+    padding-top:28px;text-align:center;width:100%;max-width:520px}
+  .site-inner{grid-template-columns:1fr;gap:14px;justify-items:center}
+  .hdr-left,.hdr-right{justify-self:center}
+  .name{white-space:normal}
+}
 @media(max-width:620px){
   body{font-size:1.08rem}
-  main{padding:40px 0 18px}
-  main.home{padding-top:72px}
-  .navbar a{padding:12px 13px;font-size:0.74rem;letter-spacing:0.07em}
+  header.site{padding:28px 0 4px}
 }
