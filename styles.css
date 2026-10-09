@@ -74,6 +74,7 @@ header.site{background:var(--cream)}
 
 /* ---------- page head ---------- */
 main{padding:52px 0 24px}
+main.home{padding-top:120px}
 h1.page-title{
   font-family:var(--sans);font-weight:600;
   font-size:clamp(2.4rem,6.5vw,4rem);
@@ -158,5 +159,6 @@ footer.site{margin-top:60px;border-top:1px solid var(--rule);padding:26px 0 54px
 @media(max-width:620px){
   body{font-size:1.08rem}
   main{padding:40px 0 18px}
+  main.home{padding-top:72px}
   .navbar a{padding:12px 13px;font-size:0.74rem;letter-spacing:0.07em}
 }
