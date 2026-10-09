@@ -61,6 +61,22 @@
 
   function render(el, posts, variant) {
     if (!posts.length) { fallback(el); return; }
+
+    if (variant === 'selected') {
+      let s = '<ul class="sel">';
+      posts.forEach(p => {
+        s += '<li><a class="sel-title" href="' + p.link + '" target="_blank" rel="noopener">'
+          + esc(p.title) + '</a>'
+          + (p.date ? '<div class="sel-sub">' + fmtDate(p.date) + '</div>' : '')
+          + '</li>';
+      });
+      s += '</ul>'
+        + '<a class="sel-more" href="https://narrowwindow.substack.com" target="_blank" rel="noopener">'
+        + 'More on Britain’s Narrow Window →</a>';
+      el.innerHTML = s;
+      return;
+    }
+
     let html = '<ul class="posts' + (variant === 'compact' ? ' compact' : '') + '">';
     posts.forEach(p => {
       html += '<li><a class="post" href="' + p.link + '" target="_blank" rel="noopener">'

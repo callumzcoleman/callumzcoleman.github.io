@@ -11,66 +11,73 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=4">
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;1,8..60,400;1,8..60,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css?v=5">
 </head>
 <body>
 
   <header class="site">
-    <div class="brandbar">
-      <span class="star">&#10022;</span>
-      <a class="brand" href="index.html">Callum Coleman</a>
-    </div>
-    <nav class="navbar">
-      <div class="navbar-inner">
-        <a href="index.html" class="active">Home</a>
-        <a href="writing.html">Writing</a>
+    <div class="site-inner">
+      <div class="hdr-left">
+        <a href="mailto:callumzcoleman@gmail.com">Email</a>
+        <span class="sep">·</span>
+        <a href="https://www.linkedin.com/in/callum-coleman-3382521ba/" target="_blank" rel="noopener">LinkedIn</a>
       </div>
-    </nav>
+      <div class="name">Callum Coleman</div>
+      <div class="hdr-right">
+        <a class="btn-box" href="https://narrowwindow.substack.com" target="_blank" rel="noopener">Newsletter&nbsp;&#8599;</a>
+      </div>
+    </div>
   </header>
 
-  <main class="wrap home">
-    <div class="prose">
-      <p>I’m an AI Policy Fellow at the <a href="https://britishprogress.org" target="_blank" rel="noopener">Centre for British Progress</a>, currently working to set up a new UK AI policy think tank to help Britain prepare for transformative AI.</p>
-      <p>I previously worked on innovation and economic growth policy at the University of Oxford. I write on AI policy at <a href="https://narrowwindow.substack.com" target="_blank" rel="noopener">Britain’s Narrow Window</a> with Ed Lawrence.</p>
-    </div>
+  <main>
+    <div class="cols">
 
-    <div class="linkrow" style="margin-top:28px">
-      <a href="mailto:callumzcoleman@gmail.com">Email</a>
-      <span class="sep">&middot;</span>
-      <a href="https://narrowwindow.substack.com" target="_blank" rel="noopener">Substack</a>
-      <span class="sep">&middot;</span>
-      <a href="https://www.linkedin.com/in/callum-coleman-3382521ba/" target="_blank" rel="noopener">LinkedIn</a>
-    </div>
+      <aside class="photo-col">
+        <img class="photo" src="photo.webp" alt="Callum Coleman" width="148" height="148">
+      </aside>
 
-    <!-- SELECTED WRITING: latest two posts, pulled live from Substack -->
-    <section class="section">
-      <div class="section-head">
+      <section class="bio">
+        <p>I’m an AI Policy Fellow at the <a href="https://britishprogress.org" target="_blank" rel="noopener">Centre for British Progress</a>, working to set up a new UK AI policy think tank to help Britain prepare for transformative AI.</p>
+        <p>I previously worked on innovation and economic growth policy at the University of Oxford.</p>
+        <p>I write on AI policy at my Substack, <a href="https://narrowwindow.substack.com" target="_blank" rel="noopener">Britain’s Narrow Window</a>, with Ed Lawrence.</p>
+        <p>Feel free to reach out by <a href="mailto:callumzcoleman@gmail.com">email</a>.</p>
+      </section>
+
+      <aside class="sel-col">
         <h2>Selected writing</h2>
-        <div class="aside"><a href="writing.html">All writing &#8594;</a></div>
-      </div>
-      <div id="home-posts">
-        <div class="sk"><div class="sk-bar m"></div><div class="sk-bar t"></div></div>
-        <div class="sk"><div class="sk-bar m"></div><div class="sk-bar t"></div></div>
-      </div>
-    </section>
+        <div id="sel-posts">
+          <div class="sk"><div class="sk-bar t"></div><div class="sk-bar s"></div></div>
+          <div class="sk"><div class="sk-bar t"></div><div class="sk-bar s"></div></div>
+          <div class="sk"><div class="sk-bar t"></div><div class="sk-bar s"></div></div>
+        </div>
+      </aside>
+
+    </div>
+
+    <div class="ornament" aria-hidden="true">
+      <svg width="42" height="76" viewBox="0 0 44 78" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M6 76 L6 32 Q22 4 38 32 L38 76 Z"/>
+        <line x1="22" y1="9" x2="22" y2="76"/>
+        <line x1="6" y1="50" x2="38" y2="50"/>
+      </svg>
+    </div>
   </main>
 
   <footer class="site">
     <div class="footer-inner">
+      <span class="fname">Callum Coleman</span>
       <div class="footer-links">
         <a href="mailto:callumzcoleman@gmail.com">Email</a>
         <a href="https://narrowwindow.substack.com" target="_blank" rel="noopener">Newsletter</a>
         <a href="https://www.linkedin.com/in/callum-coleman-3382521ba/" target="_blank" rel="noopener">LinkedIn</a>
       </div>
-      <div>&copy; <span id="yr"></span> Callum Coleman</div>
     </div>
   </footer>
 
-  <script src="feed.js"></script>
+  <script src="feed.js?v=5"></script>
   <script>
-    document.getElementById('yr').textContent = new Date().getFullYear();
-    loadSubstack({ containerId: 'home-posts', limit: 2, variant: 'compact' });
+    loadSubstack({ containerId: 'sel-posts', limit: 4, variant: 'selected' });
   </script>
 </body>
 </html>
