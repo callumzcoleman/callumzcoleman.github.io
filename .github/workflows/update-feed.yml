@@ -29,10 +29,36 @@ jobs:
       - name: Fetch feed and write posts.json
         run: |
           python3 - <<'PY'
-          import urllib.request, xml.etree.ElementTree as ET, json
-          url = 'https://narrowwindow.substack.com/feed'
-          req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0 (feed-cache)'})
-          data = urllib.request.urlopen(req, timeout=30).read()
+          import urllib.request, urllib.parse, xml.etree.ElementTree as ET, json, sys
+          FEED = 'https://narrowwindow.substack.com/feed'
+          UA = ('Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 '
+                '(KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36')
+          q = urllib.parse.quote(FEED, safe='')
+          candidates = [
+              FEED,
+              'https://api.allorigins.win/raw?url=' + q,
+              'https://api.codetabs.com/v1/proxy/?quest=' + q,
+              'https://corsproxy.io/?url=' + q,
+          ]
+          data = None
+          for u in candidates:
+              try:
+                  req = urllib.request.Request(u, headers={
+                      'User-Agent': UA,
+                      'Accept': 'application/rss+xml, application/xml;q=0.9, */*;q=0.8',
+                      'Accept-Language': 'en-GB,en;q=0.9',
+                  })
+                  body = urllib.request.urlopen(req, timeout=30).read()
+                  if b'<item' in body:
+                      data = body
+                      print('fetched via', u)
+                      break
+                  print('no items from', u)
+              except Exception as e:
+                  print('failed', u, '->', e)
+          if data is None:
+              print('ERROR: could not fetch feed from any source')
+              sys.exit(1)
           root = ET.fromstring(data)
           def text(item, tag):
               e = item.find(tag)
