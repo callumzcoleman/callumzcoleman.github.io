@@ -64,7 +64,7 @@ header.site{padding:38px 0 8px}
 main{padding:50px 0 24px}
 .cols{
   max-width:var(--max);margin:0 auto;padding:0 34px;
-  display:grid;grid-template-columns:160px minmax(0,1fr) 248px;
+  display:grid;grid-template-columns:230px minmax(0,1fr) 230px;
   gap:46px;align-items:start;
 }
 
