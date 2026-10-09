@@ -73,7 +73,7 @@ header.site{background:var(--cream)}
 .navbar .spacer + a{border-left:1px solid rgba(250,247,232,0.16)}
 
 /* ---------- page head ---------- */
-main{padding:96px 0 24px}
+main{padding:52px 0 24px}
 h1.page-title{
   font-family:var(--sans);font-weight:600;
   font-size:clamp(2.4rem,6.5vw,4rem);
@@ -157,6 +157,6 @@ footer.site{margin-top:60px;border-top:1px solid var(--rule);padding:26px 0 54px
 /* ---------- responsive ---------- */
 @media(max-width:620px){
   body{font-size:1.08rem}
-  main{padding:68px 0 18px}
+  main{padding:40px 0 18px}
   .navbar a{padding:12px 13px;font-size:0.74rem;letter-spacing:0.07em}
 }
