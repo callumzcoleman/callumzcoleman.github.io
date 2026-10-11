@@ -1,17 +1,22 @@
 /* ======================================================================
    Substack feed loader (resilient)
    Order of attempts:
-     1. posts.json  — a same-origin cache written by a scheduled GitHub
-        Action (no CORS, always works when present).
-     2. CORS proxies in parallel (first success wins) — Substack blocks
+     1. posts.json  — a same-origin static cache, if present (always works).
+     2. WORKER_URL  — a Cloudflare Worker that fetches the feed at the edge
+        and returns JSON (reliable; set WORKER_URL below once deployed).
+     3. CORS proxies in parallel (first success wins) — Substack blocks
         direct browser fetches, so we read its RSS through a proxy.
-     3. last-good result cached in this browser's localStorage.
-     4. graceful fallback link.
+     4. last-good result cached in this browser's localStorage.
+     5. graceful fallback link.
    Usage: loadSubstack({ containerId, limit, variant })
    ====================================================================== */
 (function () {
   var FEED = 'https://narrowwindow.substack.com/feed';
   var CACHE_KEY = 'nw_feed_cache_v1';
+
+  // Paste your deployed Cloudflare Worker URL here (returns JSON). Leave
+  // empty to skip. When set, it is tried before the public CORS proxies.
+  var WORKER_URL = '';
 
   var readers = [
     function (u) { return 'https://api.allorigins.win/raw?url=' + encodeURIComponent(u); },
@@ -122,6 +127,17 @@
 
   function slice(posts, limit) { return limit ? posts.slice(0, limit) : posts; }
 
+  // Fetch a JSON endpoint that returns an array of {title, link, date}.
+  function tryJson(url) {
+    return fetchTimeout(url, 6000).then(function (r) {
+      if (!r.ok) throw new Error('http ' + r.status);
+      return r.json();
+    }).then(function (data) {
+      if (!Array.isArray(data) || !data.length) throw new Error('empty');
+      return data;
+    });
+  }
+
   window.loadSubstack = function (opts) {
     opts = opts || {};
     var el = document.getElementById(opts.containerId);
@@ -129,25 +145,23 @@
     var variant = opts.variant || 'list';
     var limit = opts.limit;
 
-    // 1) same-origin cache (written by the scheduled GitHub Action)
-    fetchTimeout('posts.json?ts=' + Date.now(), 6000).then(function (r) {
-      if (!r.ok) throw new Error('no posts.json');
-      return r.json();
-    }).then(function (data) {
-      if (!Array.isArray(data) || !data.length) throw new Error('empty posts.json');
-      saveCache(data);
-      render(el, slice(data, limit), variant);
-    }).catch(function () {
-      // 2) CORS proxies
-      viaProxies().then(function (posts) {
-        saveCache(posts);
-        render(el, slice(posts, limit), variant);
-      }).catch(function () {
-        // 3) last-good browser cache, else 4) fallback
-        var cached = loadCache();
-        if (cached && cached.length) render(el, slice(cached, limit), variant);
-        else fallback(el);
-      });
-    });
+    function done(posts) { saveCache(posts); render(el, slice(posts, limit), variant); }
+
+    // JSON sources first (same-origin static cache, then the Worker if set).
+    var jsonSources = ['posts.json?ts=' + Date.now()];
+    if (WORKER_URL) jsonSources.push(WORKER_URL);
+
+    function tryJsonSources(i) {
+      if (i >= jsonSources.length) return viaProxies().then(done).catch(lastResort);
+      return tryJson(jsonSources[i]).then(done).catch(function () { return tryJsonSources(i + 1); });
+    }
+
+    function lastResort() {
+      var cached = loadCache();
+      if (cached && cached.length) render(el, slice(cached, limit), variant);
+      else fallback(el);
+    }
+
+    tryJsonSources(0);
   };
 })();
