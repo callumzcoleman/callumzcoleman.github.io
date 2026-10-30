@@ -91,17 +91,45 @@
     } catch (e) { return null; }
   }
 
-  // Race the proxies for ONE feed; first success wins.
+  // Normalise rss2json's "YYYY-MM-DD HH:MM:SS" (GMT) to ISO so every browser
+  // can parse it; RFC-822 dates from raw RSS are left as-is.
+  function normDate(d) {
+    if (!d) return '';
+    var m = /^(\d{4}-\d{2}-\d{2})[ T](\d{2}:\d{2}:\d{2})/.exec(d);
+    return m ? (m[1] + 'T' + m[2] + 'Z') : d;
+  }
+
+  // rss2json is CORS-enabled (callable directly from the browser) and built
+  // for RSS, so it is the most reliable source.
+  function viaRss2json(feedUrl) {
+    return fetchTimeout('https://api.rss2json.com/v1/api.json?count=10&rss_url='
+      + encodeURIComponent(feedUrl), 8000).then(function (r) {
+      if (!r.ok) throw new Error('http ' + r.status);
+      return r.json();
+    }).then(function (j) {
+      if (!j || j.status !== 'ok' || !j.items || !j.items.length) throw new Error('rss2json empty');
+      return j.items.map(function (it) {
+        return {
+          title: stripHtml(it.title) || 'Untitled',
+          link: it.link || feedUrl,
+          date: normDate(it.pubDate)
+        };
+      });
+    });
+  }
+
+  // Race rss2json + the CORS proxies for ONE feed; first success wins.
   function viaProxies(feedUrl) {
-    var tasks = readers.map(function (mk) {
-      return fetchTimeout(mk(feedUrl), 7000).then(function (res) {
+    var tasks = [viaRss2json(feedUrl)];
+    readers.forEach(function (mk) {
+      tasks.push(fetchTimeout(mk(feedUrl), 7000).then(function (res) {
         if (!res.ok) throw new Error('http ' + res.status);
         return res.text();
       }).then(function (txt) {
         var posts = parseXml(txt);
         if (!posts.length) throw new Error('empty');
         return posts;
-      });
+      }));
     });
     if (Promise.any) return Promise.any(tasks);
     return new Promise(function (resolve, reject) {
