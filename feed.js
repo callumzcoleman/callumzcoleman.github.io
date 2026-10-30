@@ -140,10 +140,14 @@
     });
   }
 
-  // Fetch ALL feeds via proxies and merge whatever succeeds.
+  // Fetch ALL feeds via proxies and merge whatever succeeds. Each post is
+  // tagged with its source feed so we can guarantee per-feed representation.
   function fetchAllFeeds() {
     var jobs = FEEDS.map(function (f) {
-      return viaProxies(f).then(function (p) { return p; }, function () { return []; });
+      return viaProxies(f).then(function (p) {
+        p.forEach(function (x) { x.source = f; });
+        return p;
+      }, function () { return []; });
     });
     return Promise.all(jobs).then(function (lists) {
       var merged = [];
@@ -151,6 +155,29 @@
       if (!merged.length) throw new Error('all feeds failed');
       return merged;
     });
+  }
+
+  // Build the display list: include the newest post from EACH source first
+  // (so every Substack is represented), then fill the rest by recency, and
+  // finally present everything newest-first.
+  function selectForDisplay(posts, limit) {
+    posts = mergePosts(posts);
+    if (!limit || posts.length <= limit) return posts;
+    var firstOf = {}, order = [];
+    posts.forEach(function (p) {
+      var s = p.source || '_';
+      if (!(s in firstOf)) { firstOf[s] = p; order.push(s); }
+    });
+    var picked = [], taken = {};
+    order.forEach(function (s) {
+      var p = firstOf[s];
+      if (picked.length < limit && !taken[p.link]) { picked.push(p); taken[p.link] = 1; }
+    });
+    for (var i = 0; i < posts.length && picked.length < limit; i++) {
+      if (!taken[posts[i].link]) { picked.push(posts[i]); taken[posts[i].link] = 1; }
+    }
+    picked.sort(function (a, b) { return (Date.parse(b.date) || 0) - (Date.parse(a.date) || 0); });
+    return picked;
   }
 
   function render(el, posts, variant) {
@@ -203,9 +230,9 @@
     var limit = opts.limit;
 
     function done(posts) {
-      posts = mergePosts(posts);
-      saveCache(posts);
-      render(el, slice(posts, limit), variant);
+      var full = mergePosts(posts);
+      saveCache(full);
+      render(el, selectForDisplay(full, limit), variant);
     }
 
     var jsonSources = ['posts.json?ts=' + Date.now()];
@@ -218,7 +245,7 @@
 
     function lastResort() {
       var cached = loadCache();
-      if (cached && cached.length) render(el, slice(cached, limit), variant);
+      if (cached && cached.length) render(el, selectForDisplay(cached, limit), variant);
       else fallback(el);
     }
 
