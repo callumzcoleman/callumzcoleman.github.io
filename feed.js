@@ -1,21 +1,26 @@
 /* ======================================================================
-   Substack feed loader (resilient)
+   Substack feed loader (resilient, multi-feed)
+   Merges posts from both Substacks and shows the most recent first.
    Order of attempts:
      1. posts.json  — a same-origin static cache, if present (always works).
-     2. WORKER_URL  — a Cloudflare Worker that fetches the feed at the edge
-        and returns JSON (reliable; set WORKER_URL below once deployed).
-     3. CORS proxies in parallel (first success wins) — Substack blocks
-        direct browser fetches, so we read its RSS through a proxy.
+     2. WORKER_URL  — a Cloudflare Worker returning merged JSON (reliable;
+        set WORKER_URL below once deployed).
+     3. CORS proxies in parallel, per feed (Substack blocks direct browser
+        fetches, so we read its RSS through a proxy); partial results still
+        render.
      4. last-good result cached in this browser's localStorage.
      5. graceful fallback link.
    Usage: loadSubstack({ containerId, limit, variant })
    ====================================================================== */
 (function () {
-  var FEED = 'https://narrowwindow.substack.com/feed';
-  var CACHE_KEY = 'nw_feed_cache_v1';
+  var FEEDS = [
+    'https://narrowwindow.substack.com/feed',
+    'https://callumcoleman.substack.com/feed'
+  ];
+  var CACHE_KEY = 'nw_feed_cache_v2';
 
-  // Paste your deployed Cloudflare Worker URL here (returns JSON). Leave
-  // empty to skip. When set, it is tried before the public CORS proxies.
+  // Paste your deployed Cloudflare Worker URL here (returns merged JSON).
+  // Leave empty to skip. When set, it is tried before the public proxies.
   var WORKER_URL = '';
 
   var readers = [
@@ -63,6 +68,18 @@
     });
   }
 
+  // Merge posts from any number of feeds: dedupe by link, newest first.
+  function mergePosts(arr) {
+    var seen = {}, out = [];
+    (arr || []).forEach(function (p) {
+      if (p && p.link && !seen[p.link]) { seen[p.link] = 1; out.push(p); }
+    });
+    out.sort(function (a, b) {
+      return (Date.parse(b.date) || 0) - (Date.parse(a.date) || 0);
+    });
+    return out;
+  }
+
   function saveCache(posts) {
     try { localStorage.setItem(CACHE_KEY, JSON.stringify(posts)); } catch (e) {}
   }
@@ -74,9 +91,10 @@
     } catch (e) { return null; }
   }
 
-  function viaProxies() {
+  // Race the proxies for ONE feed; first success wins.
+  function viaProxies(feedUrl) {
     var tasks = readers.map(function (mk) {
-      return fetchTimeout(mk(FEED), 7000).then(function (res) {
+      return fetchTimeout(mk(feedUrl), 7000).then(function (res) {
         if (!res.ok) throw new Error('http ' + res.status);
         return res.text();
       }).then(function (txt) {
@@ -86,12 +104,24 @@
       });
     });
     if (Promise.any) return Promise.any(tasks);
-    // Fallback for older engines: resolve on first success.
     return new Promise(function (resolve, reject) {
       var left = tasks.length;
       tasks.forEach(function (t) {
         t.then(resolve, function () { if (--left === 0) reject(new Error('all failed')); });
       });
+    });
+  }
+
+  // Fetch ALL feeds via proxies and merge whatever succeeds.
+  function fetchAllFeeds() {
+    var jobs = FEEDS.map(function (f) {
+      return viaProxies(f).then(function (p) { return p; }, function () { return []; });
+    });
+    return Promise.all(jobs).then(function (lists) {
+      var merged = [];
+      lists.forEach(function (l) { merged = merged.concat(l); });
+      if (!merged.length) throw new Error('all feeds failed');
+      return merged;
     });
   }
 
@@ -127,7 +157,6 @@
 
   function slice(posts, limit) { return limit ? posts.slice(0, limit) : posts; }
 
-  // Fetch a JSON endpoint that returns an array of {title, link, date}.
   function tryJson(url) {
     return fetchTimeout(url, 6000).then(function (r) {
       if (!r.ok) throw new Error('http ' + r.status);
@@ -145,14 +174,17 @@
     var variant = opts.variant || 'list';
     var limit = opts.limit;
 
-    function done(posts) { saveCache(posts); render(el, slice(posts, limit), variant); }
+    function done(posts) {
+      posts = mergePosts(posts);
+      saveCache(posts);
+      render(el, slice(posts, limit), variant);
+    }
 
-    // JSON sources first (same-origin static cache, then the Worker if set).
     var jsonSources = ['posts.json?ts=' + Date.now()];
     if (WORKER_URL) jsonSources.push(WORKER_URL);
 
     function tryJsonSources(i) {
-      if (i >= jsonSources.length) return viaProxies().then(done).catch(lastResort);
+      if (i >= jsonSources.length) return fetchAllFeeds().then(done).catch(lastResort);
       return tryJson(jsonSources[i]).then(done).catch(function () { return tryJsonSources(i + 1); });
     }
 
